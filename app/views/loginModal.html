@@ -1,0 +1,62 @@
+<div class="modal-header">
+	<h3 class="modal-title ribbon center">{{data.register| uppercase}}</h3>
+</div>
+<div class="modal-body">
+	<div ng-switch="data.register">
+		<form ng-switch-default>
+		    <div class="form-group">
+		    	<label for="email">Email</label>
+		      <input type="text" id="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
+		    </div>
+		    <div class="form-group">
+		    	<label for="password">Password</label>
+		      <input type="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
+		    </div>
+		    <label>
+		  		<input class="pull left" type="checkbox" id="remember"/> Remember me
+		    </label>
+		    <a class="pull-right link" href=""><b>Forgot password </b><i class="fa fa-question"></i></a>
+		    <button class="btn btn-primary btn-block" ng-click="login(user)">Login</button>
+		    <div class="divider" ng-click="data.toggleModal('register')">
+		    	<a href="">Or create a new account</a>
+		    </div>
+		</form>
+		<form ng-switch-when="register">
+			<div class="form-group">
+		    	<label for="name">Your name</label>
+		      <input type="text" id="name" class="form-control" placeholder="Full Name" ng-model="user.name" required>
+		    </div>
+		    <div class="form-group">
+		    	<label for="email">Email</label>
+		      <input type="text" id="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
+		    </div>
+		    <div class="form-group">
+		    	<label for="password">Password</label>
+		      <input type="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
+		    </div>
+		    <div class="form-group">
+		    	<label for="password2">Confirm Password</label>
+		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="user.password2" required>
+		    </div>
+		    <button class="btn btn-block btn-primary" ng-click="registerAccount(user)">Create Account</button>
+		    <div class="divider" ng-click="data.toggleModal('login')">
+		    	<a href="">Or Log In</a>
+		    </div>
+		</form>
+		<form ng-switch-when="change">
+			<div class="form-group">
+		    	<label for="oldPassword">Old Password</label>
+		      <input type="password" id="oldPassword" class="form-control" placeholder="Password" ng-model="change.oldPassword" required auto-fill-sync>
+		    </div>
+		    <div class="form-group">
+		    	<label for="password">New Password</label>
+		      <input type="password" id="password" class="form-control" placeholder="Password" ng-model="change.password" required>
+		    </div>
+		    <div class="form-group">
+		    	<label for="password2">Confirm Password</label>
+		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="change.password2" required>
+		    </div>
+		    <button class="btn btn-block btn-primary" ng-click="changePassword()">Change Password</button>
+		</form>
+	</div>
+</div>

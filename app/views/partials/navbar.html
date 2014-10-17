@@ -1,0 +1,38 @@
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container-fluid container">
+          <div class="navbar-header">
+          	<img class="navbar-logo navbar-brand" src="images/menu-icon.gif"/>
+          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	            <i style="color:white" class="fa fa-list fa-lg"></i>
+	            <span class="sr-only">Toggle navigation</span>
+	        </button>
+            <a class="navbar-brand" href="">X-Press Cards</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            	<li ><a href="">Make My Card</a></li>
+          		<li class=""><a href="">Review Cards</a></li>
+          		<li class=""><a ui-sref="main.addressBook" href="">My Address Book</a></li>
+              <li><a href="" ng-click="showLoginModal('login')">Sign In</a></li>
+              <li><a ng-click="showLoginModal('register')" href="">Create Account</a></li>
+  	   		  </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="">Admin</a></li>
+              <li dropdown>
+                <a href="#" class="dropdown-toggle">My Account <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+               	  <li><a ng-click="logout()" href="">Sign Out</a></li>
+  				        <li><a ng-click="showLoginModal('change')" href="">Change Password</a></li>
+                  <li class="divider"></li>
+                	<li class="dropdown-header">Addresses</li>
+                	<li><a href="">My Address Book</a></li>
+                	<li class="dropdown-header">My Account</li>
+                	<li><a>My Credits: <span class="credits" style="color:red"></span></a></li>
+                	<li><a href="">Buy Credits</a></li>
+                	<li><a href="">Previous Orders</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</div><!--end navbar-->

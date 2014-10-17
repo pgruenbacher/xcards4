@@ -1,0 +1,194 @@
+@import "compass";
+
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+// endbower
+
+@import "flatly/variables";
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+//@import "flatly/flatly";
+
+html,body{
+  height:100%;
+}
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -200px;
+  /* Pad bottom by footer height */
+  padding: 0 0 200px;
+}
+
+.dark-blue{
+    background-color:#2C3E50;
+    color:#fff;
+  }
+  .splash-banner{
+    margin-top:-21px;
+    background:url('/images/splash-banner.gif');
+    background-size:cover;
+    background-position:bottom center;
+    min-height:500px;
+  }
+  .lighter-blue{
+    background-color:#D8E2F0;
+  }
+  .light-blue{
+    background-color:#fffaed;
+  }
+  .light-grey{
+    background-color:#DACDD6;
+  }
+  .pale-blue{
+    background-color:#c9cae3;
+    
+  }
+  .light-yellow{
+    background-color:#EBFF8C;
+  }
+  .white{
+    background-color:#ffffff;
+  }
+  .center{
+  text-align:center;  
+  }
+  .center-img{
+    display: block;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .app-store>img{
+    margin-bottom:10px;
+  }
+  .mailman{
+    display:table-cell;
+    vertical-align:bottom;
+  }
+  .background-image{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+  }
+  .background-sharing-container{
+    background: #dce1e0 url('/images/credit-sharing.gif') no-repeat;
+    background-position:right bottom;
+    background-size:auto 100%;
+  }
+  .foreground-container{
+    height:300px;
+  }
+  .instructions{
+    font-size:18px;
+  }
+  @media (min-width: 979px) {
+  .row-md-height{
+    margin-left:0px;
+    margin-right:0px;
+  }
+  .row-md-height>div{
+    min-height:340px;
+  }
+  .background-container{
+    height:inherit;
+  }
+}
+
+
+/********** Footer Section ***********/
+div.footer-bottom{
+  min-height:200px;
+  background: #2C3E50;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2) inset, 0px -4px 5px rgba(0, 0, 0, 0.2) inset;
+  padding:17px;
+  color:#FFF
+}
+div.footer h1{
+  font-family:"Verdana", Geneva, sans-serif;
+  font-weight:bolder;
+}
+.inline-list li{
+  display:inline-block;
+  margin-right:40px;
+}
+.footer-list ul{
+  list-style:none
+}
+.list-item{
+  text-transform:uppercase;
+  font-size:18px;
+  text-decoration:none;
+  color:inherit;
+}
+.list-item-header{
+  text-transform:uppercase;
+}
+/************End Footer **********/
+
+/*****Login Modal *****/
+.ribbon{
+  background-color:#2F4D6B;
+  color:white;
+  position:relative;
+  padding:2px 30px;
+  margin: 2px -25px 5px -25px;
+}
+.ribbon:before,
+.ribbon:after {
+  content:" ";
+  border-top:10px solid #2C3E50;
+  position:absolute;
+  bottom:-10px;
+} 
+.ribbon:before {
+  border-left:10px solid transparent;
+  left:0;
+  }
+.ribbon:after {
+  border-right:10px solid transparent;
+  right:0;
+}
+/****** ComboBox ******/
+.form-search .combobox-container,
+.form-inline .combobox-container {
+display: inline-block;
+margin-bottom: 0;
+vertical-align: top;
+}
+.form-search .combobox-container .input-group-addon,
+.form-inline .combobox-container .input-group-addon {
+width: auto;
+}
+.combobox-selected .caret {
+display: none;
+}
+/* :not doesn't work in IE8 */
+.combobox-container:not(.combobox-selected) .glyphicon-remove {
+display: none;
+}
+.typeahead-long {
+max-height: 300px;
+overflow-y: auto;
+}
+.control-group.error .combobox-container .add-on {
+color: #B94A48;
+border-color: #B94A48;
+}
+.control-group.error .combobox-container .caret {
+border-top-color: #B94A48;
+}
+.control-group.warning .combobox-container .add-on {
+color: #C09853;
+border-color: #C09853;
+}
+.control-group.warning .combobox-container .caret {
+border-top-color: #C09853;
+}
+.control-group.success .combobox-container .add-on {
+color: #468847;
+border-color: #468847;
+}
+.control-group.success .combobox-container .caret {
+border-top-color: #468847;
+}

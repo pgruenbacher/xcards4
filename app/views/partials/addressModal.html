@@ -1,0 +1,55 @@
+
+<div class="modal-header">
+	<h3 class="modal-title ribbon center">{{title}}</h3>
+</div>
+<div class="modal-body">
+	<validate-address address="validated"></validate-address>
+	<div ng-switch="mode">
+		<form ng-switch-default name="edit">
+	    <div class="form-group">
+    		<label for="name">Name *</label>
+      	<input type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
+	    </div>
+	    <div class="form-group">
+	    	<label for="address1">Address *</label>
+	      <textarea smarty-input type="text" name="street" id="address1" class="form-control" placeholder="Address" ng-model="address.address" required></textarea>
+	    </div>
+	    <div class="form-group">
+	    	<label for="email">Email</label>
+	      <input type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
+	    </div>
+	    <div class="form-group">
+	    	<label for="number">Phone Number</label>
+	      <input type="text" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
+	    </div>
+	    <button ng-click="save(address)" class="btn btn-block btn-primary">Save</button>
+	    <script>
+	  //   var time=new Date().getTime();
+			// jQuery.LiveAddress({
+			// 	debug:true,
+			// 	key:'3445594375398796739',
+			// 	addresses:[{id: new Date().getTime(),street:'#address1'}]
+			// });
+			</script>
+		</form>
+		<form ng-switch-when="create">
+	    <div class="form-group">
+    		<label for="name">Name *</label>
+      	<input type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
+	    </div>
+	    <div class="form-group">
+	    	<label for="address2">Address *</label>
+	      <input type="text" id="address2" name="street" class="form-control" placeholder="Address" ng-model="address.address" required>
+	    </div>
+	    <div class="form-group">
+	    	<label for="email">Email</label>
+	      <input type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
+	    </div>
+	    <div class="form-group">
+	    	<label for="number">Phone Number</label>
+	      <input type="text" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
+	    </div>
+	    <button ng-click="create(address)" class="btn btn-block btn-primary">Create</button>
+		</form>
+	</div>
+</div>

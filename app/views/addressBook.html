@@ -1,0 +1,32 @@
+<h1>My AddressBook</h1>
+<div class="row">
+	<div ng-controller="AddressBookCtrl">
+		<table class="table table-hover table-condensed">
+			<div class="title"><a ng-click="openModal('create')">Create Address</a></div>
+			<thead>
+				<tr>
+					<th>Address</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Number</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="address in addresses">
+					<td>{{address.address}}</td>
+					<td>{{address.name}}</td>
+					<td>{{address.email}}</td>
+					<td>{{address.number}}</td>
+					<td>
+						<button class="btn btn-success" ng-click="openModal('edit',{{$index}})">
+							<i class="fa fa-pencil"></i>Edit
+						</button>
+						<button class="btn btn-danger">
+							<i class="fa fa-times"></i>Delete
+					</td>
+				</tr>
+			</tbody>
+		</tbale>
+	</div>
+</div>
