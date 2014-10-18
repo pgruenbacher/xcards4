@@ -10,14 +10,14 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-            	<li ><a href="">Make My Card</a></li>
+            	<li ><a ui-sref="main.upload" href="">Make My Card</a></li>
           		<li class=""><a href="">Review Cards</a></li>
-          		<li class=""><a ui-sref="main.addressBook" href="">My Address Book</a></li>
-              <li><a href="" ng-click="showLoginModal('login')">Sign In</a></li>
-              <li><a ng-click="showLoginModal('register')" href="">Create Account</a></li>
+          		<li class=""><a ui-sref="main.addressBook" href="" ng-if="">My Address Book</a></li>
+              <li><a href="" ng-click="showLoginModal('login')" ng-if="root.user.guest">Sign In</a></li>
+              <li><a ng-click="showLoginModal('register')" href="" ng-if="root.user.guest">Create Account</a></li>
   	   		  </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="">Admin</a></li>
+              <li><a ui-sref="main.admin" href="#/admin">Admin</a></li>
               <li dropdown>
                 <a href="#" class="dropdown-toggle">My Account <b class="caret"></b></a>
                 <ul class="dropdown-menu">

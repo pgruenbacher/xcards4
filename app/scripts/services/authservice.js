@@ -2,34 +2,26 @@
 /*jshint unused:vars, camelcase: false */
 /**
  * @ngdoc service
- * @name xcards4App.authService
+ * @name xcards4App.permissionService
  * @description
- * # authService
+ * # permissionService
  * Service in the xcards4App.
  */
 angular.module('xcards4App')
-// .factory('authService', function authService($http, Session) {
-// 	var authService = {};
-// 	authService.login = function (credentials) {
-// 	  return $http
-// 	  	.post('/login', credentials)
-// 	    .then(function (res) {
-// 	      Session.create(res.data.id, res.data.user.id,res.data.user.role);
-// 	      return res.data.user;
-// 	    });
-// 	};
-// 	authService.isAuthenticated = function () {
-// 	  return !!Session.userId;
-// 	};
-// 	authService.isAuthorized = function (authorizedRoles) {
-// 	  if (!angular.isArray(authorizedRoles)) {
-// 	    authorizedRoles = [authorizedRoles];
-// 	  }
-// 	  return (authService.isAuthenticated() &&
-// 	    authorizedRoles.indexOf(Session.userRole) !== -1);
-// 	};
-// 	return authService;
-// })
+.factory('permissionService', function($http, Session) {
+	var permissionService = {};
+	permissionService.isAuthenticated = function () {
+	  return !!Session.user.id;
+	};
+	permissionService.isAuthorized = function (authorizedRoles) {
+	  if (!angular.isArray(authorizedRoles)) {
+	    authorizedRoles = [authorizedRoles];
+	  }
+	  return (permissionService.isAuthenticated() &&
+	    Session.user.roles.map(function(x) {return x.type; }).indexOf(authorizedRoles[0]) !== -1);
+	};
+	return permissionService;
+})
 // .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
 //   return {
 //     responseError: function (response) { 
@@ -43,6 +35,23 @@ angular.module('xcards4App')
 //     }
 //   };
 // })
+.service('Session', function (localStorageService) {
+  var self=this;
+  function init(){
+    if (localStorageService.get('user')){
+      self.user=localStorageService.get('user');
+    }
+  }
+  init();
+  console.log(self.user);
+  this.create = function (user) {
+    localStorageService.set('user',user);
+  };
+  this.destroy = function () {
+    localStorageService.remove('user');
+  };
+  return this;
+})
 .factory('AuthenticationService', function($rootScope,$http,authService,Restangular,$state,localStorageService) {
   return {
     login: function(user) {

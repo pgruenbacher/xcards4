@@ -19,7 +19,8 @@ angular
     'ui.bootstrap',
     'restangular',
   	'LocalStorageModule',
-    'http-auth-interceptor'
+    'http-auth-interceptor',
+    'angularFileUpload'
   ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -29,10 +30,18 @@ angular
     templateUrl:'views/main.html',
     controller:'MainCtrl',
     resolve:{
-      user:function(AuthenticationService){
+      user:function(AuthenticationService,Session){
         return AuthenticationService.checkAuthentication().then(function(r){
           console.log('resolved');
-          return r.user;
+          if(typeof r.user !== 'undefined'){
+            Session.create(r.user);
+            return {user:r.user};
+          }
+        },function(error){
+          console.log('couldn\'t resolve, set default guest',error);
+          return {
+            role:'guest'
+          };
         });
       }
     }
@@ -40,6 +49,23 @@ angular
   .state('main.front',{
     url:'/front',
     templateUrl:'views/front.html'
+  })
+  .state('main.admin',{
+    url:'/admin',
+    templateUrl:'views/admin.html',
+    data:{
+      authorizedRoles:'admin'
+    }
+  })
+  .state('main.upload',{
+    url:'/upload',
+    templateUrl:'views/upload.html',
+    controller:'UploadCtrl'
+  })
+  .state('main.crop',{
+    url:'/crop',
+    templateUrl:'views/crop.html',
+    controller:'CropCtrl'
   })
   .state('main.addressBook',{
     url:'/addressBook',
@@ -65,7 +91,7 @@ angular
       return angular.isObject(data) && String(data) !== '[object File]' ? ParamService.param(data) : data;
     }
   };
-});
+})
 // .config(function ($httpProvider) {
 //   $httpProvider.interceptors.push([
 //     '$injector',
@@ -74,18 +100,21 @@ angular
 //     }
 //   ]);
 // })
-// .run(function ($rootScope, AUTH_EVENTS, authService) {
-//   $rootScope.$on('$stateChangeStart', function (event, next) {
-//     var authorizedRoles = next.data.authorizedRoles;
-//     if (!AuthService.isAuthorized(authorizedRoles)) {
-//       event.preventDefault();
-//       if (AuthService.isAuthenticated()) {
-//         // user is not allowed
-//         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-//       } else {
-//         // user is not logged in
-//         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-//       }
-//     }
-//   });
-// });
+.run(function ($rootScope, AUTH_EVENTS, permissionService) {
+  $rootScope.$on('$stateChangeStart', function (event, next) {
+    if(typeof next.data !== 'undefined'){
+      var authorizedRoles = next.data.authorizedRoles;
+      if (!permissionService.isAuthorized(authorizedRoles)) {
+        event.preventDefault();
+        console.log('prevented!');
+        if (permissionService.isAuthenticated()) {
+          // user is not allowed
+          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+        } else {
+          // user is not logged in
+          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+        }
+      }
+    }
+  });
+});

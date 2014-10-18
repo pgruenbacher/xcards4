@@ -164,7 +164,8 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//,
+        exclude:['blueimp-file-upload','blueimp-canvas-to-blob','blueimp-tmpl','blueimp-load-image']
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],

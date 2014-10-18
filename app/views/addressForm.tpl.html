@@ -1,7 +1,7 @@
 <div class="combobox-container">
     <div class="input-group">
         <input autocomplete="on" type="text" ng-change="getAddresses(addressInput)" class=" combobox form-control" id="AddressLine1" placeholder="Enter Address Line 1" ng-model="addressInput">
-        <ul class="type-ahead dropdown-menu" style="top: 43px; left:0px;display: block">
+        <ul class="dropdown-menu" ng-class="{typeahead:addresses.length>1,'typeahead-long':addresses.length>5}" style="top: 40px; left:0px">
             <li data-animation="am-flip-x" ng-repeat="address in addresses">
                 {{address.text}}
             </li>
@@ -84,8 +84,3 @@
            ng-model="address.zipCode">
 </div>
 
-<script type="text/ng-template">
-    <div style="{'yada'}">
-        <span></span>
-    </div>
-</script>

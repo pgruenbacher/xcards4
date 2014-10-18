@@ -16,8 +16,8 @@ angular.module('xcards4App')
   //   $scope.currentUser = user;
   // };
   $scope.root={};
-  $scope.root.user=user;
-  console.log('reload controller',$scope.root.user);
+  $scope.root.user=user.user;
+  $scope.root.role=user.role;
   $scope.logout=function(){
     AuthenticationService.logout();
   };

@@ -8,6 +8,8 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 //@import "flatly/flatly";
 
+@import "jcrop/jcrop";
+
 html,body{
   height:100%;
 }
@@ -167,8 +169,11 @@ display: none;
 .combobox-container:not(.combobox-selected) .glyphicon-remove {
 display: none;
 }
+.typeahead{
+  display:block;
+}
 .typeahead-long {
-max-height: 300px;
+max-height: 200px;
 overflow-y: auto;
 }
 .control-group.error .combobox-container .add-on {
@@ -191,4 +196,29 @@ border-color: #468847;
 }
 .control-group.success .combobox-container .caret {
 border-top-color: #468847;
+}
+/******Image Upload Button *******/
+.imageUpload-button {
+  position: relative;
+  overflow: hidden;
+}
+.imageUpload-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
 }

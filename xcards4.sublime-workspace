@@ -20,30 +20,11 @@
 	"buffers":
 	[
 		{
-			"file": "app/scripts/app.js",
+			"file": "app/scripts/smartyStreet/angularLiveAddress.js",
 			"settings":
 			{
-				"buffer_size": 999,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "'use strict';\n\n/**\n * @ngdoc function\n * @name xcards4App.controller:MainCtrl\n * @description\n * # MainCtrl\n * Controller of the xcards4App\n */\nangular.module('xcards4App')\n.controller('MainCtrl', function ($scope) {\n  $scope.awesomeThings = [\n    'HTML5 Boilerplate',\n    'AngularJS',\n    'Karma'\n  ];\n})\n.controller('LoginController', function ($scope, $rootScope, AUTH_EVENTS, AuthService) {\n	$scope.credentials = {\n	  username: '',\n	  password: ''\n	};\n	$scope.login = function (credentials) {\n	  AuthService.login(credentials).then(function (user) {\n	    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);\n	    $scope.setCurrentUser(user);\n	  }, function () {\n	    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);\n		});\n	};\n});\n",
-			"file": "app/scripts/controllers/main.js",
-			"file_size": 321,
-			"file_write_time": 130577012119517412,
-			"settings":
-			{
-				"buffer_size": 729,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/scripts/services/authservice.js",
-			"settings":
-			{
-				"buffer_size": 302,
-				"line_ending": "Unix"
+				"buffer_size": 3256,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -71,20 +52,40 @@
 	},
 	"file_history":
 	[
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/card.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/admin.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/addressModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressForm.tpl.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/angularLiveAddress.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/addressbook.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/addressbook.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/addressservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressBook.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/karma/lib/constants.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/liveaddress.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/liveaddress.min.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/helperservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/loginModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/main.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/addressEditModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/addressCreateModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/config.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/autosyncfill.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/bower.json",
+		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/footerbar.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/flatly/variables.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/flatly/flatly.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/footerBar.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/bower.json",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/main.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/navbar.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/bootstrapFlatly.min.css",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/flatly.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/angular-cookies/angular-cookies.js",
@@ -178,31 +179,11 @@
 		"/C/Users/pgrue_000/blocksquad/.sass-cache/fdcfa9381eddb579676cfa2a55cb26d029440e49/_app.scssc",
 		"/C/Users/pgrue_000/blocksquad/app/styles/main.scss",
 		"/C/Users/pgrue_000/blocksquad/app/views/about.html",
-		"/C/Users/pgrue_000/blocksquad/bower.json",
-		"/C/Users/pgrue_000/blocksquad/.sass-cache/fdcfa9381eddb579676cfa2a55cb26d029440e49/main.scssc",
-		"/C/Users/pgrue_000/blocksquad/bower_components/ionic/scss/ionic.scss",
-		"/C/Users/pgrue_000/blocksquad/app/views/demo.html",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/demo.js",
-		"/C/Users/pgrue_000/blocksquad/app/styles/_fonts.scss",
-		"/C/Users/pgrue_000/blocksquad/test/spec/controllers/demo.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/main.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/account.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/login.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/config.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/blocksquad.directives.js",
-		"/C/Users/pgrue_000/blocksquad/app/views/partials/loginModal.html",
-		"/C/Users/pgrue_000/blocksquad/app/styles/_variables.scss",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/factories/simpleLogin.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/decorators/ngcloakdirectivedecorator.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/factories/firebase.utils.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/navbar.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/navbar.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/filters/blocksquad.filters.js",
-		"/C/Users/pgrue_000/blocksquad/bower_components/angularfire/dist/angularfire.js"
+		"/C/Users/pgrue_000/blocksquad/bower.json"
 	],
 	"find":
 	{
-		"height": 36.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -216,6 +197,43 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"doValidation",
+			"trials",
+			"$typeahead",
+			"authService",
+			"sessionId",
+			"saveAuthentication",
+			"session",
+			"typeahead",
+			"result.suggestions",
+			"addresses",
+			"getAddress",
+			"$viewValue",
+			"getAddress",
+			"$scope.getAddress",
+			"$resource",
+			"\"",
+			"th",
+			"loginConfirmed",
+			"loginCompLete",
+			"logout-complete",
+			"logout",
+			"event",
+			"Session",
+			"auto-sync-fill",
+			"autofill",
+			"autofocus",
+			"AuthINterceptor",
+			"authInterceptor",
+			"authIntercept",
+			"modal",
+			"authservice",
+			"authserviceP",
+			"loginConfirmed",
+			"constant",
+			"401",
+			"getAuthentication",
+			"getAuthentica",
 			"compass",
 			"{{",
 			"splash",
@@ -306,44 +324,7 @@
 			"dropdown",
 			"\"",
 			"wiredep",
-			"module",
-			"handleScrol",
-			"onScrollMove",
-			"onScrollEnd",
-			"scrollEnd",
-			"scrollStart",
-			"iscrollInstance",
-			"onScrollStart",
-			"handleScrollStart",
-			"on(",
-			"on:",
-			"scrollStart",
-			"_events",
-			"_event",
-			"_event:",
-			"_events:",
-			"_event",
-			"._event",
-			"execEvent",
-			"._execEvent",
-			"execEvent",
-			"_execEvent",
-			"on",
-			"onZoom",
-			"onScrollMove",
-			"onScrollEnd",
-			"onScrollStart",
-			"backdrop",
-			"compass",
-			".content",
-			".bar",
-			"bar",
-			"header",
-			".list",
-			".mobile",
-			".list",
-			".item",
-			"onScroll"
+			"module"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -361,23 +342,23 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/scripts/app.js",
+					"file": "app/scripts/smartyStreet/angularLiveAddress.js",
 					"settings":
 					{
-						"buffer_size": 999,
+						"buffer_size": 3256,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								502,
-								502
+								859,
+								859
 							]
 						],
 						"settings":
@@ -387,60 +368,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 324.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/scripts/controllers/main.js",
-					"settings":
-					{
-						"buffer_size": 729,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								557,
-								557
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2
-						},
-						"translation.x": 0.0,
-						"translation.y": 108.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/scripts/services/authservice.js",
-					"settings":
-					{
-						"buffer_size": 302,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								150,
-								150
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 264.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -490,6 +418,98 @@
 		"selected_items":
 		[
 			[
+				"addressmodal",
+				"app/views/partials/addressModal.html"
+			],
+			[
+				"navbar",
+				"app/views/partials/navbar.html"
+			],
+			[
+				"authsr",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"app.js",
+				"app/scripts/app.js"
+			],
+			[
+				"authservice",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"constant",
+				"node_modules/karma/lib/constants.js"
+			],
+			[
+				"controllers",
+				"app/scripts/controllers/main.js"
+			],
+			[
+				"main.scss",
+				"app/styles/main.scss"
+			],
+			[
+				"index",
+				"app/index.html"
+			],
+			[
+				"services",
+				"app/scripts/services/helperservice.js"
+			],
+			[
+				"login",
+				"app/scripts/controllers/login.js"
+			],
+			[
+				"loginmodal",
+				"app/views/loginModal.html"
+			],
+			[
+				"views/",
+				"app/views/main.html"
+			],
+			[
+				"services/",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"main.js",
+				"app/scripts/controllers/main.js"
+			],
+			[
+				"login.js",
+				"app/scripts/controllers/login.js"
+			],
+			[
+				"navbar.htm",
+				"app/views/partials/navbar.html"
+			],
+			[
+				"front",
+				"app/views/front.html"
+			],
+			[
+				"index.html",
+				"app/index.html"
+			],
+			[
+				"navbar.html",
+				"app/views/partials/navbar.html"
+			],
+			[
+				"main.s",
+				"app/styles/main.scss"
+			],
+			[
+				"bower",
+				"bower.json"
+			],
+			[
+				"gruntfile",
+				"Gruntfile.js"
+			],
+			[
 				"footerbar.j",
 				"app/scripts/directives/footerbar.js"
 			],
@@ -498,16 +518,8 @@
 				"app/views/partials/footerBar.html"
 			],
 			[
-				"main.scss",
-				"app/styles/main.scss"
-			],
-			[
 				"main.html",
 				"app/views/main.html"
-			],
-			[
-				"index",
-				"app/index.html"
 			],
 			[
 				"gruntfil",
@@ -518,20 +530,8 @@
 				"app/styles/flatly/flatly.scss"
 			],
 			[
-				"navbar.html",
-				"app/views/partials/navbar.html"
-			],
-			[
-				"gruntfile",
-				"Gruntfile.js"
-			],
-			[
 				"feed",
 				"app/templates/feed.html"
-			],
-			[
-				"controllers",
-				"app/scripts/controllers.js"
 			],
 			[
 				"topic",
@@ -562,10 +562,6 @@
 				"app/templates/menu.html"
 			],
 			[
-				"app.js",
-				"app/scripts/app.js"
-			],
-			[
 				"create.",
 				"app/templates/create.html"
 			],
@@ -580,10 +576,6 @@
 			[
 				"filters",
 				"app/scripts/filters.js"
-			],
-			[
-				"bower",
-				"bower.json"
 			],
 			[
 				"menu",
@@ -630,10 +622,6 @@
 				"app/scripts/controllers.js"
 			],
 			[
-				"login",
-				"app/templates/login.html"
-			],
-			[
 				"router",
 				"app/scripts/routerSecurity.js"
 			],
@@ -644,10 +632,6 @@
 			[
 				"accoun",
 				"app/scripts/accountCtrl.js"
-			],
-			[
-				"services",
-				"app/scripts/services.js"
 			],
 			[
 				"routersecur",
@@ -682,10 +666,6 @@
 				"app/scripts/controllers.js"
 			],
 			[
-				"main.js",
-				"node_modules/ripple-emulator/node_modules/request/main.js"
-			],
-			[
 				"playlist",
 				"app/views/playlist.html"
 			],
@@ -708,10 +688,6 @@
 			[
 				"cardst",
 				"app/scripts/controllers/cardstunt.js"
-			],
-			[
-				"navbar",
-				"app/scripts/controllers/navbar.js"
 			],
 			[
 				"demo",

@@ -23,15 +23,11 @@ angular.module('xcards4App')
 })
 .factory('SmartyStreetsValidationFactory', function ($q,$http,SmartyToken) {
    var doValidation = function (address) {
-    return $http.get('https://api.smartystreets.com/street-address',
-      {
-      	'auth-id':SmartyToken,
-      	callback:'JSON_CALLBACK',
-        street: address.street_line,
-        street2: address.addressLine2,
-        city: address.city,
-        state: address.state,
-        zipcode: address.zipCode
+    return $http.jsonp('https://api.smartystreets.com/street-address?callback=JSON_CALLBACK',{
+        params:{
+        	'auth-token':SmartyToken,
+          street: address.text
+        }
       }
     );
   };
@@ -59,7 +55,6 @@ angular.module('xcards4App')
 .controller('AddressFormController', function ($scope, SmartyStreetsSuggestionFactory, SmartyStreetsValidationFactory) {
   $scope.address = {};
   $scope.addresses = [];
-  $scope.trials=[{"text":"1866 Harrowgate Dr, Columbus OH","street_line":"1866 Harrowgate Dr","city":"Columbus","state":"OH"},{"text":"1866 Harrowgate Cir, Burke VA","street_line":"1866 Harrowgate Cir","city":"Burke","state":"VA"},{"text":"1866 Harrowgate Dr, Camden NJ","street_line":"1866 Harrowgate Dr","city":"Camden","state":"NJ"},{"text":"1866 Harrowgate Dr, Carmel IN","street_line":"1866 Harrowgate Dr","city":"Carmel","state":"IN"},{"text":"1866 Harrowgate Rd, Chester VA","street_line":"1866 Harrowgate Rd","city":"Chester","state":"VA"},{"text":"1866 Harrowgate Dr, Audubon NJ","street_line":"1866 Harrowgate Dr","city":"Audubon","state":"NJ"},{"text":"1866 Harrowgate Dr, Cherry Hill NJ","street_line":"1866 Harrowgate Dr","city":"Cherry Hill","state":"NJ"},{"text":"1866 Harrowgate Dr, Collingswood NJ","street_line":"1866 Harrowgate Dr","city":"Collingswood","state":"NJ"},{"text":"1866 Harrowgate Commons, Massena NY","street_line":"1866 Harrowgate Commons","city":"Massena","state":"NY"},{"text":"1866 Harrowgate Rd, Colonial Heights VA","street_line":"1866 Harrowgate Rd","city":"Colonial Heights","state":"VA"}];
   $scope.getAddresses = function (searchString) {
     if (searchString != null && searchString !== '' && searchString.length > 10) {
       SmartyStreetsSuggestionFactory.getSuggestions(searchString)
@@ -68,6 +63,7 @@ angular.module('xcards4App')
 	          $scope.addresses = result.data.suggestions;
 	          if (result.data.suggestions.length === 1) {
 	            $scope.address = result.data.suggestions[0];
+              $scope.validateAddress();
 	          } else {
 	            //$scope.addresses=result.suggestions;
 	          }
@@ -83,6 +79,7 @@ angular.module('xcards4App')
   $scope.validateAddress = function () {
     return SmartyStreetsValidationFactory.doValidation($scope.address).then(function (result) {
         if (angular.isArray(result) && result.length > 0) {
+          console.log('validate',result);
           //HANDLE AMBIGUIOUS RESULTS - consider angular-strap model
           //$scope.addressSearchResult = result[0].delivery_line_1;
           $scope.address.street_line = result[0].delivery_line_1;
