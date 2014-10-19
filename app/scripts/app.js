@@ -65,7 +65,12 @@ angular
   .state('main.upload',{
     url:'/upload',
     templateUrl:'views/upload.html',
-    controller:'UploadCtrl'
+    controller:'UploadCtrl',
+    resolve:{
+      card:function(CardService){
+        return ' ';
+      }
+    }
   })
   .state('main.crop',{
     url:'/crop',

@@ -96,6 +96,8 @@
     <!--<script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"></script>-->
     <script src="scripts/smartyStreet/liveaddress.min.js"></script>
     <script src="bower_components/jcrop/js/jquery.Jcrop.min.js"></script>
+    <!-- Include the script at the end of the body section -->
+    <script type="text/javascript" src="//api.cloudsponge.com/address_books.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -116,6 +118,21 @@
         <script src="scripts/directives/ngthumb.js"></script>
         <script src="scripts/directives/jcrop.js"></script>
         <script src="scripts/controllers/crop.js"></script>
+        <script src="scripts/services/cardservice.js"></script>
+        <script src="scripts/controllers/cardsmodal.js"></script>
+        <script src="scripts/directives/cloudsponge.js"></script>
         <!-- endbuild -->
+        <script>
+        var csPageOptions = {
+            domain_key:"A5CR8EQX5U8GQATHZGFE",
+            textarea_id:'contact_list',
+            // set skipSourceMenu to true when using deep links for a more consistent UX
+            skipSourceMenu:true, // suppresses the source menu unless linked to directly
+            // delay making the links that launch a popup clickable
+            // until after the widget has initialized completly. a popup window must
+            // be opened in an onclick handler, so we don't support queueing these actions
+            selectionLimit:30,
+        };
+        </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars*/
 /**
  * @ngdoc function
  * @name xcards4App.controller:CardCtrl
@@ -10,12 +10,13 @@
 angular.module('xcards4App')
 .controller('UploadCtrl', function ($scope,FileUploader,API,PermissionService,AuthenticationService,$http,$state,Session) {
 	$scope.uploadStatus=null;
+	var route;
 	var accessToken=AuthenticationService.getAccessToken();
 	if(PermissionService.isAuthenticated()){
 		console.log(Session.user);
-  		var route='/imageUpload';
+  		route='/imageUpload';
   	}else{
-  		var route='/imageUploadGuest/'+Session.user.id;
+  		route='/imageUploadGuest/'+Session.user.id;
   	}
   var ImageUploader=$scope.ImageUploader= new FileUploader({
   	url: API.domain+route,
@@ -38,5 +39,5 @@ angular.module('xcards4App')
 	};
 	$scope.continue=function(){
 		$state.go('main.crop');
-	}
+	};
 });

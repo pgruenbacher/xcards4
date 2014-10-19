@@ -13,6 +13,17 @@ angular.module('xcards4App')
   	console.log('address controller',value);
     $scope.addresses=value;
   });
+  $scope.openImport=function(mode){
+    $modal.open({
+      templateUrl:'views/partials/importModal.html',
+      size:'sm',
+      resolve:{
+        mode:function(){
+          return mode;
+        }
+      }
+    });
+  }
   $scope.openModal=function(mode,id){
   	console.log(mode);
   	$modal.open({

@@ -2,7 +2,10 @@
 <div class="row">
 	<div ng-controller="AddressBookCtrl">
 		<table class="table table-hover table-condensed">
-			<div class="title"><a ng-click="openModal('create')">Create Address</a></div>
+			<div class="title">
+				<a ng-click="openModal('create')">Create Address</a>
+				<a ng-click="openImport('email')">Import Addresses</a>
+			</div>
 			<thead>
 				<tr>
 					<th>Address</th>

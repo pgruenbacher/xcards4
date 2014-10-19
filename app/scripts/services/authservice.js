@@ -19,7 +19,6 @@ angular.module('xcards4App')
 	var permissionService = {};
 	permissionService.isAuthenticated = function () {
     if(Session.user !== null && typeof Session.user !== 'undefined' && Session.user.roles[0].type !== 'guest'){
-       console.log(Session.user.roles[0].type,Session.user.roles);
       return true;
     }else{console.log(Session.user.roles.type);
 
