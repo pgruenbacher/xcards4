@@ -30,12 +30,17 @@ angular
     templateUrl:'views/main.html',
     controller:'MainCtrl',
     resolve:{
-      user:function(AuthenticationService,Session){
+      user:function(AuthenticationService,Session,GuestService){
         return AuthenticationService.checkAuthentication().then(function(r){
-          console.log('resolved');
           if(typeof r.user !== 'undefined'){
             Session.create(r.user);
             return {user:r.user};
+          }else{
+            GuestService.create().then(function(r){
+              console.log('guest made',r);
+              Session.create(r.data.user);
+              return{user:r.data.user}
+            });
           }
         },function(error){
           console.log('couldn\'t resolve, set default guest',error);
@@ -100,14 +105,14 @@ angular
 //     }
 //   ]);
 // })
-.run(function ($rootScope, AUTH_EVENTS, permissionService) {
+.run(function ($rootScope, AUTH_EVENTS, PermissionService) {
   $rootScope.$on('$stateChangeStart', function (event, next) {
     if(typeof next.data !== 'undefined'){
       var authorizedRoles = next.data.authorizedRoles;
-      if (!permissionService.isAuthorized(authorizedRoles)) {
+      if (!PermissionService.isAuthorized(authorizedRoles)) {
         event.preventDefault();
         console.log('prevented!');
-        if (permissionService.isAuthenticated()) {
+        if (PermissionService.isAuthenticated()) {
           // user is not allowed
           $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
         } else {

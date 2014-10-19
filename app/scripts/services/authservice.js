@@ -8,17 +8,34 @@
  * Service in the xcards4App.
  */
 angular.module('xcards4App')
-.factory('permissionService', function($http, Session) {
+.factory('GuestService', function($http, Session,API) {
+  return{
+    create:function () {
+      return $http.get(API.domain+'/guest');
+    }
+  };
+})
+.factory('PermissionService', function($http, Session) {
 	var permissionService = {};
 	permissionService.isAuthenticated = function () {
-	  return !!Session.user.id;
+    if(Session.user !== null && typeof Session.user !== 'undefined' && Session.user.roles[0].type !== 'guest'){
+       console.log(Session.user.roles[0].type,Session.user.roles);
+      return true;
+    }else{console.log(Session.user.roles.type);
+
+      return false;
+    }
 	};
 	permissionService.isAuthorized = function (authorizedRoles) {
-	  if (!angular.isArray(authorizedRoles)) {
-	    authorizedRoles = [authorizedRoles];
-	  }
-	  return (permissionService.isAuthenticated() &&
-	    Session.user.roles.map(function(x) {return x.type; }).indexOf(authorizedRoles[0]) !== -1);
+    if(Session.user !==null && typeof Session.user !== 'undefined'){
+      if (!angular.isArray(authorizedRoles)) {
+        authorizedRoles = [authorizedRoles];
+      }
+      return (permissionService.isAuthenticated() && Session.user.roles.map(function(x) {return x.type; }).indexOf(authorizedRoles[0]) !== -1);
+    }else{
+      return false;
+    }
+	  
 	};
 	return permissionService;
 })
@@ -38,21 +55,24 @@ angular.module('xcards4App')
 .service('Session', function (localStorageService) {
   var self=this;
   function init(){
-    if (localStorageService.get('user')){
+    if (localStorageService.get('user') !== null){
       self.user=localStorageService.get('user');
     }
   }
   init();
-  console.log(self.user);
   this.create = function (user) {
     localStorageService.set('user',user);
+    self.user=user;
+    return true;
   };
   this.destroy = function () {
     localStorageService.remove('user');
+    self.user=null;
+    return true;
   };
   return this;
 })
-.factory('AuthenticationService', function($rootScope,$http,authService,Restangular,$state,localStorageService) {
+.factory('AuthenticationService', function($rootScope,$http,authService,Restangular,$state,localStorageService,Session) {
   return {
     login: function(user) {
       var self=this;
@@ -93,7 +113,7 @@ angular.module('xcards4App')
       });
     },
     logout: function(user) {
-      if(localStorageService.remove('access_token')&&localStorageService.remove('authentication')){
+      if(localStorageService.remove('access_token')&&localStorageService.remove('authentication')&&Session.destroy()){
         $rootScope.$broadcast('event:auth-logout-complete');
       }
     },

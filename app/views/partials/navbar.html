@@ -11,25 +11,25 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
             	<li ><a ui-sref="main.upload" href="">Make My Card</a></li>
-          		<li class=""><a href="">Review Cards</a></li>
-          		<li class=""><a ui-sref="main.addressBook" href="" ng-if="">My Address Book</a></li>
-              <li><a href="" ng-click="showLoginModal('login')" ng-if="root.user.guest">Sign In</a></li>
-              <li><a ng-click="showLoginModal('register')" href="" ng-if="root.user.guest">Create Account</a></li>
+          		<li  ng-if="checkIfAuthenticated()" class=""><a href="">Review Cards</a></li>
+          		<li ng-if="checkIfAuthenticated()" class=""><a ui-sref="main.addressBook" href="">My Address Book</a></li>
+              <li ng-if="!checkIfAuthenticated()"><a href="" ng-click="showLoginModal('login')">Sign In</a></li>
+              <li ng-if="!checkIfAuthenticated()"><a ng-click="showLoginModal('register')" href="">Create Account</a></li>
   	   		  </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a ui-sref="main.admin" href="#/admin">Admin</a></li>
+              <li ng-if="checkifAuthorized('admin')"><a ui-sref="main.admin" href="#/admin">Admin</a></li>
               <li dropdown>
                 <a href="#" class="dropdown-toggle">My Account <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-               	  <li><a ng-click="logout()" href="">Sign Out</a></li>
-  				        <li><a ng-click="showLoginModal('change')" href="">Change Password</a></li>
+               	  <li ng-if="checkIfAuthenticated()"><a ng-click="logout()" href="">Sign Out</a></li>
+  				        <li ng-if="checkIfAuthenticated()"><a ng-click="showLoginModal('change')" href="">Change Password</a></li>
                   <li class="divider"></li>
-                	<li class="dropdown-header">Addresses</li>
-                	<li><a href="">My Address Book</a></li>
+                	<li ng-if="checkIfAuthenticated()" class="dropdown-header">Addresses</li>
+                	<li  ng-if="checkIfAuthenticated()"><a href="">My Address Book</a></li>
                 	<li class="dropdown-header">My Account</li>
                 	<li><a>My Credits: <span class="credits" style="color:red"></span></a></li>
                 	<li><a href="">Buy Credits</a></li>
-                	<li><a href="">Previous Orders</a></li>
+                	<li ng-if="checkIfAuthenticated()"><a href="">Previous Orders</a></li>
                 </ul>
               </li>
             </ul>

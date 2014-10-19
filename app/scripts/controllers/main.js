@@ -8,7 +8,7 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('MainCtrl', function ($scope,$state,$modal,user,UserService,AuthenticationService) {
+.controller('MainCtrl', function ($scope,$state,$modal,user,UserService,AuthenticationService,PermissionService) {
   // $scope.currentUser = null;
   // $scope.userRoles = USER_ROLES;
   // $scope.isAuthorized = authService.isAuthorized;
@@ -16,8 +16,13 @@ angular.module('xcards4App')
   //   $scope.currentUser = user;
   // };
   $scope.root={};
-  $scope.root.user=user.user;
-  $scope.root.role=user.role;
+  $scope.root.user=user;
+  $scope.checkIfAuthenticated=function(){
+    return PermissionService.isAuthenticated();
+  };
+  $scope.checkIfAuthorized=function(arg){
+    return PermissionService.isAuthorized(arg);
+  };
   $scope.logout=function(){
     AuthenticationService.logout();
   };
