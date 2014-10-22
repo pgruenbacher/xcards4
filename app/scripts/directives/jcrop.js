@@ -28,7 +28,6 @@ angular.module('xcards4App')
                     myImg = undefined;
                 }
             };
-            var func=scope.selected();
             var boundx,boundy;
             scope.$watch('src', function(nv) {
                 clear();
@@ -51,12 +50,10 @@ angular.module('xcards4App')
                                  scope.selected({cords: x});
                                  });
                                  }*/
-                                scope.$apply(func({cords: x,boundx:boundx,boundy:boundy}));
+                                scope.selected({c:{cords: x,boundx:boundx,boundy:boundy}});
                             },
                             onChange: function(x){
-                            	console.log('change');
-                            	scope.selected({cords: x});
-                            	scope.$apply(func({cords: x,boundx:boundx,boundy:boundy}));
+                            	scope.selected({c:{cords: x,boundx:boundx,boundy:boundy}});
                             },
                             aspectRatio: 1.533,
                             boxWidth: 600,

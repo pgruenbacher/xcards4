@@ -1,8 +1,10 @@
 <div class="original_image">
-	<jcrop selected="selected" src="/images/splash-banner.gif" id="target"></jcrop>
+	<jcrop data-selected="selected(c)" src="/images/splash-banner.gif" id="target"></jcrop>
 </div>
+{{trial}}
+{{trial.cords}}
 <div>
 <div id="cropped-image" class="preview-pane" style="width: 306px; height: 200px; overflow:hidden;">
-	<img id="preview" ng-src="images/splash-banner.gif" width="{{P.w}}px" height="{{P.h}}px"/>
+	<img id="preview" ng-src="/images/splash-banner.gif" width="{{P.w}}px" height="{{P.h}}px"/>
 </div>
 

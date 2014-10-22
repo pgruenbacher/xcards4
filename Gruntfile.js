@@ -235,17 +235,84 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html','<%= yeoman.dist %>/views/**/*.html'],
+      html: ['<%= yeoman.dist %>/**/*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
         // This is so we update image references in our ng-templates
         patterns: {
           html: [
-            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the Html to reference our revved images']
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm,
+             'Update the angular directives that ref revved images'],
+            [
+              /<script.+src=['"]([^"']+)["']/gm,
+              'Update the HTML to reference our concat/min/revved script files'
+            ],
+            [
+              /<link[^\>]+href=['"]([^"']+)["']/gm,
+              'Update the HTML with the new css filenames'
+            ],
+            [
+              /<img[^\>]*[^\>\S]+src=['"]([^"']+)["']/gm,
+              'Update the HTML with the new img filenames'
+            ],
+            [
+              /<video[^\>]+src=['"]([^"']+)["']/gm,
+              'Update the HTML with the new video filenames'
+            ],
+            [
+              /<video[^\>]+poster=['"]([^"']+)["']/gm,
+              'Update the HTML with the new poster filenames'
+            ],
+            [
+              /<source[^\>]+src=['"]([^"']+)["']/gm,
+              'Update the HTML with the new source filenames'
+            ],
+            [
+              /data-main\s*=['"]([^"']+)['"]/gm,
+              'Update the HTML with data-main tags',
+              function (m) {
+                return m.match(/\.js$/) ? m : m + '.js';
+              },
+              function (m) {
+                return m.replace('.js', '');
+              }
+            ],
+            [
+              /data-(?!main).[^=]+=['"]([^'"]+)['"]/gm,
+              'Update the HTML with data-* tags'
+            ],
+            [
+              /url\(\s*['"]?([^"'\)]+)["']?\s*\)/gm,
+              'Update the HTML with background imgs, case there is some inline style'
+            ],
+            [
+              /<a[^\>]+href=['"]([^"']+)["']/gm,
+              'Update the HTML with anchors images'
+            ],
+            [
+              /<input[^\>]+src=['"]([^"']+)["']/gm,
+              'Update the HTML with reference in input'
+            ],
+            [
+              /<meta[^\>]+content=['"]([^"']+)["']/gm,
+              'Update the HTML with the new img filenames in meta tags'
+            ],
+            [
+              /<object[^\>]+data=['"]([^"']+)["']/gm,
+              'Update the HTML with the new object filenames'
+            ],
+            [
+              /<image[^\>]*[^\>\S]+xlink:href=['"]([^"']+)["']/gm,
+              'Update the HTML with the new image filenames for svg xlink:href links'
+            ],
+            [
+              /<image[^\>]*[^\>\S]+src=['"]([^"']+)["']/gm,
+              'Update the HTML with the new image filenames for src links'
+            ]
           ],
           js: [
-            [/(asimages\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
           ],
           css: [
             [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images']

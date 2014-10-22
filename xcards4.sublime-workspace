@@ -19,30 +19,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "app/views/addressBook.html",
-			"settings":
-			{
-				"buffer_size": 894,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/scripts/controllers/addressbook.js",
-			"settings":
-			{
-				"buffer_size": 1906,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "Gruntfile.js",
-			"settings":
-			{
-				"buffer_size": 10862,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -68,7 +44,15 @@
 	},
 	"file_history":
 	[
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/addressbook.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/upload.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressBook.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/dist/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/dist/views/crop.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/cloudsponge.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cloudsponge.html",
@@ -80,19 +64,14 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/upload.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cardModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/cardsmodal.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/upload.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/cardservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/navbar.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/addressbook.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/config.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/crop.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/images/jcrop.gif",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/angularLiveAddress.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/jcrop/jscrop.scss",
@@ -103,7 +82,6 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressForm.tpl.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/addressbook.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/addressservice.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressBook.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/karma/lib/constants.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/liveaddress.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/liveaddress.min.js",
@@ -193,9 +171,7 @@
 		"/C/Users/pgrue_000/blocksquad/Gruntfile.js",
 		"/C/Users/pgrue_000/blocksquad/app/scripts/controllers/cardstunt.js",
 		"/C/Users/pgrue_000/blocksquad/app/scripts/app.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/scrollable.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/scrollingbackground.js",
-		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/cheerpopup.js"
+		"/C/Users/pgrue_000/blocksquad/app/scripts/directives/scrollable.js"
 	],
 	"find":
 	{
@@ -213,6 +189,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"configuration",
+			"filerev",
+			"/images",
+			"asset",
+			"usemin",
 			"image",
 			"':[]};\n",
 			"=\"#\"",
@@ -335,12 +316,7 @@
 			"$location",
 			"url",
 			"FB",
-			"FBU",
-			"FBURL",
-			"FB",
-			"FBURL",
-			"templates",
-			"wiredep"
+			"FBU"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -358,92 +334,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app/views/addressBook.html",
-					"settings":
-					{
-						"buffer_size": 894,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								247,
-								247
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/scripts/controllers/addressbook.js",
-					"settings":
-					{
-						"buffer_size": 1906,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								816,
-								816
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 39.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Gruntfile.js",
-					"settings":
-					{
-						"buffer_size": 10862,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4805,
-								4810
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2113.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
