@@ -235,10 +235,22 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
+      html: ['<%= yeoman.dist %>/{,*/}*.html','<%= yeoman.dist %>/views/**/*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images'],
+        // This is so we update image references in our ng-templates
+        patterns: {
+          html: [
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the Html to reference our revved images']
+          ],
+          js: [
+            [/(asimages\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+          ],
+          css: [
+            [/(images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the CSS to reference our revved images']
+          ]
+        }
       }
     },
 
