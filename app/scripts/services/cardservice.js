@@ -8,16 +8,37 @@
  * Factory in the xcards4App.
  */
 angular.module('xcards4App')
-  .factory('CardService', function (Restangular) {
+  .factory('CardService', function (Restangular,Session,$modal) {
     var Card={};
     var CardAPI=Restangular.all('cards');
     return {
-      create:function(){
-        //return CardAPI.post({ca});
+      create:function(card){
+        return CardAPI.post({
+          settingId:card.id
+        });
       },
-      select:function(){
-        Card.selected=true;
-        return '';
+      crop:function(cardId,imageId,coords){
+        var data={
+          x: Math.round(coords.x),
+          y: Math.round(coords.y),
+          w: Math.round(coords.w),
+          h: Math.round(coords.h)
+        };
+        return Restangular.one('cards',cardId).one('images',imageId).get(data);
+      },
+      check:function(){
+        var self=this;
+        if(typeof Session.card !=='undefined'){
+
+        }else{
+          return self.prompt();
+        }
+      },
+      select:function(card){
+        Session.destroyCard();
+        return this.create(card).then(function(){
+          Session.saveCard(card);
+        });
       },
       prompt:function(){
         if(Card.selected!=='true'){
@@ -27,7 +48,6 @@ angular.module('xcards4App')
             size:'lg'
           });
         }
-        console.log(Card.selected);
       }
     };
   });

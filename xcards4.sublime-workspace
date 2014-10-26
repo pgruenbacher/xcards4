@@ -19,6 +19,54 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Gruntfile.js",
+			"settings":
+			{
+				"buffer_size": 13820,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dist/index.html",
+			"settings":
+			{
+				"buffer_size": 2336,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dist/views/front.html",
+			"settings":
+			{
+				"buffer_size": 3814,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/crop.html",
+			"settings":
+			{
+				"buffer_size": 358,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/directives/jcrop.js",
+			"settings":
+			{
+				"buffer_size": 2586,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/crop.js",
+			"settings":
+			{
+				"buffer_size": 758,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -44,14 +92,14 @@
 	},
 	"file_history":
 	[
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/dist/views/crop.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/dist/index.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/addressbook.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/upload.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressBook.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/dist/index.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/dist/views/crop.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/cloudsponge.js",
@@ -189,6 +237,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"compass",
+			"selected",
+			"func",
+			"apply",
+			"images",
+			"usemin",
+			"fonts",
+			"images",
+			"<",
+			"usemin",
+			"fonts",
 			"configuration",
 			"filerev",
 			"/images",
@@ -305,18 +364,7 @@
 			"EventSService",
 			"div",
 			"_authState",
-			"alreadyLogged",
-			"\"",
-			"this",
-			"watch",
-			"cb",
-			"createAccount",
-			"fns.user",
-			"user",
-			"$location",
-			"url",
-			"FB",
-			"FBU"
+			"alreadyLogged"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -334,8 +382,173 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Gruntfile.js",
+					"settings":
+					{
+						"buffer_size": 13820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1216,
+								1223
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 306.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dist/index.html",
+					"settings":
+					{
+						"buffer_size": 2336,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "dist/views/front.html",
+					"settings":
+					{
+						"buffer_size": 3814,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1014,
+								1020
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/views/crop.html",
+					"settings":
+					{
+						"buffer_size": 358,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								358,
+								358
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/scripts/directives/jcrop.js",
+					"settings":
+					{
+						"buffer_size": 2586,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1616,
+								1616
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/scripts/controllers/crop.js",
+					"settings":
+					{
+						"buffer_size": 758,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								725,
+								725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -381,16 +594,28 @@
 		"selected_items":
 		[
 			[
+				"controllers",
+				"app/scripts/controllers/crop.js"
+			],
+			[
+				"jcrop",
+				"app/scripts/directives/jcrop.js"
+			],
+			[
+				"front.h",
+				"app/views/front.html"
+			],
+			[
+				"index",
+				"app/index.html"
+			],
+			[
 				"gruntfile",
 				"Gruntfile.js"
 			],
 			[
 				"authservice",
 				"app/scripts/services/authservice.js"
-			],
-			[
-				"index",
-				"app/index.html"
 			],
 			[
 				"upload.html",
@@ -467,10 +692,6 @@
 			[
 				"constant",
 				"node_modules/karma/lib/constants.js"
-			],
-			[
-				"controllers",
-				"app/scripts/controllers/main.js"
 			],
 			[
 				"services",

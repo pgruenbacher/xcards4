@@ -65,7 +65,7 @@ angular.module('xcards4App')
 	      					var initialx1=boundx/6;
 	      					var initialy1=boundy/9;
 	      					var initialx2=boundx-(boundx/6);
-	      					var initialy2=(initialx2-initialx1)*(3.75/5.75);
+	      					var initialy2=(initialx2-initialx1)*(1/1.533);
                         	this.animateTo([initialx1,initialy1,initialx2,initialy2]);
                         });
                     }

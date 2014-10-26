@@ -3,7 +3,16 @@
 </div>
 <div class="modal-body">
 	<h1>We offer 4 x 6" postcards</h1>
-	<h3>
-	<img width="80%" src="images/postcard-printing.png"></img>
-	<button class="btn btn-primary btn-block">Sounds Good!</button>
+	<div class="row">
+		<div class="col-md-4">
+			<button class="btn btn-primary btn-block" ng-click="select({id:1})">Sounds Good!</button>
+			<div ng-click="select" class="card-select">
+				<img width="100%" src="images/postcard-printing.png"></img>
+			</div>
+		</div>
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
 </div>

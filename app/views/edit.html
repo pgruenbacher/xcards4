@@ -1,0 +1,18 @@
+<div class="row" style="min-height: 900px">
+	<div class="col-md-8">
+		<div class="card-wrapper">
+			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
+				<img ng-src="{{frontImage.url_path}}" width="100%">
+			</div>
+			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
+				<div class="back-edit-form">
+				    <div class="editor" ui-tinymce="tinymceOptions" ng-model="message"></div>
+					<!-- <summernote height="200px"></summernote> -->
+				</div>
+				<img src="images/blank-template.gif" width="100%">
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-default" ng-click="toggle()">Toggle</button>
+	<button class="btn btn-success" ng-click="continue()">Continue</button>
+</div>

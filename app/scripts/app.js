@@ -32,14 +32,14 @@ angular
     resolve:{
       user:function(AuthenticationService,Session,GuestService){
         return AuthenticationService.checkAuthentication().then(function(r){
-          if(typeof r.user !== 'undefined'){
+          if(r.valid){
             Session.create(r.user);
             return {user:r.user};
           }else{
-            GuestService.create().then(function(r){
+            GuestService.login(r.user,r.password).then(function(r){
               console.log('guest made',r);
-              Session.create(r.data.user);
-              return{user:r.data.user}
+              Session.create(r.user);
+              return{user:r.user};
             });
           }
         },function(error){
@@ -65,17 +65,17 @@ angular
   .state('main.upload',{
     url:'/upload',
     templateUrl:'views/upload.html',
-    controller:'UploadCtrl',
-    resolve:{
-      card:function(CardService){
-        return ' ';
-      }
-    }
+    controller:'UploadCtrl'
   })
   .state('main.crop',{
     url:'/crop',
     templateUrl:'views/crop.html',
     controller:'CropCtrl'
+  })
+  .state('main.edit',{
+    url:'/edit',
+    templateUrl:'views/edit.html',
+    controller:'EditCtrl'
   })
   .state('main.addressBook',{
     url:'/addressBook',

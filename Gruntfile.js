@@ -113,6 +113,9 @@ module.exports = function (grunt) {
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
+        globals: {
+          jquery: true
+        },
         jshintrc: '.jshintrc',
         reporter: require('jshint-stylish')
       },
@@ -165,7 +168,14 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath: /\.\.\//,
-        exclude:['blueimp-file-upload','blueimp-canvas-to-blob','blueimp-tmpl','blueimp-load-image']
+        exclude:[
+        /bower_components.bootstrap.dist.js.bootstrap.js/,
+        /bower_components.bootstrap.dist.css.bootstrap.css/,
+        'blueimp-file-upload',
+        'blueimp-canvas-to-blob',
+        'blueimp-tmpl',
+        'blueimp-load-image'
+        ]
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -432,6 +442,11 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: '.',
+          src: 'bower_components/tinymce/*',
           dest: '<%= yeoman.dist %>'
         }]
       },

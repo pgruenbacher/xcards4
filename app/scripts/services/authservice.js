@@ -8,20 +8,47 @@
  * Service in the xcards4App.
  */
 angular.module('xcards4App')
-.factory('GuestService', function($http, Session,API) {
+.factory('GuestService', function($http, $q, Session,API,Restangular,localStorageService,AuthenticationService,authService) {
   return{
-    create:function () {
-      return $http.get(API.domain+'/guest');
+    login: function(user,password) {
+      var tokenRequest=Restangular.oneUrl('oauth/access_token');
+      return tokenRequest.get({
+        'username':user.email,
+        'password':password,
+        'grant_type':'password',
+        'scope':'default',
+        'client_id':'123456',
+        'client_secret':'123456'
+      }).then(
+      function(data,status,headers,config){
+        console.log('guest login response',data);
+        if(AuthenticationService.saveAuthentication(user)){
+          console.log('saved guest, saved authentication token');
+        }else{
+          console.log('failed to save user');
+        }
+        localStorageService.set('access_token',data.access_token);
+        authService.loginConfirmed(data, function(config) {  // Step 2 & 3
+          config.headers.Authorization = data.access_token;
+          return config;
+        });
+        return user;
+      });
     }
   };
 })
 .factory('PermissionService', function($http, Session) {
 	var permissionService = {};
 	permissionService.isAuthenticated = function () {
-    if(Session.user !== null && typeof Session.user !== 'undefined' && Session.user.roles[0].type !== 'guest'){
-      return true;
-    }else{console.log(Session.user.roles.type);
-
+    if(typeof Session.user !== 'undefined'){
+      if(Session.user !== null && Session.user.roles[0].type !== 'guest'){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    else{
       return false;
     }
 	};
@@ -57,8 +84,21 @@ angular.module('xcards4App')
     if (localStorageService.get('user') !== null){
       self.user=localStorageService.get('user');
     }
+    if(localStorageService.get('card')!==null){
+      self.card=localStorageService.get('card');
+    }
   }
   init();
+  this.saveCard=function(card){
+    localStorageService.set('card',card);
+    self.card=card;
+    return true;
+  };
+  this.destroyCard=function(){
+    localStorageService.remove('card');
+    self.card=null;
+    return true;
+  };
   this.create = function (user) {
     localStorageService.set('user',user);
     self.user=user;
@@ -75,7 +115,6 @@ angular.module('xcards4App')
   return {
     login: function(user) {
       var self=this;
-      console.log('login');
       var tokenRequest=Restangular.oneUrl('oauth/access_token');
       tokenRequest.get({
         'username':user.email,
