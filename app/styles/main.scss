@@ -225,27 +225,28 @@ border-top-color: #468847;
 }
 /*********Flip Transition********/
 .card-wrapper>div{
+  z-index:20;
   position:relative;
   border: 1px rgba(0,0,0,.4) solid;
   background-color: white;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  padding: 6px;
+  padding: 10px;
   -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  .canvas{
+    position:absolute;
+  }
+  .front{
+    z-index:40;
+  }
 }
 .back-edit-form{
   position: absolute;
   top: 10px;
   left: 10px;
-  div.editor{
-    width: 340px;
-    height: 420px;
-    max-height:420px;
-    overflow:hidden;
-  }
 }
 .flip-horizontal{
   -webkit-transform: rotateY(0deg);

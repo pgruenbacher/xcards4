@@ -446,7 +446,12 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.',
-          src: 'bower_components/tinymce/*',
+          src: 'bower_components/tinymce/**/*',
+          dest: '<%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '.',
+          src: 'node_modules/rasterizehtml/dist/*',
           dest: '<%= yeoman.dist %>'
         }]
       },

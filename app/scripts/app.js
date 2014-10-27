@@ -20,7 +20,8 @@ angular
     'restangular',
   	'LocalStorageModule',
     'http-auth-interceptor',
-    'angularFileUpload'
+    'angularFileUpload',
+    'ui.brushes'
   ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider

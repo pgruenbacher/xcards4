@@ -69,6 +69,7 @@ angular.module('ui.tinymce', [])
         // extend options with initial uiTinymceConfig and options from directive attribute value
         angular.extend(options, uiTinymceConfig, expression);
         setTimeout(function () {
+          tinyMCE.baseURL = "bower_components/tinymce";
           tinymce.init(options);
         });
 

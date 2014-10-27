@@ -8,16 +8,16 @@
 			<img id="preview" src="{{trustSrc(imageUrl)}}" width="{{P.w}}px" height="{{P.h}}px"/>
 		</div>
 		<div class="preview-bar">
-			<span>Width: {{info.cords.w |number:0 }} px</span>
-			<span ng-class="{success: checkWidth(), danger: !checkWidth() }"> {{ checkWidth() ? 'good':'too small' }}</span>
-		</br>
-			<span>Height: {{info.cords.h |number:0 }} px</span>
-			<span ng-class="{success: checkHeight(), danger: !checkHeight() }"> {{ checkHeight() ? 'good':'too small' }}</span>
-		</br>
-			<span>Original Width: {{info.boundx |number:0 }} px</span>
-		</br>
-			<span>Original Height: {{info.boundy |number:0 }} px</span>
-		</br>
+			<p>
+				Width: {{info.cords.w |number:0 }} px
+				<span ng-class="{success: checkWidth(), danger: !checkWidth() }"> {{ checkWidth() ? 'good':'too small' }}</span>
+			</p>
+			<P>
+				Height: {{info.cords.h |number:0 }} px
+				<span ng-class="{success: checkHeight(), danger: !checkHeight() }"> {{ checkHeight() ? 'good':'too small' }}</span>
+			</p>
+			<P>Original Width: {{info.boundx |number:0 }} px</P>
+			<P>Original Height: {{info.boundy |number:0 }} px</P>
 			<button ng-click="continue()" class="btn btn-success">Continue</button>
 		</div>
 	</div>

@@ -1,18 +1,58 @@
-<div class="row" style="min-height: 900px">
+<div class="row" style="min-height:450px">
+	<div class="col-md-2">
+		<button ng-click="toggleMode()" class="btn btn-block btn-primary">{{mode=='text'?'draw signature':'edit text'}}
+		<button class="btn btn-block btn-danger" ng-click="clear('back')">Clear</button>
+		<select ng-model="brush1" class="form-control">
+			<option value="ribbon" default>Ribbon</option>
+			<option value="web">Web</option>
+		</select>
+	</div>
 	<div class="col-md-8">
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
+				<div class="canvas">
+					<canvas id="frontCanvas" class="backCanvas" width="780px" height="500px" brush="{{brush1}}" color="color1" canvas-brush="front"></canvas>
+				</div>
 				<img ng-src="{{frontImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
-				<div class="back-edit-form">
-				    <div class="editor" ui-tinymce="tinymceOptions" ng-model="message"></div>
-					<!-- <summernote height="200px"></summernote> -->
+				<div id="backEditor" class="back-edit-form" ng-class="{front:checkMode('text')}">
+					<div id="backEditor">
+						<style>
+							div.editor{
+								color:blue;
+								font-family:Helvetica;
+								display:inline-block;
+								line-height:1.43;
+								font-size:14px;
+								padding:0px;
+								margin:0px;
+							    width: 340px;
+							    height: 420px;
+							    max-height:420px;
+							    overflow:hidden;
+							    word-wrap:break-word;
+							  }
+							  svg{ font-kerning: normal; }
+							  p{
+							  	margin:0;
+							  	padding:0;
+							  }
+						  </style>
+					    <div class="editor" ui-tinymce="tinymceOptions" ng-model="message"></div>
+					</div>
+				</div>
+				<div class="canvas" ng-class="{front:checkMode('draw')}">
+					<canvas id="backCanvas" width="340px" height="420px" brush="{{brush1}}" color="color1" canvas-brush="back"></canvas>
 				</div>
 				<img src="images/blank-template.gif" width="100%">
 			</div>
 		</div>
 	</div>
-	<button class="btn btn-default" ng-click="toggle()">Toggle</button>
-	<button class="btn btn-success" ng-click="continue()">Continue</button>
+	<div class="col-md-2">
+		<button class="btn btn-block btn-default" ng-click="toggle()">Toggle</button>
+		<button class="btn btn-block btn-success" ng-click="continue()">Continue</button>
+		<button class="btn btn-block btn-default" ng-click="drawCanvas()">Draw Canvas</button>
+	</div>
 </div>
+<canvas id="trial" width="340px" height="420px"></canvas>
