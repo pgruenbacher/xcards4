@@ -10,6 +10,7 @@
 angular.module('xcards4App')
 .controller('CropCtrl',function($scope,Session,$sce,$state,$modal,CardService){
 	$scope.P={w:306,h:200};
+  $scope.loading=false;
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
@@ -62,14 +63,17 @@ angular.module('xcards4App')
     }
   };
   $scope.submit=function(){
+    $scope.loading=true;
     CardService.crop(Session.card.id,Session.card.original.id,$scope.info.cords).then(function(response){
       console.log(response);
       var card=Session.card;
       card.cropped=response.image;
+      $scope.loading=false;
       if(Session.saveCard(card)){
         $state.go('main.edit')
       }
     },function(error){
+      $scope.loading=false;
       console.log('could not connect error',error);
     });
   };

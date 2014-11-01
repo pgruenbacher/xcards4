@@ -20,7 +20,8 @@
     "angular-bootstrap": "~0.11.2",
     "blueimp-file-upload": "~9.8.0",
     "angular-file-upload": "~1.1.1",
-    "jcrop": "~0.9.12"
+    "jcrop": "~0.9.12",
+    "animate.css": "~3.2.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

@@ -1,0 +1,12 @@
+<div class="bentley-profile hidden">
+	<div class="speech-bubble-container">
+		<div class="speech-bubble right">
+			<p>{{bentley.message}}</p>
+			<button ng-if="bentley.button" ng-click="call(bentley.buttonFunction)" class="btn btn-primary">{{bentley.buttonMessage}}</button>
+		</div>
+	</div>
+	<div class="bentley-close">
+		<button class"btn btn-default" ng-click="close('bye!')"><i class="fa fa-times"></i></button>
+	</div>
+	<img class="img-circle" src="images/bentleyProfile.jpg"></img>
+</div>

@@ -11,39 +11,70 @@
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
 				<div class="canvas">
-					<canvas id="frontCanvas" class="backCanvas" width="780px" height="500px" brush="{{brush1}}" color="color1" canvas-brush="front"></canvas>
+					<div id="backEditorMCE1" class="back-edit-form" ng-class="{front:checkMode('text')}">
+						<div id="frontEditor">
+							<link rel="stylesheet" href="styles/custom.css"></link>
+							<style>
+								div.editor-front{
+									color:white;
+									font-family:'big_johnregular';
+									display:inline-block;
+									line-height:1;
+									font-size:22px;
+									padding:0px;
+									margin:0px;
+								    width: 728px;
+								    height: 475px;
+								    max-height:420px;
+								    overflow:hidden;
+								    word-wrap:break-word;
+								  }
+								  .editor-front>*{
+								  	text-transform:uppercase;
+								  	padding:0.5rem;
+								  	display: inline;
+								  }
+							  </style>
+						    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
+						</div>
+					</div>
+					<div class="canvas" ng-class="{front:checkMode('draw')}">
+						<canvas id="frontCanvas" width="728px" height="475px" brush="{{brush1}}" color="color1" canvas-brush="front"></canvas>
+					</div>
 				</div>
 				<img ng-src="{{frontImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
-				<div id="backEditor" class="back-edit-form" ng-class="{front:checkMode('text')}">
+				<div id="backEditorMCE2" class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div id="backEditor">
+						<link rel="stylesheet" href="styles/custom.css"></link>
 						<style>
-							div.editor{
-								color:blue;
+							div.editor-back{
+								color:;
 								font-family:Helvetica;
 								display:inline-block;
-								line-height:1.43;
-								font-size:14px;
+								line-height:2;
+								font-size:16px;
 								padding:0px;
 								margin:0px;
 							    width: 340px;
 							    height: 420px;
-							    max-height:420px;
 							    overflow:hidden;
 							    word-wrap:break-word;
 							  }
 							  svg{ font-kerning: normal; }
-							  p{
+							  .editor-back>p{
 							  	margin:0;
 							  	padding:0;
 							  }
 						  </style>
-					    <div class="editor" ui-tinymce="tinymceOptions" ng-model="message"></div>
+					    <div class="editor-back" ui-tinymce="tinymceOptionsBack" ng-model="messageBack"></div>
 					</div>
 				</div>
 				<div class="canvas" ng-class="{front:checkMode('draw')}">
-					<canvas id="backCanvas" width="340px" height="420px" brush="{{brush1}}" color="color1" canvas-brush="back"></canvas>
+					<div style="width:340px; height:420px;">
+						<canvas ratio="2" id="backCanvas" style="width:340px; height:420px;" width="680px" height="840px" brush="{{brush1}}" color="color1" canvas-brush="back"></canvas>
+					</div>
 				</div>
 				<img src="images/blank-template.gif" width="100%">
 			</div>
@@ -55,4 +86,4 @@
 		<button class="btn btn-block btn-default" ng-click="drawCanvas()">Draw Canvas</button>
 	</div>
 </div>
-<canvas id="trial" width="340px" height="420px"></canvas>
+<canvas id="trialcanvas"></canvas>

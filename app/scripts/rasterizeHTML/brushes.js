@@ -132,11 +132,12 @@ angular.module('ui.brushes', [])
     return {
         scope:{
             brush:'@',
-            color:'='
+            color:'=',
+            ratio:'@',
         },
         restrict:'A',
         link: function (scope, element, attrs, ngModel) {
-            const BRUSHES = ['ribbon'],
+            var BRUSHES = ['ribbon'],
             USER_AGENT = navigator.userAgent.toLowerCase();
             var CANVAS_WIDTH = element[0].clientWidth,
             BRUSH='ribbon',
@@ -149,11 +150,13 @@ angular.module('ui.brushes', [])
             saveTimeOut,
             wacom,
             i,
+            container,
             lastX,
             lastY,
             mouseX = 0,
             mouseY = 0,
             container,
+            ratio=1,
             canvas,
             flattenCanvas,
             context,
@@ -170,18 +173,21 @@ angular.module('ui.brushes', [])
                 var hash, palette, embed;
                 if (USER_AGENT.search('android') > -1 || USER_AGENT.search('iphone') > -1)
                     BRUSH_SIZE = 2;    
-                    
                 if (USER_AGENT.search('safari') > -1 && USER_AGENT.search('chrome') == -1) // Safari
                     STORAGE = false;
                 canvas=element[0];
+                container=element.parent()[0];
+                if(typeof scope.ratio!=='undefined'){
+                    ratio=scope.ratio;
+                }
                 context = canvas.getContext('2d');
                 if (BRUSHES.indexOf(BRUSH)!==-1){
                     brush = eval('new ' + BRUSH + '(context,constants)');
                 }
-                canvas.addEventListener('mousemove', onMouseMove, false);
-                canvas.addEventListener('mouseout', onCanvasMouseOut, false);
-                canvas.addEventListener('mousedown', onCanvasMouseDown, false);
-                canvas.addEventListener('touchstart', onCanvasTouchStart, false);
+                container.addEventListener('mousemove', onMouseMove, false);
+                container.addEventListener('mouseout', onCanvasMouseOut, false);
+                container.addEventListener('mousedown', onCanvasMouseDown, false);
+                container.addEventListener('touchstart', onCanvasTouchStart, false);
                 scope.$on('clear',onMenuClear);
                 attrs.$observe('brush',function(value){
                     BRUSH=value;
@@ -202,8 +208,8 @@ angular.module('ui.brushes', [])
                     lastX = event.layerX - event.currentTarget.offsetLeft;
                     lastY = event.layerY - event.currentTarget.offsetTop;
                 } 
-                mouseX = lastX;
-                mouseY = lastY;
+                mouseX = lastX*ratio;
+                mouseY = lastY*ratio;
             }
             // DOCUMENT
             function onCanvasMouseOut( event ){
@@ -227,9 +233,9 @@ angular.module('ui.brushes', [])
                     lastX = event.layerX - event.currentTarget.offsetLeft;
                     lastY = event.layerY - event.currentTarget.offsetTop;
                 } 
-                brush.strokeStart( lastX, lastY );
-                canvas.addEventListener('mousemove', onCanvasMouseMove, false);
-                canvas.addEventListener('mouseup', onCanvasMouseUp, false);
+                brush.strokeStart( lastX*ratio, lastY*ratio );
+                container.addEventListener('mousemove', onCanvasMouseMove, false);
+                container.addEventListener('mouseup', onCanvasMouseUp, false);
             }
             function onCanvasMouseMove( event ){
                 if(event.offsetX!==undefined){
@@ -239,12 +245,12 @@ angular.module('ui.brushes', [])
                     lastX = event.layerX - event.currentTarget.offsetLeft;
                     lastY = event.layerY - event.currentTarget.offsetTop;
                 }    
-                brush.stroke( lastX, lastY );
+                brush.stroke( lastX*ratio, lastY*ratio );
             }
             function onCanvasMouseUp(){
                 brush.strokeEnd();
-                canvas.removeEventListener('mousemove', onCanvasMouseMove, false);
-                canvas.removeEventListener('mouseup', onCanvasMouseUp, false);
+                container.removeEventListener('mousemove', onCanvasMouseMove, false);
+                container.removeEventListener('mouseup', onCanvasMouseUp, false);
                 
             }
             function onCanvasTouchStart( event ){
@@ -256,8 +262,8 @@ angular.module('ui.brushes', [])
                     
                     brush.strokeStart( event.touches[0].pageX, event.touches[0].pageY );
                     
-                    canvas.addEventListener('touchmove', onCanvasTouchMove, false);
-                    canvas.addEventListener('touchend', onCanvasTouchEnd, false);
+                    container.addEventListener('touchmove', onCanvasTouchMove, false);
+                    container.addEventListener('touchend', onCanvasTouchEnd, false);
                 }
             }
             function onCanvasTouchMove( event ){
@@ -274,8 +280,8 @@ angular.module('ui.brushes', [])
                     
                     brush.strokeEnd();
 
-                    canvas.removeEventListener('touchmove', onCanvasTouchMove, false);
-                    canvas.removeEventListener('touchend', onCanvasTouchEnd, false);
+                    container.removeEventListener('touchmove', onCanvasTouchMove, false);
+                    container.removeEventListener('touchend', onCanvasTouchEnd, false);
                 }
             }
             function onMenuClear()

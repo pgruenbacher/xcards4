@@ -46,7 +46,7 @@ angular.module('ui.tinymce', [])
               if(!options.inline){
                 ed.save();
               }
-              if(elm.context.scrollHeight>elm.context.offsetHeight){
+              if(elm.context.scrollHeight>elm.context.offsetHeight &&(e.keyCode!==46)&&e.keyCode!==8){
                 ed.undoManager.undo();
               }
               updateView();

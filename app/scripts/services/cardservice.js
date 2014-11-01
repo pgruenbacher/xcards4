@@ -8,13 +8,14 @@
  * Factory in the xcards4App.
  */
 angular.module('xcards4App')
-  .factory('CardService', function (Restangular,Session,$modal) {
+  .factory('CardService', function ($q,Restangular,Session,$modal) {
     var Card={};
     var CardAPI=Restangular.all('cards');
     return {
       create:function(card){
+        console.log('create',card);
         return CardAPI.post({
-          settingId:card.id
+          settingId:card.settingId
         });
       },
       crop:function(cardId,imageId,coords){
@@ -27,27 +28,45 @@ angular.module('xcards4App')
         return Restangular.one('cards',cardId).one('images',imageId).get(data);
       },
       check:function(){
+        var deferred=$q.defer();
+        var promise=deferred.promise;
+        console.log('check');
         var self=this;
         if(typeof Session.card !=='undefined'){
-
+           deferred.resolve(Session.card);
         }else{
-          return self.prompt();
+          console.log('prompt');
+          self.prompt().then(function(card){
+            console.log('resolved check',card);
+            deferred.resolve(card);
+          },function(){
+            deferred.reject('prompt dismissed');
+          });
         }
+        return deferred.promise;
       },
       select:function(card){
         Session.destroyCard();
-        return this.create(card).then(function(){
-          Session.saveCard(card);
+        return this.create(card).then(function(response){
+          if(response.card){
+            Session.saveCard(response.card);
+          }
         });
       },
       prompt:function(){
-        if(Card.selected!=='true'){
-          return $modal.open({
-            templateUrl:'views/partials/cardModal.html',
-            controller:'CardsModalCtrl',
-            size:'lg'
-          });
-        }
+        var deferred=$q.defer();
+        var selectModal=$modal.open({
+          templateUrl:'views/partials/cardModal.html',
+          controller:'CardsModalCtrl',
+          size:'lg'
+        });
+        selectModal.result.then(function(){
+          console.log('resolve modal',Session.card);
+          deferred.resolve(Session.card);
+        },function(){
+          deferred.reject('modal dismissed');
+        });
+        return deferred.promise;
       }
     };
   });

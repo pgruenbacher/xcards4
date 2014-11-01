@@ -25,14 +25,21 @@ angular
   ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
+  .state('app',{
+    abstract:true,
+    controller:'AppCtrl',
+    templateUrl:'views/app.html'
+  })
   .state('main',{
-  	url:'',
+    parent:'app',
     abstract:true,
     templateUrl:'views/main.html',
     controller:'MainCtrl',
     resolve:{
       user:function(AuthenticationService,Session,GuestService){
+        //$scope.globalLoading=true;
         return AuthenticationService.checkAuthentication().then(function(r){
+          //$scope.globalLoading=false;
           if(r.valid){
             Session.create(r.user);
             return {user:r.user};
@@ -66,7 +73,16 @@ angular
   .state('main.upload',{
     url:'/upload',
     templateUrl:'views/upload.html',
-    controller:'UploadCtrl'
+    controller:'UploadCtrl',
+    resolve:{
+      card:function(CardService){
+        console.log('resolve');
+        return CardService.check().then(function(card){
+          console.log('resolve controller',card);
+          return card;
+        });
+      }
+    }
   })
   .state('main.crop',{
     url:'/crop',

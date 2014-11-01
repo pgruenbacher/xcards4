@@ -9,7 +9,7 @@
  */
 angular.module('xcards4App')
   .controller('CardsModalCtrl', function ($scope,CardService,$modalInstance) {
-  	$scope.cards=[{id:1}];
+  	$scope.cards=[{settingId:1}];
   	$scope.select=function(card){
   		CardService.select(card).then(function(){
   			$scope.close();

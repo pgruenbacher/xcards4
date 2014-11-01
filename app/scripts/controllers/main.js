@@ -8,6 +8,12 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
+.controller('AppCtrl',function($scope,HelpService){
+  $scope.message={};
+  $scope.help=function(name,options){
+    $scope.bentley=HelpService.name(name);
+  };
+})
 .controller('MainCtrl', function ($scope,$state,$modal,user,UserService,AuthenticationService,PermissionService) {
   // $scope.currentUser = null;
   // $scope.userRoles = USER_ROLES;
@@ -15,6 +21,7 @@ angular.module('xcards4App')
   // $scope.setCurrentUser = function (user) {
   //   $scope.currentUser = user;
   // };
+  $scope.help('intro');
   $scope.root={};
   $scope.root.user=user;
   $scope.checkIfAuthenticated=function(){

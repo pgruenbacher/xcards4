@@ -8,11 +8,12 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('UploadCtrl', function ($scope,FileUploader,API,PermissionService,AuthenticationService,$http,$state,Session,CardService) {
-	CardService.check();
+.controller('UploadCtrl', function ($scope,FileUploader,API,PermissionService,AuthenticationService,$http,$state,Session,CardService,card) {
 	$scope.uploadStatus=null;
-	var cardId=Session.card.id;
-	var route='/cards/'+cardId+'/images';
+	$scope.loading=false;
+	console.log(card);
+	var cardId=card.id;
+	var route='/cards/'+card.id+'/images';
 	var accessToken=AuthenticationService.getAccessToken();
 	var ImageUploader=$scope.ImageUploader= new FileUploader({
 		url: API.domain+route,
@@ -28,9 +29,14 @@ angular.module('xcards4App')
 		}
 	});
 	ImageUploader.onAfterAddingFile = function(fileItem) {
+		$scope.loading=true;
 		fileItem.upload();
 	};
+	ImageUploader.onErrorItem=function(item,response,status,headers){
+		$scope.loading=false;
+	};
 	ImageUploader.onSuccessItem=function(item, response, status, headers){
+		$scope.loading=false;
 		var card=Session.card;
 		card.original=response.image;
 		Session.saveCard(card);
