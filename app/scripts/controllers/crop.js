@@ -14,7 +14,7 @@ angular.module('xcards4App')
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
-  $scope.imageUrl=Session.card.original.url_path;
+  $scope.imageUrl=Session.card.originalImage.url_path;
   console.log($scope.imageUrl);
   $scope.info={cords:{w:0,h:0}};
   $scope.checkHeight=function(){
@@ -64,10 +64,10 @@ angular.module('xcards4App')
   };
   $scope.submit=function(){
     $scope.loading=true;
-    CardService.crop(Session.card.id,Session.card.original.id,$scope.info.cords).then(function(response){
+    CardService.crop(Session.card.id,Session.card.originalImage.id,$scope.info.cords).then(function(response){
       console.log(response);
       var card=Session.card;
-      card.cropped=response.image;
+      card.croppedImage=response.image;
       $scope.loading=false;
       if(Session.saveCard(card)){
         $state.go('main.edit')

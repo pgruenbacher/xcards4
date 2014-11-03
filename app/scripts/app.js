@@ -21,7 +21,8 @@ angular
   	'LocalStorageModule',
     'http-auth-interceptor',
     'angularFileUpload',
-    'ui.brushes'
+    'ui.brushes',
+    'angularPayments'
   ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -93,6 +94,30 @@ angular
     url:'/edit',
     templateUrl:'views/edit.html',
     controller:'EditCtrl'
+  })
+  .state('main.recipients',{
+    url:'/recipients',
+    templateUrl:'views/recipients.html',
+    controller:'RecipientsCtrl'
+  })
+  .state('main.preview',{
+    url:'/preview',
+    templateUrl:'views/preview.html',
+    controller:'PreviewCtrl',
+    resolve:{
+      card:function(CardService,Session){
+        return CardService.get(Session.card.id).then(function(response){
+          console.log('resolved card',response.card);
+          return response.card;
+        });
+      },
+      pricings:function(Restangular){
+        return Restangular.all('pricings').getList().then(function(response){
+          console.log('pricings',response);
+          return response;
+        });
+      }
+    }
   })
   .state('main.addressBook',{
     url:'/addressBook',

@@ -1,0 +1,61 @@
+<div class="inline-row">
+	<h1>Choose who you will send to</h1>
+	<button ng-click="continue()" class="btn btn-primary" ng-show="selected.length>0">
+		Continue 
+		<i class="fa fa-chevron-right"></i>
+		<i class="fa fa-chevron-right"></i>
+		<i class="fa fa-chevron-right"></i>
+	</button>
+</div>
+<div class="row">
+	<div class="col-sm-4">
+		<h3>My Selected Recipients</h3>
+		<table class="table table-hover table-striped table-condensed">
+			<tbody>
+				<tr ng-repeat="address in selected">
+					<td style="cursor:pointer;" ng-click="select(address)">{{address.address| limitTo: 20}}{{(address.address.length >=20)?'...':''}}</td>
+					<td style="cursor:pointer;" ng-click="select(address)">{{address.name}}</td>
+					<!-- <td>{{address.email}}</td>
+					<td>{{address.number}}</td> -->
+					<td><i class="fa fa-times"></i></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="col-sm-8">
+		<h3>My Current Addresses</h3>
+		<div ng-controller="AddressBookCtrl" style="max-height: 500px; overflow-y:auto">
+			<table class="table table-hover table-condensed">
+				<div class="title">
+					<a ng-click="openModal('create')">Create Address</a>
+					<a ng-click="openImport('email')">Import Addresses</a>
+				</div>
+				<thead>
+					<tr>
+						<th>Address</th>
+						<th>Name</th>
+						<!-- <th>Email</th>
+						<th>Number</th> -->
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody class="address-book-selection">
+					<tr ng-repeat="address in addresses" ng-class="{'highlight':isSelected(address.id)}">
+						<td style="cursor:pointer;" ng-click="select(address)">{{address.address}}</td>
+						<td style="cursor:pointer;" ng-click="select(address)">{{address.name}}</td>
+						<!-- <td>{{address.email}}</td>
+						<td>{{address.number}}</td> -->
+						<td>
+							<a style="cursor:pointer;" ng-click="openModal('edit',{{$index}})">
+								<i class="fa fa-pencil"></i>Edit
+							</a>
+							<a style="cursor:pointer;">
+								<i class="fa fa-times"></i>Delete
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

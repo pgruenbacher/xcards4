@@ -170,6 +170,9 @@ width: auto;
 .combobox-selected .caret {
 display: none;
 }
+.combobox:disabled{
+  background:#EBEBE4;
+}
 /* :not doesn't work in IE8 */
 .combobox-container:not(.combobox-selected) .glyphicon-remove {
 display: none;
@@ -451,4 +454,47 @@ border-top-color: #468847;
   position:absolute;
   right: 120px;
   bottom: 20px;
+}
+
+.address-book-selection{
+  tr.highlight>td{
+    background-color:#66CCFF;
+  }
+  tr.highlight:hover>td{
+    background-color:#66CCFF;
+  }
+}
+.ng-invalid {
+  border-color: #f00 !important;
+}
+.credit-card{
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: 98% 50%;
+}
+.visa {
+  background-image: image-url('credit-cards/visa.jpg');
+  
+}
+.jcb{
+  background-image: image-url('credit-cards/jcb.jpg');
+
+}
+.dinersclub{
+  background-image: image-url('credit-cards/dinersClub.jpg');
+
+}
+.maestro{
+  background-image: image-url('credit-cards/maestro.jpg');
+}
+.amex {
+  background-image: image-url('credit-cards/americanExpress.jpg');
+}
+
+.mastercard {
+  background-image: image-url('credit-cards/masterCard.jpg');
+}
+
+.discover {
+  background-image: image-url('credit-cards/discover.jpg');
 }

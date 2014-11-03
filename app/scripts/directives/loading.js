@@ -9,12 +9,12 @@
 angular.module('xcards4App')
 .directive('loadingBunny', function ($location) {
   return {
-    template: '<div><img width="auto" src="images/bunny-loading.gif"/></div>',
+    template: '<div><img width="auto" src="images/bunny-loading.gif"/><p>{{message}}</p></div>',
     restrict: 'E',
-    scope:{'loadingScope':'='},
+    scope:{'loadingScope':'=','message':'@'},
     link: function link(scope, element, attrs) {
       scope.$watch('loadingScope',function(val){
-        if(val===true){
+        if(val){
           angular.element(element).show();
         }else{
           angular.element(element).hide();

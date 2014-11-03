@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars*/
 /**
  * @ngdoc service
  * @name xcards4App.cardService
@@ -8,7 +8,7 @@
  * Factory in the xcards4App.
  */
 angular.module('xcards4App')
-  .factory('CardService', function ($q,Restangular,Session,$modal) {
+  .factory('CardService', function ($q,Restangular,Session,$modal,localStorageService) {
     var Card={};
     var CardAPI=Restangular.all('cards');
     return {
@@ -26,6 +26,9 @@ angular.module('xcards4App')
           h: Math.round(coords.h)
         };
         return Restangular.one('cards',cardId).one('images',imageId).get(data);
+      },
+      get:function(cardId){
+        return Restangular.one('cards',cardId).get();
       },
       check:function(){
         var deferred=$q.defer();
@@ -52,6 +55,17 @@ angular.module('xcards4App')
             Session.saveCard(response.card);
           }
         });
+      },
+      createRecipients:function(cardId,selected){
+        return Restangular.one('cards',cardId).all('addresses').post({recipients:selected});
+      },
+      postMessage:function(cardId,imageId,data){
+        console.log('message',cardId,imageId,data);
+        return Restangular.one('cards',cardId).one('images',imageId).all('message')
+        .withHttpConfig({
+          transformRequest: angular.identity
+        })
+        .post(data,{}, {'Content-Type': undefined,'Authorization':localStorageService.get('access_token')});
       },
       prompt:function(){
         var deferred=$q.defer();

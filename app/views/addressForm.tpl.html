@@ -1,17 +1,28 @@
 <div class="combobox-container">
     <div class="input-group">
-        <input autocomplete="on" type="text" ng-change="getAddresses(addressInput)" class=" combobox form-control" id="AddressLine1" placeholder="Enter Address Line 1" ng-model="addressInput">
-        <ul class="dropdown-menu" ng-class="{typeahead:addresses.length>1,'typeahead-long':addresses.length>5}" style="top: 40px; left:0px">
-            <li data-animation="am-flip-x" ng-repeat="address in addresses">
-                {{address.text}}
+        <label>Address</label>
+        <div style="position:relative; width:auto; height:auto;">
+            <span class="fa-stack fa-lg" style="position:absolute; left: 90%; top: -10px; z-index:40;" ng-show="validated">
+              <i style="color:#33ff33;" class="fa fa-circle fa-stack-2x"></i>
+              <i style="color:green;" class="fa fa-check fa-stack-1x"></i>
+            </span>
+            <span class="fa-stack fa-lg" style="position:absolute; left: 90%; top: -10px; z-index:40;" ng-show="notValidated">
+              <i style="color:#ff6666;" class="fa fa-circle fa-stack-2x"></i>
+              <i style="color:red;" class="fa fa-exclamation fa-stack-1x"></i>
+            </span>
+            <textarea style="z-index:30;" autocomplete="on" type="text" ng-change="getAddresses(addressInput)" class="combobox form-control" id="AddressLine1" ng-class="{'validated':validated}" ng-disabled="disable" placeholder="Enter Address Line 1" ng-model="addressInput"></textarea>
+        </div>
+        <ul ng-show="!validated" class="dropdown-menu" ng-class="{typeahead:suggestions.length>1,'typeahead-long':suggestions.length>5}" style="">
+            <li data-animation="am-flip-x" ng-click="selectSuggestion(suggestion.text)" ng-repeat="suggestion in suggestions">
+                {{suggestion.text}}
             </li>
         </ul>
     </div>
 </div>
-<div class="form-group">
+<!-- <div class="form-group">
     <input autocomplete="on" type="text" disabled ng-change="getAddresses(addressInput)" class="form-control" id="AddressLine1" placeholder="Enter Address Line 1" ng-model="address.street_line">
-</div>
-<div class="form-group">
+</div> -->
+<!-- <div class="form-group">
     <label for="AddressLine2">Address Line 2</label>
     <input autocomplete="on" type="text" class="form-control" id="AddressLine2" placeholder="Enter Address Line 2"
            ng-model="address.addressLine2">
@@ -82,5 +93,5 @@
     <label for="Zip Code">Zip Code</label>
     <input autocomplete="on" type="text" class="form-control" id="Zip Code" placeholder="Zip Code"
            ng-model="address.zipCode">
-</div>
+</div> -->
 

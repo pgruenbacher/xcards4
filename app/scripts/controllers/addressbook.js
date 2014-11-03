@@ -57,16 +57,18 @@ angular.module('xcards4App')
 	$scope.title=mode;
 	$scope.mode=mode;
 	$scope.address=address;
-	$scope.validated={};
 	$scope.save=function(address){
+    address.number=address.number.replace(/\D/g,'');
 		AddressService.put(address).then(function(response){
-			$state.go('main.addressBook',{}, {reload: true, inherit: false});
+			$state.go($state.current,{}, {reload: true, inherit: false});
 			$modalInstance.close();
 		});
 	};
 	$scope.create=function(address){
+    address.number=address.number.replace(/\D/g,'');
+    console.log($scope.address.number);
 		AddressService.create(address).then(function(response){
-			$state.go('main.addressBook',{},{reload: true, inherit: false});
+			$state.go($state.current,{},{reload: true, inherit: false});
 			$modalInstance.close();
 		});
 	};

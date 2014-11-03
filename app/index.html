@@ -93,6 +93,7 @@
     <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-file-upload/angular-file-upload.js"></script>
+    <script src="bower_components/angular-payments/lib/angular-payments.js"></script>
     <!-- endbower -->
     <script type="text/javascript" src="bower_components/tinymce/tinymce.js"></script>
     <!--<script src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/2.4/jquery.liveaddress.min.js"></script>-->
@@ -101,6 +102,8 @@
     <!-- Include the script at the end of the body section -->
     <script type="text/javascript" src="//api.cloudsponge.com/address_books.js"></script>
     <!-- endbuild -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>Stripe.setPublishableKey('pk_test_5cjIWWuGdWCAFftp2SLoyGwb');</script>
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
@@ -130,6 +133,10 @@
         <script src="scripts/directives/loading.js"></script>
         <script src="scripts/directives/bentley.js"></script>
         <script src="scripts/services/helpservice.js"></script>
+        <script src="scripts/controllers/recipients.js"></script>
+        <script src="scripts/filters/filters.js"></script>
+        <script src="scripts/controllers/preview.js"></script>
+        <script src="scripts/controllers/paymentmodal.js"></script>
         <!-- endbuild -->
         <script>
         var csPageOptions = {

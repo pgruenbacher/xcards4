@@ -1,3 +1,4 @@
+<loading-bunny loading-scope="loading" message="{{loadingMessage}}" backdrop="true"></loading-bunny>
 <div class="row" style="min-height:450px">
 	<div class="col-md-2">
 		<button ng-click="toggleMode()" class="btn btn-block btn-primary">{{mode=='text'?'draw signature':'edit text'}}
@@ -10,42 +11,41 @@
 	<div class="col-md-8">
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
-				<div class="canvas">
-					<div id="backEditorMCE1" class="back-edit-form" ng-class="{front:checkMode('text')}">
-						<div id="frontEditor">
-							<link rel="stylesheet" href="styles/custom.css"></link>
-							<style>
-								div.editor-front{
-									color:white;
-									font-family:'big_johnregular';
-									display:inline-block;
-									line-height:1;
-									font-size:22px;
-									padding:0px;
-									margin:0px;
-								    width: 728px;
-								    height: 475px;
-								    max-height:420px;
-								    overflow:hidden;
-								    word-wrap:break-word;
-								  }
-								  .editor-front>*{
-								  	text-transform:uppercase;
-								  	padding:0.5rem;
-								  	display: inline;
-								  }
-							  </style>
-						    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
-						</div>
+				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
+					<div id="frontEditor">
+						<link rel="stylesheet" href="styles/custom.css"></link>
+						<style>
+							div.editor-front{
+								color:white;
+								font-family:'big_johnregular';
+								display:inline-block;
+								line-height:1;
+								font-size:22px;
+								padding:0px;
+								margin:0px;
+							    width: 728px;
+							    height: 475px;
+							    overflow:hidden;
+							    word-wrap:break-word;
+							  }
+							  .editor-front>*{
+							  	text-transform:uppercase;
+							  	padding:0.5rem;
+							  	display: inline;
+							  }
+						  </style>
+					    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
 					</div>
-					<div class="canvas" ng-class="{front:checkMode('draw')}">
-						<canvas id="frontCanvas" width="728px" height="475px" brush="{{brush1}}" color="color1" canvas-brush="front"></canvas>
+				</div>
+				<div class="canvas" ng-class="{front:checkMode('draw')}">
+					<div style="width:728px; height:475px;">
+						<canvas id="frontCanvas" style="width:728px; height:475px;" width="1456px" height="950px" brush="{{brush1}}" ratio="2" color="color1" canvas-brush="front"></canvas>
 					</div>
 				</div>
 				<img ng-src="{{frontImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
-				<div id="backEditorMCE2" class="back-edit-form" ng-class="{front:checkMode('text')}">
+				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div id="backEditor">
 						<link rel="stylesheet" href="styles/custom.css"></link>
 						<style>
@@ -86,4 +86,5 @@
 		<button class="btn btn-block btn-default" ng-click="drawCanvas()">Draw Canvas</button>
 	</div>
 </div>
-<canvas id="trialcanvas"></canvas>
+<!-- <canvas id="trialcanvas"></canvas>
+<canvas id="frontTrialCanvas"></canvas> -->
