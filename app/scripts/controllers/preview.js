@@ -8,10 +8,15 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('PreviewCtrl',function($scope,card,pricings,Session,$sce,$state,$modal,CardService, Restangular){
+.controller('PreviewCtrl',function($scope,card,pricings,Session,$sce,$state,$modal,CardService, CreditService, Restangular){
   $scope.card=card;
   $scope.user=Session.user;
   $scope.side=true;
+  $scope.loading=false;
+  //Pass this function to the modal
+  $scope.loadingFunc=function(bool){
+    $scope.loading=bool;
+  };
   var discount=$scope.discount=0;
   var number=$scope.number=card.recipients.length;
   for(var i; i<pricings.length;i++){
@@ -19,16 +24,37 @@ angular.module('xcards4App')
       discount=$scope.discount=pricings[i].discount;
     }
   }
+  var creditRate=$scope.creditRate=card.cardSetting.credit_rate;
+  var creditCost=$scope.creditCost=number*creditRate;
   var totalCost=$scope.totalCost=number*card.cardSetting.dollar_rate;
   var finalCost=$scope.finalCost=totalCost-number*discount;
+  $scope.affordable=Session.user.credits >= creditCost;
   $scope.toggle=function(){
     $scope.side=!$scope.side;
   };
+  $scope.useCredits=function(){
+    console.log('use credits');
+    $scope.loading=true;
+    CreditService.useCredits(card.id).then(function(response){
+      $scope.loading=false;
+      console.log(response);
+    },function(){
+      $scope.loading=false;
+    })
+  }
   $scope.openPayment=function(){
     $modal.open({
       templateUrl:'views/partials/paymentModal.html',
       size:'sm',
-      controller:'PaymentModalCtrl'
+      controller:'PaymentModalCtrl',
+      resolve:{
+        card:function(){
+          return card;
+        },
+        loadingFunc:function(){
+          return $scope.loadingFunc;
+        }
+      }
     });
   };
 });

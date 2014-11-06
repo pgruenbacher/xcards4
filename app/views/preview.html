@@ -1,3 +1,4 @@
+<loading-bunny backdrop="true" loading-scope="loading"></loading-bunny>
 <div class="row">
 	<div class="col-sm-6">
 		<h3>My Selected Recipients</h3>
@@ -18,13 +19,22 @@
 				<p>Tentative Report</p>
 			</div>
 			<div class="panel-body">
-				<p >Your Current Credits:<span>{{user.credits}}</span></p>
-				<p><a href="">Buy bulk credits</a></p>
+				<p >
+					Your Current Credits:<span>{{user.credits}}   </span>
+					<span><a href="">Buy bulk credits</a></span>
+				</p>
 				<p>Cards to be sent <span>{{number}}</span></p>
-				<p>At  dollars per card:<span>${{card.cardSetting.dollar_rate}}</span></p>
-				<p>Minus {{discount}} bulk discount <span>- ${{number*discount}}</span></p>
-				<p>Total Cost <span>${{totalCost}}</span></p>
-				<button ng-click="openPayment()" class="btn btn-primary">Pay</button>
+				<div ng-show="!affordable">
+					<p>At ${{card.cardSetting.dollar_rate}} dollars per card:<span>${{totalCost}}</span></p>
+					<p>Minus {{discount}} bulk discount <span>- ${{number*discount}}</span></p>
+					<p>Total Cost <span>${{totalCost}}</span></p>
+					<button ng-click="openPayment()" class="btn btn-primary">Pay</button>
+				</div>
+				<div ng-show="affordable">
+					<p>At {{creditRate}} credits per card:<span> {{totalCredits}}</span></p>
+					<p>Use {{totalCredits}} total credits</p>
+					<button ng-click="useCredits()" class="btn btn-primary">Pay</button>
+				</div>
 			</div>
 		</div>
 	</div>

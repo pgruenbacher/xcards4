@@ -108,6 +108,7 @@ angular
       card:function(CardService,Session){
         return CardService.get(Session.card.id).then(function(response){
           console.log('resolved card',response.card);
+          Session.saveCard(response.card);
           return response.card;
         });
       },
