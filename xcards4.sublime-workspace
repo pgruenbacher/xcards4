@@ -20,50 +20,10 @@
 	"buffers":
 	[
 		{
-			"file": "app/styles/main.scss",
-			"settings":
-			{
-				"buffer_size": 10566,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/scripts/controllers/preview.js",
 			"settings":
 			{
-				"buffer_size": 1015,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/preview.html",
-			"settings":
-			{
-				"buffer_size": 1885,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/views/partials/paymentModal.html",
-			"settings":
-			{
-				"buffer_size": 1086,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/index.html",
-			"settings":
-			{
-				"buffer_size": 8204,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/scripts/controllers/paymentModal.js",
-			"settings":
-			{
-				"buffer_size": 693,
+				"buffer_size": 1965,
 				"line_ending": "Windows"
 			}
 		},
@@ -71,15 +31,64 @@
 			"file": "app/scripts/app.js",
 			"settings":
 			{
-				"buffer_size": 4828,
+				"buffer_size": 5463,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "bower_components/angular-payments/lib/angular-payments.js",
+			"file": "app/views/partials/market.html",
 			"settings":
 			{
-				"buffer_size": 19624,
+				"buffer_size": 650,
+				"line_ending": "Windows",
+				"name": "market.h"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/market.js",
+			"settings":
+			{
+				"buffer_size": 1118,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/partials/accountmenu.html",
+			"settings":
+			{
+				"buffer_size": 355,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/styles/main.scss",
+			"settings":
+			{
+				"buffer_size": 10909,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/paymentModal.js",
+			"settings":
+			{
+				"buffer_size": 1559,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/partials/paymentModal.html",
+			"settings":
+			{
+				"buffer_size": 1149,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/preview.html",
+			"settings":
+			{
+				"buffer_size": 2280,
 				"line_ending": "Windows"
 			}
 		}
@@ -108,7 +117,22 @@
 	},
 	"file_history":
 	[
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/cardservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/main.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/navbar.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/accountmenu.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/creditservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/paymentModal.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/preview.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/paymentModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/angular-payments/lib/angular-payments.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/recipients.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/recipients.js",
@@ -120,7 +144,6 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/edit.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/upload.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/filters/filters.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressForm.tpl.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/angularLiveAddress.js",
@@ -135,13 +158,11 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/src/rasterize.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/Gruntfile.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/src/svg2image.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
 		"/C/Users/pgrue_000/Downloads/rasterizeHTML.js-master/rasterizeHTML.js-master/examples/retina.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/helperservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/bentley.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/helpservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/app.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/animations.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/bentley.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/bower.json",
@@ -153,15 +174,12 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/fonts/fonts.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/custom.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/upload.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/front.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/fonts.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/jcrop/jcrop.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/main.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/loadingservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cardModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/cardsmodal.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/tinyMce/tinymce.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/grunt-contrib-imagemin/tasks/imagemin.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/tinymce/tinymce.js",
@@ -178,8 +196,6 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/cloudsponge.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cloudsponge.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/importModal.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/navbar.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/config.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/images/jcrop.gif",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/jcrop/jscrop.scss",
@@ -228,14 +244,7 @@
 		"/C/Users/pgrue_000/bullet3/bullet3/app/bower_components/angular-native-picker/src/directives.js",
 		"/C/Users/pgrue_000/bullet3/bullet3/app/scripts/upload.js",
 		"/C/Users/pgrue_000/bullet3/bullet3/app/templates/feed.html",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/templates/browse.html",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/scripts/accountCtrl.js",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/templates/login.html",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/scripts/authenticationService.js",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/bower_components/angular/bower.json",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/templates/intro.html",
-		"/C/Users/pgrue_000/bullet3/bullet3/app/scripts/routerSecurity.js",
-		"/C/Users/pgrue_000/bullet3/bullet3/www/templates/login.html"
+		"/C/Users/pgrue_000/bullet3/bullet3/app/templates/browse.html"
 	],
 	"find":
 	{
@@ -253,6 +262,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"create",
+			"GuestSErvice.login",
+			"reload",
+			"permissionService",
+			"login",
+			"userservice",
+			"register",
+			"creditCost",
+			"inline",
+			"session",
+			"check",
 			"fromNumber",
 			"_fromNumber",
 			"cards",
@@ -369,18 +389,7 @@
 			"close",
 			"isAuthenticated",
 			"session.create",
-			"Session.create",
-			"Session",
-			"guestSer",
-			"checkAuth",
-			"check",
-			"compass",
-			"selected",
-			"func",
-			"apply",
-			"images",
-			"usemin",
-			"fonts"
+			"Session.create"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -398,55 +407,111 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/styles/main.scss",
+					"file": "app/scripts/controllers/preview.js",
 					"settings":
 					{
-						"buffer_size": 10566,
+						"buffer_size": 1965,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								10050,
-								10050
+								796,
+								635
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 8296.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "app/scripts/controllers/preview.js",
+					"file": "app/scripts/app.js",
 					"settings":
 					{
-						"buffer_size": 1015,
+						"buffer_size": 5463,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								702,
-								702
+								2806,
+								2806
 							]
 						],
 						"settings":
 						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 531.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/views/partials/market.html",
+					"settings":
+					{
+						"buffer_size": 650,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								130,
+								130
+							]
+						],
+						"settings":
+						{
+							"auto_name": "market.h",
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/scripts/controllers/market.js",
+					"settings":
+					{
+						"buffer_size": 1118,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								298,
+								298
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -458,19 +523,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/views/preview.html",
+					"buffer": 4,
+					"file": "app/views/partials/accountmenu.html",
 					"settings":
 					{
-						"buffer_size": 1885,
+						"buffer_size": 355,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								130,
-								133
+								167,
+								167
 							]
 						],
 						"settings":
@@ -484,75 +549,47 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/views/partials/paymentModal.html",
+					"buffer": 5,
+					"file": "app/styles/main.scss",
 					"settings":
 					{
-						"buffer_size": 1086,
+						"buffer_size": 10909,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								109,
-								109
+								7679,
+								7685
 							]
 						],
 						"settings":
 						{
-							"auto_name": "",
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 54.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/index.html",
-					"settings":
-					{
-						"buffer_size": 8204,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7545,
-								7545
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1350.0,
+						"translation.y": 5867.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "app/scripts/controllers/paymentModal.js",
 					"settings":
 					{
-						"buffer_size": 693,
+						"buffer_size": 1559,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								288,
-								288
+								985,
+								985
 							]
 						],
 						"settings":
@@ -560,6 +597,33 @@
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/views/partials/paymentModal.html",
+					"settings":
+					{
+						"buffer_size": 1149,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								194,
+								194
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -568,57 +632,28 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "app/scripts/app.js",
+					"buffer": 8,
+					"file": "app/views/preview.html",
 					"settings":
 					{
-						"buffer_size": 4828,
+						"buffer_size": 2280,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								403,
-								403
+								1499,
+								1499
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1998.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "bower_components/angular-payments/lib/angular-payments.js",
-					"settings":
-					{
-						"buffer_size": 19624,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2924,
-								2924
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 628.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -668,8 +703,92 @@
 		"selected_items":
 		[
 			[
+				"authservice",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"cardserv",
+				"app/scripts/services/cardservice.js"
+			],
+			[
+				"authser",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"login",
+				"app/scripts/controllers/login.js"
+			],
+			[
+				"preview.html",
+				"app/views/preview.html"
+			],
+			[
+				"accoun",
+				"app/views/account.html"
+			],
+			[
+				"main.js",
+				"app/scripts/controllers/main.js"
+			],
+			[
+				"main.html",
+				"app/views/main.html"
+			],
+			[
+				"account.html",
+				"app/views/account.html"
+			],
+			[
+				"paymentmodal.html",
+				"app/views/partials/paymentModal.html"
+			],
+			[
+				"paymentmodal",
+				"app/scripts/controllers/paymentModal.js"
+			],
+			[
+				"navb",
+				"app/scripts/directives/navbar.js"
+			],
+			[
+				"account",
+				"app/scripts/directives/accountmenu.js"
+			],
+			[
 				"index",
-				"xcards4/app/index.html"
+				"app/index.html"
+			],
+			[
+				"main.scss",
+				"app/styles/main.scss"
+			],
+			[
+				"navbar.js",
+				"app/scripts/directives/navbar.js"
+			],
+			[
+				"navbar.",
+				"app/scripts/directives/navbar.js"
+			],
+			[
+				"logi",
+				"xcards4/app/scripts/controllers/login.js"
+			],
+			[
+				"navbar.html",
+				"xcards4/app/views/partials/navbar.html"
+			],
+			[
+				"navbar",
+				"xcards4/app/scripts/directives/navbar.js"
+			],
+			[
+				"cardservice",
+				"xcards4/app/scripts/services/cardservice.js"
+			],
+			[
+				"authe",
+				"xcards4/app/scripts/services/authservice.js"
 			],
 			[
 				"app",
@@ -724,10 +843,6 @@
 				"app/scripts/services/helperservice.js"
 			],
 			[
-				"main.js",
-				"app/scripts/controllers/main.js"
-			],
-			[
 				"edit.js",
 				"app/scripts/controllers/edit.js"
 			],
@@ -766,10 +881,6 @@
 			[
 				"edit",
 				"app/views/edit.html"
-			],
-			[
-				"main.scss",
-				"app/styles/main.scss"
 			],
 			[
 				"front",
@@ -824,10 +935,6 @@
 				"app/views/partials/cardModal.html"
 			],
 			[
-				"cardservice",
-				"app/scripts/services/cardservice.js"
-			],
-			[
 				"app.",
 				"app/scripts/app.js"
 			],
@@ -840,24 +947,12 @@
 				"app/views/partials/navbar.html"
 			],
 			[
-				"navbar",
-				"app/views/partials/navbar.html"
-			],
-			[
 				"/images",
 				"node_modules/grunt-contrib-imagemin/tasks/imagemin.js"
 			],
 			[
 				"bower",
 				"bower.json"
-			],
-			[
-				"authe",
-				"app/scripts/services/authservice.js"
-			],
-			[
-				"authser",
-				"app/scripts/services/authservice.js"
 			],
 			[
 				"controllers",
@@ -872,16 +967,8 @@
 				"app/views/front.html"
 			],
 			[
-				"authservice",
-				"app/scripts/services/authservice.js"
-			],
-			[
 				"upload.html",
 				"app/views/upload.html"
-			],
-			[
-				"navbar.js",
-				"app/scripts/directives/navbar.js"
 			],
 			[
 				"front.",
@@ -924,10 +1011,6 @@
 				"app/scripts/services/helperservice.js"
 			],
 			[
-				"login",
-				"app/scripts/controllers/login.js"
-			],
-			[
 				"loginmodal",
 				"app/views/loginModal.html"
 			],
@@ -948,10 +1031,6 @@
 				"app/views/partials/navbar.html"
 			],
 			[
-				"navbar.html",
-				"app/views/partials/navbar.html"
-			],
-			[
 				"main.s",
 				"app/styles/main.scss"
 			],
@@ -962,10 +1041,6 @@
 			[
 				"footerbar",
 				"app/views/partials/footerBar.html"
-			],
-			[
-				"main.html",
-				"app/views/main.html"
 			],
 			[
 				"flatlly.scss",
@@ -1032,10 +1107,6 @@
 				"app/templates/login.html"
 			],
 			[
-				"account",
-				"app/scripts/accountCtrl.js"
-			],
-			[
 				"authentica",
 				"app/scripts/authenticationService.js"
 			],
@@ -1054,10 +1125,6 @@
 			[
 				"router",
 				"app/scripts/routerSecurity.js"
-			],
-			[
-				"accoun",
-				"app/scripts/accountCtrl.js"
 			],
 			[
 				"routersecur",
@@ -1146,38 +1213,6 @@
 			[
 				"_app",
 				"app/styles/_app.scss"
-			],
-			[
-				"main",
-				".sass-cache/fdcfa9381eddb579676cfa2a55cb26d029440e49/main.scssc"
-			],
-			[
-				"gruntf",
-				"Gruntfile.js"
-			],
-			[
-				"controllers/demo",
-				"app/scripts/controllers/demo.js"
-			],
-			[
-				"scss",
-				"app/styles/main.scss"
-			],
-			[
-				"simplelo",
-				"app/scripts/factories/simpleLogin.js"
-			],
-			[
-				"fbutil",
-				"app/scripts/factories/firebase.utils.js"
-			],
-			[
-				"simplel",
-				"app/scripts/factories/simpleLogin.js"
-			],
-			[
-				"directive",
-				"app/scripts/directives/blocksquad.directives.js"
 			]
 		],
 		"width": 0.0

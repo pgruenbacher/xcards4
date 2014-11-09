@@ -9,14 +9,15 @@
  */
 angular.module('xcards4App')
 .controller('AddressBookCtrl', function ($scope,AddressService,$modal,$window) {
+  $scope.saving=false;
+  $scope.creating=false;
   AddressService.all(function(value){
-  	console.log('address controller',value);
     $scope.addresses=value;
   });
   $scope.openImport=function(mode){
     $modal.open({
       templateUrl:'views/partials/importModal.html',
-      size:'sm',
+      windowClass: 'expanded-width',
       resolve:{
         mode:function(){
           return mode;
@@ -53,23 +54,43 @@ angular.module('xcards4App')
   	// });
   };
 })
-.controller('AddressModalCtrl',function($scope,$state,AddressService,$modalInstance,address,mode){
+.controller('AddressModalCtrl',function($scope,$q,$state,AddressService,$modalInstance,address,mode){
 	$scope.title=mode;
 	$scope.mode=mode;
 	$scope.address=address;
+  var validate=function(){
+    var deferred=$q.defer();
+    $scope.$broadcast('event:form_submitted');
+    $scope.$on('event:address_valid',function(){
+      deferred.resolve(true);
+    });
+    $scope.$on('event:address_invalid',function(){
+      deferred.reject();
+    });
+    return deferred.promise;
+  };
 	$scope.save=function(address){
-    address.number=address.number.replace(/\D/g,'');
-		AddressService.put(address).then(function(response){
-			$state.go($state.current,{}, {reload: true, inherit: false});
-			$modalInstance.close();
-		});
+    validate().then(function(){
+      $scope.saving=true;
+      address.number=address.number.replace(/\D/g,'');
+      AddressService.put(address).then(function(response){
+        $scope.saving=false;
+        $state.go($state.current,{}, {reload: true, inherit: false});
+        $modalInstance.close();
+      });
+    });
 	};
 	$scope.create=function(address){
-    address.number=address.number.replace(/\D/g,'');
-    console.log($scope.address.number);
-		AddressService.create(address).then(function(response){
-			$state.go($state.current,{},{reload: true, inherit: false});
-			$modalInstance.close();
-		});
+    validate().then(function(){
+      $scope.creating=true;
+      if(typeof address.number !== 'undefined'){
+        address.number=address.number.replace(/\D/g,'');
+      }
+      AddressService.create(address).then(function(response){
+        $scope.creating=false;
+        $state.go($state.current,{},{reload: true, inherit: false});
+        $modalInstance.close();
+      });
+    });
 	};
 });

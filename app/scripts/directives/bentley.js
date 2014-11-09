@@ -31,7 +31,6 @@ angular.module('xcards4App')
           },
           close:function(message){
             var self=this;
-            console.log(message);
             scope.bentley.message=(message)?message:'bye!';
             $timeout(function(){
               self.animate('bounceOutRight');
@@ -50,8 +49,10 @@ angular.module('xcards4App')
           API.close();
         };
         scope.$watch('help',function(newValue,oldValue){
-          scope.bentley=newValue;
-          API.show();
+          if(newValue){
+            scope.bentley=newValue;
+            API.show();
+          }
         });
         scope.call=function(el){
           if(typeof el === 'undefined'){

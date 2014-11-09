@@ -8,11 +8,17 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('AppCtrl',function($scope,HelpService){
+.controller('AppCtrl',function($scope,HelpService,LOADING_EVENTS){
   $scope.message={};
   $scope.help=function(name,options){
-    $scope.bentley=HelpService.name(name);
+    $scope.bentley=HelpService.help(name);
   };
+  $scope.$on(LOADING_EVENTS.showLoading,function(){
+    $scope.stateLoading=true;
+  });
+  $scope.$on(LOADING_EVENTS.hideLoading,function(){
+    $scope.stateLoading=false;
+  });
 })
 .controller('MainCtrl', function ($scope,$state,$modal,user,UserService,AuthenticationService,PermissionService) {
   // $scope.currentUser = null;

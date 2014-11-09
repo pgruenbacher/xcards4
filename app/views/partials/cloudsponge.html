@@ -1,8 +1,43 @@
-<button class="btn btn-default" ng-click="launch('yahoo');">Yahoo</button><br />
-<button class="btn btn-default" ng-click="launch('windowslive');">Windows Live</a><br />
-<button class="btn btn-default" ng-click="launch('gmail');">Gmail</button><br />
-<button class="btn btn-default" ng-click="launch('aol');">Aol</button><br />
-<button class="btn btn-default" ng-click="launch('plaxo');">Plaxo</button><br />
-<button class="btn btn-default" ng-click="launch('addressbook');">Address Book</button><br />
-<button class="btn btn-default" ng-click="launch('outlook');">Outlook</button><br />
-
+<a ng-click="launch('gmail')"><img src="images/address_books/google.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('aol')"><img src="images/address_books/aol.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('addressbook')"><img src="images/address_books/apple-desktop.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('facebook')"><img src="images/address_books/facebook.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('linkedin')"><img src="images/address_books/linkedin.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('outlook')"><img src="images/address_books/outlook-desktop.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('windowslive')"><img src="images/address_books/outlook365.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="launch('plaxo')"><img src="images/address_books/plaxo.png" style="margin: 0 5px 20px 0;"></a>
+<a ng-click="createManually()">Add email manually</a>
+<form ng-hide="hideInput" on-valid-submit="submitManually(manualForm)" class="form-inline">
+	<div class="form-group validated">
+		<input type="text" class="form-control" name="name" ng-model="manualForm.name" placeholder="full name" required/>
+	</div>
+	<div class="form-group validated">
+		<input type="email" class="form-control" name="email" ng-model="manualForm.email" placeholder="email" ng-required="!manualForm.number"/>
+	</div>
+	<div class="form-group validated">
+		<input type="text" class="form-control" name="number" ng-model="manualForm.number" placeholder="number" ng-quired="!manualForm.email"/>
+	</div>
+	<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+</form>
+<form on-valid-submit="submitForm(contacts)">
+<!-- This textarea will be populated with the contacts returned by CloudSponge -->
+	<table class="table table-condensed table-striped scrollable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Number</th>
+				<th>Address</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="contact in contacts">
+				<td>{{contact.fullName()}}</td>
+				<td>{{contact.selectedEmail() | limitTo: 20}}{{contact.selectedEmail().length>20?'...':''}}</td>
+				<td>{{contact.phone[0].number}}</td>
+				<td>{{contact.address[0].formatted}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<button class="btn btn-primary" type="submit">Submit</button>
+</form>

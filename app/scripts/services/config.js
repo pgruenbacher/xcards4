@@ -22,6 +22,10 @@ angular.module('xcards4App')
   editor: 'editor',
   guest: 'guest'
 })
+.constant('LOADING_EVENTS',{
+  showLoading:'showLoading',
+  hideLoading:'hideLoading'
+})
 .constant('API',{
 	'domain':'http://paulgruenbacher.com/xcards2/api'
 })

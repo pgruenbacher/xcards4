@@ -11,14 +11,12 @@ angular.module('xcards4App')
 /*Login Controller */
 .controller('LoginCtrl', function($scope, mode, $http, $stateParams,$modalInstance, $state, AuthenticationService, UserService, localStorageService) {
   $scope.message = '';
-  console.log('loginCtrl',mode);
   // Define user empty data :/
   $scope.user = {};
   $scope.change={};
   $scope.data={
   	register:mode,
   };
-  console.log($scope.data.register);
   // Defining user logged status
   $scope.logged = false;
   $scope.login = function(user) {
@@ -26,6 +24,7 @@ angular.module('xcards4App')
   };
   $scope.registerAccount=function(user){
   	UserService.create(user).then(function(response){
+      console.log('registered',response.status);
   		if(response.status==='success'){
         $scope.closeModal();
       }else if(response.status==='validation'){
@@ -39,6 +38,7 @@ angular.module('xcards4App')
     });
   }
   $scope.closeModal=function(){
+    console.log('close modal');
     $modalInstance.close();
   };
   // $scope.facebook = function() {

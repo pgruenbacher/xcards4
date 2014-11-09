@@ -57,8 +57,23 @@ angular.module('xcards4App')
   $scope.suggestions = [];
   $scope.validated=false;
   $scope.notValidated=false;
+  $scope.suggestSelected=0;
+  $scope.addressInput='';
+  if(typeof $scope.address.address!=='undefined'){
+    $scope.addressInput=$scope.address.address;
+  }
+  $scope.$on('event:form_submitted',function(){
+    if($scope.validated){
+      $scope.$broadcast('event:address_valid');
+    }else if($scope.addressInput.length < 10){
+      $scope.$emit('event:address_invalid');
+    }else{
+      $scope.validateAddress();
+    }
+  });
+  $scope.valid=$scope.validated;
   $scope.getAddresses = function (searchString) {
-    if (searchString != null && searchString !== '' && searchString.length > 10 && !$scope.validated) {
+    if (searchString != null && searchString !== '' && searchString.length > 10 && !$scope.notValidated && !$scope.validated) {
       SmartyStreetsSuggestionFactory.getSuggestions(searchString)
         .then(function (result) {
         	if(result.data.suggestions !== null){
@@ -82,15 +97,42 @@ angular.module('xcards4App')
     $scope.addressInput=address;
     $scope.validateAddress();
   };
+  $scope.reEdit=function(){
+    console.log('click');
+    if($scope.disable){
+      $scope.disable=false;
+      $scope.validated=false;
+      $scope.notValidated=true;
+    }
+  }
+  $scope.selectDown=function(event){
+    console.log($scope.suggestSelected);
+    if($scope.suggestions.length>0){
+      if(event.which===40){
+        if($scope.suggestSelected>=$scope.suggestions.length-1){
+          $scope.suggestSelected=0;
+        }
+        $scope.suggestSelected++;
+      }
+      if(event.which===38){
+        if($scope.suggestSelected<=0){
+          $scope.suggestSelected=$scope.suggestions.length;
+        }
+        $scope.suggestSelected--;
+      }
+      if(event.which===13 && $scope.suggestSelected>=0 && $scope.suggestSelected < $scope.suggestions.length){
+        $scope.addressInput=$scope.suggestions[$scope.suggestSelected].text;
+        $scope.validateAddress();
+      }
+    }
+  };
   $scope.validateAddress = function () {
     $scope.disable=true;
-    console.log('validateAddress');
     return SmartyStreetsValidationFactory.doValidation($scope.addressInput).then(function (result) {
-
-          console.log('validate',result,angular.isArray(result));
         if (angular.isArray(result.data) && result.data.length > 0) {
           $scope.validated=true;
           $scope.notValidated=false;
+          $scope.$emit('event:address_valid');
           //HANDLE AMBIGUIOUS RESULTS - consider angular-strap model
           $scope.address.address =$scope.addressInput = result.data[0].delivery_line_1+' '+result.data[0].last_line;
           $scope.address.deliveryLine1 = result.data[0].delivery_line_1;
@@ -100,6 +142,7 @@ angular.module('xcards4App')
           $scope.address.zipCode = result.data[0].components.zipcode
           $scope.address.plus4Code= result.data[0].components.plus4_code;
         }else{
+          $scope.$emit('event:address_invalid');
           $scope.disable=false;
           $scope.validated=false;
           $scope.notValidated=true;

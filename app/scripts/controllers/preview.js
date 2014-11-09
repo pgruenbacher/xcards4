@@ -10,7 +10,7 @@
 angular.module('xcards4App')
 .controller('PreviewCtrl',function($scope,card,pricings,Session,$sce,$state,$modal,CardService, CreditService, Restangular){
   $scope.card=card;
-  $scope.user=Session.user;
+  var user=$scope.user=Session.user;
   $scope.side=true;
   $scope.loading=false;
   //Pass this function to the modal
@@ -25,7 +25,7 @@ angular.module('xcards4App')
     }
   }
   var creditRate=$scope.creditRate=card.cardSetting.credit_rate;
-  var creditCost=$scope.creditCost=number*creditRate;
+  var creditCost=$scope.totalCredits=number*creditRate;
   var totalCost=$scope.totalCost=number*card.cardSetting.dollar_rate;
   var finalCost=$scope.finalCost=totalCost-number*discount;
   $scope.affordable=Session.user.credits >= creditCost;
@@ -38,24 +38,39 @@ angular.module('xcards4App')
     CreditService.useCredits(card.id).then(function(response){
       $scope.loading=false;
       console.log(response);
+      Session.destroyCard();
+      $state.go('account.main');
     },function(){
       $scope.loading=false;
-    })
-  }
-  $scope.openPayment=function(){
-    $modal.open({
-      templateUrl:'views/partials/paymentModal.html',
-      size:'sm',
-      controller:'PaymentModalCtrl',
-      resolve:{
-        card:function(){
-          return card;
-        },
-        loadingFunc:function(){
-          return $scope.loadingFunc;
-        }
-      }
     });
+  };
+  $scope.openPayment=function(){
+    if(user.roles[0].type==='guest'){
+      $scope.showLoginModal('login');
+    }else{
+      var paymentModal=$modal.open({
+        templateUrl:'views/partials/paymentModal.html',
+        size:'sm',
+        controller:'PaymentModalCtrl',
+        resolve:{
+          amount:function(){
+            return finalCost;
+          },
+          item:function(){
+            return card;
+          },
+          loadingFunc:function(){
+            return $scope.loadingFunc;
+          }
+        }
+      });
+      paymentModal.result.then(function(){
+        Session.destroyCard();
+        $state.go('account.main');
+      },function(){
+        console.log('modal dismissed');
+      });
+    }
   };
 });
 

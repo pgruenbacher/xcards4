@@ -112,6 +112,14 @@ angular
           return response.card;
         });
       },
+      user:function(AuthenticationService,Session){
+      //$scope.globalLoading=true;
+        return AuthenticationService.checkAuthentication().then(function(r){
+          //$scope.globalLoading=false;
+          Session.create(r.user);
+          return {user:r.user};
+        });
+      },
       pricings:function(Restangular){
         return Restangular.all('pricings').getList().then(function(response){
           console.log('pricings',response);
@@ -123,6 +131,20 @@ angular
   .state('main.addressBook',{
     url:'/addressBook',
     templateUrl:'views/addressBook.html'
+  })
+  .state('account',{
+    parent:'main',
+    abstract:true,
+    templateUrl:'views/account.html'
+  })
+  .state('account.main',{
+    url:'/account',
+    template:'content'
+  })
+  .state('account.market',{
+    url:'/market',
+    controller:'MarketCtrl',
+    templateUrl:'views/partials/market.html'
   });
   $urlRouterProvider.otherwise('/front');
 })
@@ -153,7 +175,17 @@ angular
 //     }
 //   ]);
 // })
-.run(function ($rootScope, AUTH_EVENTS, PermissionService) {
+.run(function ($rootScope, AUTH_EVENTS, PermissionService, LOADING_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    if (toState.resolve) {
+      $rootScope.$broadcast(LOADING_EVENTS.showLoading);
+    }
+  });
+$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    if (toState.resolve) {
+      $rootScope.$broadcast(LOADING_EVENTS.hideLoading);
+    }
+  });
   $rootScope.$on('$stateChangeStart', function (event, next) {
     if(typeof next.data !== 'undefined'){
       var authorizedRoles = next.data.authorizedRoles;

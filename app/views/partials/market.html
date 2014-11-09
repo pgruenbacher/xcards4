@@ -1,0 +1,26 @@
+<div class="row">
+
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th># of Credits</th>
+				<th>Price</th>
+				<th>Discount</th>
+				<th>Gets # of Cards<th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="product in products | orderBy:'amount'">
+				<td>{{product.amount}} Credits</td>
+				<td>${{product.price}}</td>
+				<td>{{parseInt(product.discount*100)}}%</td>
+				<td>{{product.amount}} cards<td>
+				<td><button ng-click="openPayment(product)">Buy</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div style="text-align:center;">
+		<loading-bunny loading-scope="loading"></loading-bunny>
+	</div>
+</div>

@@ -52,6 +52,14 @@ angular.module('xcards4App')
       return false;
     }
 	};
+  permissionService.isGuest=function(){
+    if(typeof Session.user !=='undefined'){
+      if(Session.user.roles[0].type==='guest'){
+        return true;
+      }
+    }
+    return false;
+  };
 	permissionService.isAuthorized = function (authorizedRoles) {
     if(Session.user !==null && typeof Session.user !== 'undefined'){
       if (!angular.isArray(authorizedRoles)) {
@@ -111,7 +119,7 @@ angular.module('xcards4App')
   };
   return this;
 })
-.factory('AuthenticationService', function($rootScope,$http,authService,Restangular,$state,localStorageService,Session) {
+.factory('AuthenticationService', function($rootScope,$http,authService,Restangular, PermissionService, $state,localStorageService,Session) {
   return {
     login: function(user) {
       var self=this;
@@ -126,6 +134,9 @@ angular.module('xcards4App')
       }).then(
       function(data,status,headers,config){
         console.log('login response',data);
+        if(PermissionService.isGuest()){
+          self.copyAssets(Session.user.id);
+        }
         if(self.saveAuthentication(user)){
           console.log('saved user, saved authentication token');
         }else{
@@ -138,12 +149,13 @@ angular.module('xcards4App')
         // will configure the request headers with the authorization token so
         // previously failed requests(aka with status == 401) will be resent with the
         // authorization token placed in the header
-        window.location.reload();
         authService.loginConfirmed(data, function(config) {  // Step 2 & 3
           config.headers.Authorization = data.access_token;
           return config;
         });
-        $state.go('main.front');
+        window.location.reload();
+        //$state.go($state.current,{reload:true,location:true});
+        //$state.go('main.front');
       },
       function(data){
         console.log('error',data);
@@ -151,8 +163,10 @@ angular.module('xcards4App')
       });
     },
     logout: function(user) {
+      var self=this;
       if(localStorageService.remove('access_token')&&localStorageService.remove('authentication')&&Session.destroy()){
         $rootScope.$broadcast('event:auth-logout-complete');
+        self.destroyAssets();
       }
     },
     loginCancelled: function() {
@@ -165,6 +179,16 @@ angular.module('xcards4App')
       }else{
         return false;
       }
+    },
+    copyAssets:function(id){
+      return Restangular.all('account/copy').post({
+        guest:id
+      }).then(function(response){
+        console.log(response);
+      });
+    },
+    destroyAssets:function(){
+      localStorageService.clearAll();
     },
     checkAuthentication:function(callback){
   		return Restangular.oneUrl('check').get();

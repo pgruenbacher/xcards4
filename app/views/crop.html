@@ -16,7 +16,7 @@
 				<P>
 					Height: {{info.cords.h |number:0 }} px
 					<span ng-class="{success: checkHeight(), danger: !checkHeight() }"> {{ checkHeight() ? 'good':'too small' }}</span>
-				</p>
+				</p> <span><a ng-click="help('pixelDimensions')">What does this mean?</a></span>
 				<P>Original Width: {{info.boundx |number:0 }} px</P>
 				<P>Original Height: {{info.boundy |number:0 }} px</P>
 				<button ng-click="continue()" class="btn btn-success">Continue</button>

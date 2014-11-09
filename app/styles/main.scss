@@ -97,7 +97,35 @@ html,body{
     height:inherit;
   }
 }
-
+/*******Modal Section***********/
+.expanded-width .modal-dialog {
+  width: 650px;
+}
+table.scrollable {
+  width: 100%;
+  thead, tbody, tr, td, th { display: block; }
+  tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+  thead th {
+    height: 30px;
+    /*text-align: left;*/
+  }
+  tbody {
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  thead {
+    /* fallback */
+  }
+  tbody td, thead th {
+    width: 25%;
+    float: left;
+  }
+}
 
 /********** Footer Section ***********/
 div.footer-bottom{
@@ -176,6 +204,15 @@ display: none;
 /* :not doesn't work in IE8 */
 .combobox-container:not(.combobox-selected) .glyphicon-remove {
 display: none;
+}
+.suggestions-dropdown{
+  cursor:pointer;
+  li:hover{
+    background-color: #f0f0f0;
+  }
+  li.selected{
+    background-color: #f0f0f0;
+  }
 }
 .typeahead{
   display:block;
@@ -497,4 +534,24 @@ border-top-color: #468847;
 
 .discover {
   background-image: image-url('credit-cards/discover.jpg');
+}
+
+.account-menu{
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li a {
+      text-decoration: none;
+      color: white;
+      cursor:pointer;
+      padding: 10.5px 11px;
+      background-color: #005555;
+      display:block;
+    }
+    li a:hover, li .current{
+      color:white;
+      background-color: #5FD367;
+    }
+  }
 }

@@ -32,7 +32,7 @@ angular.module('xcards4App')
       },
       check:function(){
         var deferred=$q.defer();
-        var promise=deferred.promise;
+        //var promise=deferred.promise;
         console.log('check');
         var self=this;
         if(typeof Session.card !=='undefined'){

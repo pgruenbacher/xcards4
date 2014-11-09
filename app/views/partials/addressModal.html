@@ -4,37 +4,39 @@
 </div>
 <div class="modal-body">
 	<div ng-switch="mode">
-		<form ng-switch-default name="edit">
-		    <div class="form-group">
-	    		<label for="name">Name *</label>
-	      	<input type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
+		<form ng-switch-default name="edit" on-valid-submit="save(address)">
+		    <div class="form-group validated">
+	    		<label for="name">Name *required</label>
+	      		<input name="name" type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
 		    </div>
 		    <validate-address address="address"></validate-address>
 		    <div class="form-group">
 		    	<label for="email">Email</label>
-		      <input type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
+		      	<input name="email" type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
 		    </div>
 		    <div class="form-group">
 		    	<label for="number">Phone Number</label>
-		      <input type="text" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
+		      	<input name="number" type="tel" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
 		    </div>
-		    <button ng-click="save(address)" class="btn btn-block btn-primary">Save</button>
+		    <button type="submit" class="btn btn-block btn-primary">Save</button>
+		    <span><loading-bunny loading-scope="saving"></loading-bunny></span>
 		</form>
-		<form ng-switch-when="create">
-		    <div class="form-group">
-	    		<label for="name">Name *</label>
-	      	<input type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
+		<form ng-switch-when="create" on-valid-submit="create(address)">
+		    <div class="form-group validated">
+	    		<label for="name">Name *required</label>
+	      		<input name="name" type="text" id="name" class="form-control" placeholder="Name of recipient" ng-model="address.name" required>
 		    </div>
 		    <validate-address address="address"></validate-address>
-		    <div class="form-group">
+		    <div class="form-group validated">
 		    	<label for="email">Email</label>
-		      <input type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
+		      	<input name="email" type="email" id="email" class="form-control" placeholder="Email" ng-model="address.email">
 		    </div>
 		    <div class="form-group">
 		    	<label for="number">Phone Number</label>
-		      <input type="text" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
+		      	<input name="number" type="tel" id="number" class="form-control" placeholder="Phone Number" ng-model="address.number">
 		    </div>
-		    <button ng-click="create(address)" class="btn btn-block btn-primary">Create</button>
+		    <button type="submit" class="btn btn-block btn-primary">Create</button>
+		    <span><loading-bunny loading-scope="creating"></loading-bunny></span>
 		</form>
 	</div>
 </div>

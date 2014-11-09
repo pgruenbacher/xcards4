@@ -8,7 +8,40 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('PaymentModalCtrl', function ($scope,card,loadingFunc,$modalInstance,Restangular) {
+.controller('PaymentModalCtrl', function ($scope,item,amount,loadingFunc,$modalInstance,Restangular) {
+  var card,product,charge;
+  $scope.chargeProduct=function(response){
+    Restangular.all('orders/products').post({
+      'token':response.id,
+      'product': product.id
+    }).then(function(response){
+      $scope.loadingFunc(false);
+      console.log(response);
+      $modalInstance.close();
+    },function(){
+      $scope.loadingFunc(false);
+    });
+  }
+  $scope.chargeCard=function(response){
+    Restangular.all('orders').post({
+      'token':response.id,
+      'card': card.id
+    }).then(function(response){
+      $scope.loadingFunc(false);
+      console.log(response);
+      $modalInstance.close();
+    },function(){
+      $scope.loadingFunc(false);
+    });
+  };
+  if(typeof item.originalImage !=='undefined'){
+    card=item;
+    charge=$scope.chargeCard;
+  }else if(typeof item.price !=='undefined'){
+    product=item;
+    charge=$scope.chargeProduct;
+  }
+  $scope.amount=amount;
 	$scope.close=function(){
 		$modalInstance.close();
 	};
@@ -20,19 +53,7 @@ angular.module('xcards4App')
       // there was an error. Fix it.
     } else {
       console.log(status,response);
-      $scope.charge(response);
+      charge(response);
     }
-  };
-  $scope.charge=function(response){
-    Restangular.all('orders').post({
-      'token':response.id,
-      'card': card.id
-    }).then(function(response){
-      $scope.loadingFunc(false);
-      console.log(response);
-      $modalInstance.close();
-    },function(){
-      $scope.loadingFunc(false);
-    });
   };
 });
