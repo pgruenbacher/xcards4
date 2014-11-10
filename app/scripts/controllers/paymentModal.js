@@ -8,7 +8,7 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('PaymentModalCtrl', function ($scope,item,amount,loadingFunc,$modalInstance,Restangular) {
+.controller('PaymentModalCtrl', function ($scope,item,amount,Session,loadingFunc,$modalInstance,Restangular) {
   var card,product,charge;
   $scope.chargeProduct=function(response){
     Restangular.all('orders/products').post({
@@ -29,6 +29,7 @@ angular.module('xcards4App')
     }).then(function(response){
       $scope.loadingFunc(false);
       console.log(response);
+      Session.destroyCard();
       $modalInstance.close();
     },function(){
       $scope.loadingFunc(false);

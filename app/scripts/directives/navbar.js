@@ -12,8 +12,14 @@ angular.module('xcards4App')
       templateUrl: 'views/partials/navbar.html',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
-        scope.isActive = function (viewLocation) { 
-	        return viewLocation === $location.path();
+        var path;
+        scope.isActive = function (viewLocation) {
+          path=$location.path();
+          if(viewLocation==='build'){
+            console.log(path);
+            return path==='/upload'||path==='/crop'||path==='/edit'||path==='/recipients'||path==='/preview';
+          } 
+	        return viewLocation === path;
 	    };
       }
     };

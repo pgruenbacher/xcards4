@@ -56,6 +56,7 @@ angular.module('xcards4App')
   $scope.disable=false;
   $scope.suggestions = [];
   $scope.validated=false;
+  $scope.blurred=false;
   $scope.notValidated=false;
   $scope.suggestSelected=0;
   $scope.addressInput='';
@@ -63,8 +64,9 @@ angular.module('xcards4App')
     $scope.addressInput=$scope.address.address;
   }
   $scope.$on('event:form_submitted',function(){
+    console.log($scope.validated);
     if($scope.validated){
-      $scope.$broadcast('event:address_valid');
+      $scope.$emit('event:address_valid');
     }else if($scope.addressInput.length < 10){
       $scope.$emit('event:address_invalid');
     }else{
@@ -72,6 +74,12 @@ angular.module('xcards4App')
     }
   });
   $scope.valid=$scope.validated;
+  $scope.toggleBlur=function(bool){
+    $scope.blurred=bool;
+  }
+  $scope.showSuggestions=function(){
+    return !($scope.validated || $scope.notValidated || $scope.blurred);
+  }
   $scope.getAddresses = function (searchString) {
     if (searchString != null && searchString !== '' && searchString.length > 10 && !$scope.notValidated && !$scope.validated) {
       SmartyStreetsSuggestionFactory.getSuggestions(searchString)

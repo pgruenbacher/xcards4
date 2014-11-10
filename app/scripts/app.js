@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars*/
 /**
  * @ngdoc overview
  * @name xcards4App
@@ -78,10 +78,7 @@ angular
     resolve:{
       card:function(CardService){
         console.log('resolve');
-        return CardService.check().then(function(card){
-          console.log('resolve controller',card);
-          return card;
-        });
+        return CardService.check();
       }
     }
   })
@@ -141,10 +138,15 @@ angular
     url:'/account',
     template:'content'
   })
+  .state('account.cards',{
+    url:'/cards',
+    controller:'CardsCtrl',
+    templateUrl:'views/account/cards.html'
+  })
   .state('account.market',{
     url:'/market',
     controller:'MarketCtrl',
-    templateUrl:'views/partials/market.html'
+    templateUrl:'views/account/market.html'
   });
   $urlRouterProvider.otherwise('/front');
 })
@@ -181,7 +183,12 @@ angular
       $rootScope.$broadcast(LOADING_EVENTS.showLoading);
     }
   });
-$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    if (toState.resolve) {
+      $rootScope.$broadcast(LOADING_EVENTS.hideLoading);
+    }
+  });
+  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams) {
     if (toState.resolve) {
       $rootScope.$broadcast(LOADING_EVENTS.hideLoading);
     }

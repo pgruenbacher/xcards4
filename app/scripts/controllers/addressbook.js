@@ -8,8 +8,9 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('AddressBookCtrl', function ($scope,AddressService,$modal,$window) {
+.controller('AddressBookCtrl', function ($scope,AddressService,$state,$modal,$window) {
   $scope.saving=false;
+  $scope.loading=false;
   $scope.creating=false;
   AddressService.all(function(value){
     $scope.addresses=value;
@@ -24,7 +25,16 @@ angular.module('xcards4App')
         }
       }
     });
-  }
+  };
+  $scope.removeAddress=function(id){
+    $scope.loading=true;
+    AddressService.remove(id).then(function(response){
+      $state.go($state.current,{},{reload: true, inherit: false});
+      $scope.loading=false;
+    },function(){
+      $scope.loading=false;
+    });
+  };
   $scope.openModal=function(mode,id){
   	console.log(mode);
   	$modal.open({
@@ -58,15 +68,19 @@ angular.module('xcards4App')
 	$scope.title=mode;
 	$scope.mode=mode;
 	$scope.address=address;
+
   var validate=function(){
     var deferred=$q.defer();
-    $scope.$broadcast('event:form_submitted');
+    console.log($scope.validated);
     $scope.$on('event:address_valid',function(){
+      console.log('resolve');
       deferred.resolve(true);
     });
     $scope.$on('event:address_invalid',function(){
+      console.log('reject');
       deferred.reject();
     });
+    $scope.$broadcast('event:form_submitted');
     return deferred.promise;
   };
 	$scope.save=function(address){
@@ -85,6 +99,7 @@ angular.module('xcards4App')
       $scope.creating=true;
       if(typeof address.number !== 'undefined'){
         address.number=address.number.replace(/\D/g,'');
+        console.log(address.number);
       }
       AddressService.create(address).then(function(response){
         $scope.creating=false;

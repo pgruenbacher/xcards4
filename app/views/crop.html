@@ -2,11 +2,11 @@
 <div style="position:relative">
 	<div class="inline-row">
 		<div class="original-image">
-			<jcrop data-selected="selected(c)" src="{{trustSrc(imageUrl)}}" id="target"></jcrop>
+			<jcrop data-selected="selected(c)" ng-src="{{trustSrc(imageUrl)}}" id="target"></jcrop>
 		</div>
 		<div class="preview-container">
 			<div id="cropped-image" class="preview-pane" style="width: 306px; height: 200px; overflow:hidden;">
-				<img id="preview" src="{{trustSrc(imageUrl)}}" width="{{P.w}}px" height="{{P.h}}px"/>
+				<img id="preview" ng-src="{{trustSrc(imageUrl)}}" width="{{P.w}}px" height="{{P.h}}px"/>
 			</div>
 			<div class="preview-bar">
 				<p>

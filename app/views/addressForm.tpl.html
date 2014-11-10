@@ -10,9 +10,9 @@
               <i style="color:#ff6666;" class="fa fa-circle fa-stack-2x"></i>
               <i style="color:red;" class="fa fa-exclamation fa-stack-1x"></i>
             </span>
-            <textarea style="z-index:30;" autocomplete="on" type="text" ng-change="getAddresses(addressInput)" class="combobox form-control" id="AddressLine1" ng-class="{'validated':validated}" ng-disabled="disable" placeholder="Enter Address Line 1" ng-keydown="selectDown($event)" ng-model="addressInput"></textarea>
+            <textarea ng-blur="toggleBlur(true)" ng-focus="toggleBlur(false)" style="z-index:30;" autocomplete="on" type="text" ng-change="getAddresses(addressInput)" class="combobox form-control" id="AddressLine1" ng-class="{'validated':validated}" ng-disabled="disable" placeholder="Enter Address Line 1" ng-keydown="selectDown($event)" ng-model="addressInput"></textarea>
         </div>
-        <ul ng-show="!validated" class="dropdown-menu suggestions-dropdown" ng-class="{typeahead:suggestions.length>1,'typeahead-long':suggestions.length>5}" style="">
+        <ul ng-show="showSuggestions()" class="dropdown-menu suggestions-dropdown" ng-class="{typeahead:suggestions.length>1,'typeahead-long':suggestions.length>5}" style="">
             <li data-animation="am-flip-x" ng-click="selectSuggestion(suggestion.text)" ng-repeat="suggestion in suggestions" ng-class="{selected:suggestSelected===$index}">
                 {{suggestion.text}}
             </li>

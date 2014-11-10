@@ -30,6 +30,9 @@ angular.module('xcards4App')
       },
       create:function(address){
         return api.post(address);
+      },
+      remove:function(addressId){
+        return Restangular.one('addresses',addressId).remove();
       }
     };
   });

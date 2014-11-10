@@ -8,15 +8,44 @@
  * Factory in the xcards4App.
  */
 angular.module('xcards4App')
-  .factory('CardService', function ($q,Restangular,Session,$modal,localStorageService) {
-    var Card={};
+  .factory('CardService', function ($q,$state,Restangular,Session,$modal,localStorageService,CacheAndCall) {
+    var Cards=[];
     var CardAPI=Restangular.all('cards');
     return {
+      all:function(callback){
+        CacheAndCall.getCacheList(CardAPI, {}, function (value) {
+          Cards=value;
+          callback(value);
+        });
+      },
       create:function(card){
         console.log('create',card);
         return CardAPI.post({
           settingId:card.settingId
         });
+      },
+      next:function(card){
+        if(card.croppedImage === null){
+          return 'crop';
+        }else if(card.frontDrawing === null){
+          return 'edit';
+        }else if(card.recipients === null){
+          return 'recipients';
+        }else{
+          return 'preview';
+        }
+      },
+      reuse:function(cardId){
+        return Restangular.one('cards',cardId).get({reuse:true}).then(function(response){
+          Cards.push(response.card);
+          Session.saveCard(response.card);
+          $state.go('main.recipients');
+        });
+      },
+      use:function(card){
+        var self=this;
+        Session.saveCard(card);
+        $state.go('main.'+self.next(card));
       },
       crop:function(cardId,imageId,coords){
         var data={
@@ -33,14 +62,11 @@ angular.module('xcards4App')
       check:function(){
         var deferred=$q.defer();
         //var promise=deferred.promise;
-        console.log('check');
         var self=this;
-        if(typeof Session.card !=='undefined'){
-           deferred.resolve(Session.card);
+        if(typeof Session.card !=='undefined' && Session.card!==null){
+          deferred.resolve(Session.card);
         }else{
-          console.log('prompt');
           self.prompt().then(function(card){
-            console.log('resolved check',card);
             deferred.resolve(card);
           },function(){
             deferred.reject('prompt dismissed');
@@ -60,7 +86,6 @@ angular.module('xcards4App')
         return Restangular.one('cards',cardId).all('addresses').post({recipients:selected});
       },
       postMessage:function(cardId,imageId,data){
-        console.log('message',cardId,imageId,data);
         return Restangular.one('cards',cardId).one('images',imageId).all('message')
         .withHttpConfig({
           transformRequest: angular.identity
@@ -68,6 +93,7 @@ angular.module('xcards4App')
         .post(data,{}, {'Content-Type': undefined,'Authorization':localStorageService.get('access_token')});
       },
       prompt:function(){
+        console.log('prompted');
         var deferred=$q.defer();
         var selectModal=$modal.open({
           templateUrl:'views/partials/cardModal.html',
@@ -75,7 +101,6 @@ angular.module('xcards4App')
           size:'lg'
         });
         selectModal.result.then(function(){
-          console.log('resolve modal',Session.card);
           deferred.resolve(Session.card);
         },function(){
           deferred.reject('modal dismissed');

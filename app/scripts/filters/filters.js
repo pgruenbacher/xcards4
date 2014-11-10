@@ -1,6 +1,11 @@
 'use strict';
 /*jshint unused:vars*/
 angular.module('xcards4App')
+.filter('moment', function() {
+    return function(dateString, format) {
+        return moment(dateString).format(format);
+    };
+})
 .filter('tel', function () {
     return function (tel) {
         if (!tel) { return ''; }

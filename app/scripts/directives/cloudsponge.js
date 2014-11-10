@@ -36,6 +36,7 @@ angular.module('xcards4App')
           } 
           RequestService.check(submission).then(function(response){
             console.log(response);
+            if(response.status!=='success'){return;}
             if(response.existing.length>0){
               var checkExisting=$modal.open({
                 templateUrl:'views/partials/existingModal.html',

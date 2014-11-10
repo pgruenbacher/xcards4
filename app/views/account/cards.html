@@ -1,0 +1,43 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>Card</th>
+			<th>Recipients</th>
+			<th>Created at</th>
+			<th>Sent at</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="card in cards">
+			<td>
+				<div ng-switch="next(card)">
+					<img ng-switch-when="crop" ng-src="{{card.originalImage.thumbnail.url_path}}"></img>
+					<img ng-switch-default ng-src="{{card.croppedImage.thumbnail.url_path}}"></img>
+				</div>
+				{{card.id}}
+			</td>
+			<td>
+				<div ng-repeat="recipient in card.recipients">
+					<span>{{recipient.name}}</span><span> {{recipient.address|limitTo:25}}</span>
+				</div>
+				<span ng-if="card.recipients.length===0">No recipients</span>
+			</td>
+			<td>
+				{{card.created_at | moment:'MMM Do'}}
+			</td>
+			<td>
+				<div ng-switch="card.finished_at">
+					<span ng-switch-default >{{card.finished_at|moment:'MMM Do'}}</span>
+					<span ng-switch-when="0000-00-00 00:00:00" >Incomplete</span>
+				</div>
+			</td>
+			<td>
+				<div ng-switch="card.finished_at">
+					<button ng-click="use(card)" ng-switch-when="0000-00-00 00:00:00" class="btn btn-primary">Finish</button>
+					<button ng-click="reuse(card)" ng-switch-default class="btn btn-primary">Reuse</button>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>

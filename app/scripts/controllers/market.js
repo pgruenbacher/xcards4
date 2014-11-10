@@ -8,9 +8,9 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-  .controller('MarketCtrl', function ($scope,Restangular,$modal,Session) {
+  .controller('MarketCtrl', function ($scope,Restangular,$modal,Session,CacheAndCall) {
     $scope.loading=true;
-  	Restangular.all('pricings').getList().then(function(r){
+    CacheAndCall.getCacheList(Restangular.all('pricings'), {}, function (r) {
       $scope.loading=false;
       $scope.products=r;
     });
