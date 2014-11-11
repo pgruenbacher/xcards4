@@ -92,6 +92,24 @@ angular.module('xcards4App')
         })
         .post(data,{}, {'Content-Type': undefined,'Authorization':localStorageService.get('access_token')});
       },
+      postHtmlMessage:function(cardId,data){
+        return Restangular.one('cards',cardId).all('message').post(data);
+      },
+      remove:function(id){
+        return Restangular.one('cards',id).remove().then(function(response){
+          var cacheKey = Restangular.all('cards').getRestangularUrl()+JSON.stringify({});
+          var cache= JSON.parse(localStorage.getItem(cacheKey));
+          for(var i=0; i<cache.length; i++){
+            console.log(cache[i].id,id);
+            if(cache[i].id===id){
+              cache.splice(i,1);
+              break;
+            }
+          }
+          localStorage.setItem(cacheKey, JSON.stringify(cache));
+          return response;
+        });
+      },
       prompt:function(){
         console.log('prompted');
         var deferred=$q.defer();

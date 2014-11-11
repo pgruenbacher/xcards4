@@ -1,0 +1,17 @@
+<div class="breadcrumbs">
+	<a ui-sref="main.upload" ng-class="{active:isActive('/upload')}">
+		Upload Image
+	</a>
+	<a ng-if="exists('originalImage')" ui-sref="main.crop" ng-class="{active:isActive('/crop')}">
+		Crop Image
+	</a>
+	<a ng-if="exists('croppedImage')" ui-sref="main.edit" ng-class="{active:isActive('/edit')}">
+		Edit Message
+	</a>
+	<a ng-if="exists('frontDrawing')" ui-sref="main.recipients" ng-class="{active:isActive('/recipients')}">
+		Choose recipients
+	</a>
+	<a ng-if="exists('recipients')" ui-sref="main.preview" ng-class="{active:isActive('/preview')}">
+		Finalize
+	</a>
+</div>

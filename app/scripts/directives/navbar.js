@@ -16,7 +16,6 @@ angular.module('xcards4App')
         scope.isActive = function (viewLocation) {
           path=$location.path();
           if(viewLocation==='build'){
-            console.log(path);
             return path==='/upload'||path==='/crop'||path==='/edit'||path==='/recipients'||path==='/preview';
           } 
 	        return viewLocation === path;

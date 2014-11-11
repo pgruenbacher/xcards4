@@ -9,7 +9,7 @@
 angular.module('xcards4App')
 .directive('loadingBunny', function ($location) {
   return {
-    template: '<div><img width="auto" src="images/bunny-loading.gif"/><p>{{message}}</p></div>',
+    templateUrl: 'views/partials/loading.html',
     restrict: 'E',
     scope:{'loadingScope':'=','message':'@'},
     link: function link(scope, element, attrs) {

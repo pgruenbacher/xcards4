@@ -5,7 +5,8 @@
 			<th>Recipients</th>
 			<th>Created at</th>
 			<th>Sent at</th>
-			<th>Action</th>
+			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -19,7 +20,7 @@
 			</td>
 			<td>
 				<div ng-repeat="recipient in card.recipients">
-					<span>{{recipient.name}}</span><span> {{recipient.address|limitTo:25}}</span>
+					<span>{{recipient.name}}</span><span> {{recipient.address}}</span>
 				</div>
 				<span ng-if="card.recipients.length===0">No recipients</span>
 			</td>
@@ -37,6 +38,10 @@
 					<button ng-click="use(card)" ng-switch-when="0000-00-00 00:00:00" class="btn btn-primary">Finish</button>
 					<button ng-click="reuse(card)" ng-switch-default class="btn btn-primary">Reuse</button>
 				</div>
+			</td>
+			<td>
+				<button ng-click="remove(card.id)" class="btn btn-danger">Delete</button>
+				<div style="width:50px; height:50px;"><loading-bunny loading-scope="deleting[card.id]"></loading-bunny></div>
 			</td>
 		</tr>
 	</tbody>

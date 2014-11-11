@@ -1,6 +1,8 @@
 <loading-bunny loading-scope="loading" message="{{loadingMessage}}" backdrop="true"></loading-bunny>
+<breadcrumb-bar></breadcrumb-bar>
 <div class="row" style="min-height:450px">
 	<div class="col-md-2">
+		<span>Drawing Tools</span>
 		<button ng-click="toggleMode()" class="btn btn-block btn-primary">{{mode=='text'?'draw signature':'edit text'}}
 		<button class="btn btn-block btn-danger" ng-click="clear('back')">Clear</button>
 		<select ng-model="brush1" class="form-control">
@@ -9,31 +11,14 @@
 		</select>
 	</div>
 	<div class="col-md-8">
-		<div class="card-wrapper">
+		<div style="text-align:center">
+			<button class="btn btn-primary" ng-click="toggle()"><i class="fa fa-refresh"></i> Flip</button>
+		</div>
+		<div class="card-wrapper">			
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
-					<div id="frontEditor">
+					<div>
 						<link rel="stylesheet" href="styles/custom.css"></link>
-						<style>
-							div.editor-front{
-								color:white;
-								font-family:'big_johnregular';
-								display:inline-block;
-								line-height:1;
-								font-size:22px;
-								padding:0px;
-								margin:0px;
-							    width: 728px;
-							    height: 475px;
-							    overflow:hidden;
-							    word-wrap:break-word;
-							  }
-							  .editor-front>*{
-							  	text-transform:uppercase;
-							  	padding:0.5rem;
-							  	display: inline;
-							  }
-						  </style>
 					    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
 					</div>
 				</div>
@@ -46,28 +31,8 @@
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
-					<div id="backEditor">
+					<div>
 						<link rel="stylesheet" href="styles/custom.css"></link>
-						<style>
-							div.editor-back{
-								color:;
-								font-family:Helvetica;
-								display:inline-block;
-								line-height:2;
-								font-size:16px;
-								padding:0px;
-								margin:0px;
-							    width: 340px;
-							    height: 420px;
-							    overflow:hidden;
-							    word-wrap:break-word;
-							  }
-							  svg{ font-kerning: normal; }
-							  .editor-back>p{
-							  	margin:0;
-							  	padding:0;
-							  }
-						  </style>
 					    <div class="editor-back" ui-tinymce="tinymceOptionsBack" ng-model="messageBack"></div>
 					</div>
 				</div>
@@ -81,10 +46,10 @@
 		</div>
 	</div>
 	<div class="col-md-2">
-		<button class="btn btn-block btn-default" ng-click="toggle()">Toggle</button>
 		<button class="btn btn-block btn-success" ng-click="continue()">Continue</button>
-		<button class="btn btn-block btn-default" ng-click="drawCanvas()">Draw Canvas</button>
 	</div>
+	<canvas id="trial1"></canvas>
+	<canvas id="trial2"></canvas>
 </div>
 <!-- <canvas id="trialcanvas"></canvas>
 <canvas id="frontTrialCanvas"></canvas> -->

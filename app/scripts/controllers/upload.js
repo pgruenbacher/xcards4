@@ -36,6 +36,7 @@ angular.module('xcards4App')
 		$scope.loading=false;
 	};
 	ImageUploader.onSuccessItem=function(item, response, status, headers){
+		console.log(response);
 		$scope.loading=false;
 		var card=Session.card;
 		card.originalImage=response.image;

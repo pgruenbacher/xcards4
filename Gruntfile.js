@@ -453,6 +453,11 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'node_modules/rasterizehtml/dist/*',
           dest: '<%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '.tmp/styles',
+          src: 'custom.css',
+          dest: '<%= yeoman.dist %>/styles'
         }]
       },
       styles: {

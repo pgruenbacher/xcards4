@@ -1,4 +1,5 @@
 <loading-bunny backdrop="true" loading-scope="loading"></loading-bunny>
+<breadcrumb-bar></breadcrumb-bar>
 <div class="row">
 	<div class="col-sm-6">
 		<h3>My Selected Recipients</h3>
@@ -21,7 +22,7 @@
 			<div class="panel-body">
 				<p >
 					Your Current Credits:<span>{{user.credits}}   </span>
-					<span><a href="">Buy bulk credits</a></span>
+					<span><a ui-sref="acount.market">Buy bulk credits</a></span>
 				</p>
 				<p>Cards to be sent <span>{{number}}</span></p>
 				<div ng-show="!affordable">
@@ -44,12 +45,22 @@
 		<button class="btn btn-default" ng-click="toggle()">Toggle</button>
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
+				<div class="back-edit-form">
+					<div>
+					    <div class="editor-front" compile-Html="card.frontMessage"></div>
+					</div>
+				</div>
 				<div class="canvas" style="width:728px; height:475px;">
 					<img width="100%" height="100%" ng-src="{{card.frontDrawing.url_path}}"></img>
 				</div>
 				<img ng-src="{{card.croppedImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
+				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
+					<div>
+					    <div class="editor-back" compile-Html="card.backMessage"></div>
+					</div>
+				</div>
 				<div class="canvas" style="width:340px; height:420px;">
 					<img width="100%" height="100%" ng-src="{{card.backDrawing.url_path}}"></img>
 				</div>

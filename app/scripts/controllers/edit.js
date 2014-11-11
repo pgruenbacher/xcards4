@@ -14,7 +14,7 @@ angular.module('xcards4App')
     $scope.side=true;
     $scope.finished=0;
     $scope.$watch('finished',function(newValue){
-        if(newValue===2){
+        if(newValue===3){
             $state.go('main.recipients');
         }
     });
@@ -25,38 +25,80 @@ angular.module('xcards4App')
     $scope.messageFront='You can edit here...';
     $scope.messageBack='You can edit here...';
     $scope.continue=function(){
-        $scope.loading=2;
+        $scope.loading=3;
+        $scope.finished=0;
         $scope.loadingMessage='rasterizing sheep';
-    	$scope.drawFront().then(function(imageUrl){
-            var data1 = new FormData();
-            data1.append('front',imageUrl);
-            CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
-                $scope.loading--;
-                console.log(response);
-                var card1=Session.card;
-                card1[response.drawing.type]=response.drawing;
-                Session.saveCard(card1);
-                $scope.finished++;
-            },function(error){
-                $scope.loading=0;
-                console.log('error');
-            });
+        var frontCanvas=document.getElementById('frontCanvas');
+        var backCanvas=document.getElementById('backCanvas');
+        var frontData=frontCanvas.toDataURL('image/png');
+        var backData=frontCanvas.toDataURL('image/png');
+        var data1 = new FormData();
+        data1.append('front',frontData);
+        var data2= new FormData();
+        data2.append('back',backData);
+        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
+            $scope.loading--;
+            console.log(response);
+            var card1=Session.card;
+            card1[response.drawing.type]=response.drawing;
+            Session.saveCard(card1);
+            $scope.finished++;
+        },function(error){
+            $scope.loading=0;
+            console.log('error');
         });
-        $scope.drawBack().then(function(imageUrl){
-            var data2 = new FormData();
-            data2.append('back',imageUrl);
-            CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
-                $scope.loading --;
-                console.log(response);
-                var card2=Session.card;
-                card2[response.drawing.type]=response.drawing;
-                Session.saveCard(card2);
-                $scope.finished++;
-            },function(error){
-                $scope.loading=0;
-                console.log('error');
-            });
+        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
+            $scope.loading--;
+            console.log(response);
+            var card2=Session.card;
+            card2[response.drawing.type]=response.drawing;
+        Session.saveCard(card2);
+            $scope.finished++;
+        },function(error){
+            $scope.loading=0;
+            console.log('error');
         });
+        CardService.postHtmlMessage(Session.card.id,{'back':$scope.messageBack,'front':$scope.messageFront}).then(function(response){
+            $scope.loading--;
+            var card4=Session.card;
+            card4.frontMessage=$scope.messageBack;
+            card4.backMessage=$scope.messageFront;
+            Session.saveCard(card4);
+            $scope.finished++;
+        },function(error){
+            $scope.loading=0;
+            console.log('error');
+        });
+    	// $scope.drawFront().then(function(imageUrl){
+     //        var data1 = new FormData();
+     //        data1.append('front',imageUrl);
+     //        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
+     //            $scope.loading--;
+     //            console.log(response);
+     //            var card1=Session.card;
+     //            card1[response.drawing.type]=response.drawing;
+     //            Session.saveCard(card1);
+     //            $scope.finished++;
+     //        },function(error){
+     //            $scope.loading=0;
+     //            console.log('error');
+     //        });
+     //    });
+     //    $scope.drawBack().then(function(imageUrl){
+     //        var data2 = new FormData();
+     //        data2.append('back',imageUrl);
+     //        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
+     //            $scope.loading --;
+     //            console.log(response);
+     //            var card2=Session.card;
+     //            card2[response.drawing.type]=response.drawing;
+     //            Session.saveCard(card2);
+     //            $scope.finished++;
+     //        },function(error){
+     //            $scope.loading=0;
+     //            console.log('error');
+     //        });
+     //    });
     };
     $scope.toggleMode=function(){
     	$scope.mode=($scope.mode==='text')?'draw':'text';
@@ -65,66 +107,68 @@ angular.module('xcards4App')
     	return arg===$scope.mode;
     };
     $scope.drawFront=function(){
-        var deferred=$q.defer();
-        var drawing= document.getElementById('frontCanvas');
-        var canvas= document.createElement('canvas');
-        //var canvas = document.getElementById('frontTrialCanvas');
-        canvas.width = 1456;
-        canvas.height = 950;
+        // var deferred=$q.defer();
+        // var drawing= document.getElementById('frontCanvas');
+        // //var canvas= document.createElement('canvas');
+        // var canvas = document.getElementById('trial2');
+        // canvas.width = 1456;
+        // canvas.height = 950;
         // Get the drawing context
-        var context = canvas.getContext('2d');
-        //context.scale(1,1);
-        //var html = $scope.message;
-        var html=jQuery('#frontEditor').html();
-        html='<html><body style="padding:0;margin:0;">'+html+'</body></html>';
-        html=html.replace(/font-size:22px;/,'font-size:44px;');
-        html=html.replace(/width: 728px;/,'width:1456px;');
-        html=html.replace(/height: 475px;/,'height:950px;');
-        //html=style+'<div class="editor">'+html+'</div>';
-        var options={
-            width: 1456,
-            height: 950
-        };
-        rasterizeHTML.drawHTML(html,[],options).then(function (htmlResult) {
-            context.drawImage(htmlResult.image, 0, 0);
-            context.drawImage(drawing,0,0);
-            deferred.resolve(canvas.toDataURL('image/png'));
-        },function(error){
-            deferred.reject('error');
-            console.log(error);
-        });
-        return deferred.promise;
+        // var context = canvas.getContext('2d');
+        // //context.scale(1,1);
+        // //var html = $scope.message;
+        // var html=jQuery('#frontEditor').html();
+        // html='<html><body style="padding:0;margin:0;">'+html+'</body></html>';
+        // html=html.replace(/font-size:22px;/,'font-size:44px;');
+        // html=html.replace(/width: 728px;/,'width:1456px;');
+        // html=html.replace(/height: 475px;/,'height:950px;');
+        // //html=style+'<div class="editor">'+html+'</div>';
+        // var options={
+        //     width: 1456,
+        //     height: 950
+        // };
+        // rasterizeHTML.drawHTML(html,[],options).then(function (htmlResult) {
+        //     //context.drawImage(htmlResult.image, 0, 0);
+        //     console.log(htmlResult);
+        //     //context.drawImage(drawing,0,0);
+        //     deferred.resolve(canvas.toDataURL('image/png'));
+        // },function(error){
+        //     deferred.reject('error');
+        //     console.log(error);
+        // });
+        // return deferred.promise;
     };
     $scope.drawBack=function(){
-        var deferred=$q.defer();
-    	var drawing= document.getElementById('backCanvas');
-        var canvas= document.createElement('canvas');
-		//var canvas = document.getElementById('trialcanvas');
-		canvas.width = 680;
-		canvas.height = 840;
-		// Get the drawing context
-		var context = canvas.getContext('2d');
-        //context.scale(1,1);
-		//var html = $scope.message;
-		var html=jQuery('#backEditor').html();
-		html='<html><body style="padding:0;margin:0;">'+html+'</body></html>';
-        html=html.replace(/font-size:16px;/,'font-size:32px;');
-        html=html.replace(/width: 340px;/,'width:680px;');
-        html=html.replace(/height: 420px;/,'height:840px;');
-		var options={
-			width: 680,
-			height: 840
-		};
-		rasterizeHTML.drawHTML(html,[],options).then(function (htmlResult) {
-		    context.drawImage(htmlResult.image, 0, 0);
-            context.drawImage(drawing,0,0);
-            deferred.resolve(canvas.toDataURL('image/png'));
-            //window.open(canvas.toDataURL('image/png'),'mywindow');
-		},function(error){
-            deferred.reject('error');
-			console.log(error);
-		});
-        return deferred.promise;
+     //    var deferred=$q.defer();
+    	// var drawing= document.getElementById('backCanvas');
+        //var canvas= document.createElement('canvas');
+		// var canvas = document.getElementById('trial2');
+		// canvas.width = 680;
+		// canvas.height = 840;
+		// // Get the drawing context
+		// var context = canvas.getContext('2d');
+  //       //context.scale(1,1);
+		// //var html = $scope.message;
+		// var html=jQuery('#backEditor').html();
+		// html='<html><body style="padding:0;margin:0;">'+html+'</body></html>';
+  //       html=html.replace(/font-size:16px;/,'font-size:32px;');
+  //       html=html.replace(/width: 340px;/,'width:680px;');
+  //       html=html.replace(/height: 420px;/,'height:840px;');
+		// var options={
+		// 	width: 680,
+		// 	height: 840
+		// };
+		// rasterizeHTML.drawHTML(html,[],options).then(function (htmlResult) {
+  //           console.log(html);
+		//     //context.drawImage(htmlResult.image, 0, 0);
+  //           //context.drawImage(drawing,0,0);
+  //           //deferred.resolve(canvas.toDataURL('image/png'));
+  //           //window.open(canvas.toDataURL('image/png'),'mywindow');
+		// },function(error){
+  //           deferred.reject('error');
+		// 	console.log(error);
+		// });
+        // return deferred.promise;
     };
     $scope.brush1='ribbon';
     $scope.color1=[0,0,0];

@@ -49,7 +49,7 @@ angular.module('xcards4App')
 			address: '='
 		},
 		controller: 'AddressFormController',
-		templateUrl: '/views/addressForm.tpl.html'
+		templateUrl: 'views/addressForm.tpl.html'
 	};
 })
 .controller('AddressFormController', function ($scope, SmartyStreetsSuggestionFactory, SmartyStreetsValidationFactory) {

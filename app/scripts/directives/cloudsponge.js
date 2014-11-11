@@ -7,7 +7,7 @@
  * # cloudSponge
  */
 angular.module('xcards4App')
-  .directive('cloudSponge', function (RequestService,$modal) {
+  .directive('cloudSponge', function (RequestService,$modal,$location) {
     return {
       templateUrl:'views/partials/cloudsponge.html',
       restrict: 'E',
@@ -15,6 +15,14 @@ angular.module('xcards4App')
         scope.contacts=[];
         scope.manualForm={};
         scope.hideInput=true;
+        var cskey;
+        console.log($location.host());
+        if($location.host()==='localhost'){
+          cskey='A5CR8EQX5U8GQATHZGFE';
+        }else{
+          //paulgruenbacher.com
+          cskey='DD48P5NJKWBRV3YHF35U';
+        }
         var check=function(){
           if(scope.contacts.length===0){return;}
           var submission=[],number;
@@ -71,7 +79,7 @@ angular.module('xcards4App')
           check();
         };
         var csPageOptions = {
-            domain_key:'A5CR8EQX5U8GQATHZGFE',
+            domain_key:cskey,
             include:['name','email','mailing_address'],
             // set skipSourceMenu to true when using deep links for a more consistent UX
             skipSourceMenu:true, // suppresses the source menu unless linked to directly

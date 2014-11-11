@@ -15,7 +15,7 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <style rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/custom.css">
     <style type="text/css">
     /* some naive styles for a splash page */
     [ng-cloak].splash {
@@ -101,8 +101,9 @@
     <script src="scripts/smartyStreet/liveaddress.min.js"></script>
     <script src="bower_components/jcrop/js/jquery.Jcrop.min.js"></script>
     <!-- Include the script at the end of the body section -->
-    <script type="text/javascript" src="//api.cloudsponge.com/address_books.js"></script>
     <!-- endbuild -->
+    <!--External Scripts-->
+    <script type="text/javascript" src="//api.cloudsponge.com/address_books.js"></script>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>Stripe.setPublishableKey('pk_test_5cjIWWuGdWCAFftp2SLoyGwb');</script>
 
@@ -145,6 +146,7 @@
         <script src="scripts/services/requestservice.js"></script>
         <script src="scripts/controllers/existing.js"></script>
         <script src="scripts/controllers/cards.js"></script>
+        <script src="scripts/directives/breadcrumbbar.js"></script>
         <!-- endbuild -->
 </body>
 </html>
