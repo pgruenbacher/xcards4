@@ -1,5 +1,10 @@
 <div id="wrap" class="orange">
 	<navbar></navbar>
+	<div style="position:fixed; right:0px; top:0px; z-index:1000">
+		<a twitter  data-lang="en" data-count='horizontal' data-url='http://dev.x-presscards.com' data-via='XPressCards' data-size="medium" data-text='Sending a postcard!' ></a>
+		<a facebook class="facebookShare" data-url='http://dev.x-presscards.com' data-shares='shares'>{{shares}}</a>
+		<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://dev.x-presscards.com' data-action='share'></div>
+	</div>
 	<div class="container white with-navbar" style="min-height: 450px;">
 	  <ui-view></ui-view>
 	</div>

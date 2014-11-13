@@ -17,6 +17,7 @@ angular.module('xcards4App')
   $scope.data={
   	register:mode,
   };
+  $scope.errors={};
   $scope.loginLoading=false;
   // Defining user logged status
   $scope.logged = false;
@@ -48,6 +49,11 @@ angular.module('xcards4App')
         $scope.message='Thank you for registering you account. Check your email to activate';
         help('accountRegistered');
       }else if(response.status==='validation'){
+        if(typeof response.errors !=='undefined'){
+          $scope.errors.email=angular.fromJson(response.errors).email;
+          console.log(angular.fromJson(response.errors));
+          console.log($scope.errors);
+        }
         console.log(response);
       }
   	},function(){

@@ -8,7 +8,7 @@
 		    	<label for="email">Email</label>
 		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
 		    </div>
-		    <p ng-show="loginFOrm.email.$error.required && loginForm.$submitted">Your name is required</p>
+		    <p ng-show="loginForm.email.$error.required && loginForm.$submitted">Your name is required</p>
 		    <div class="form-group">
 		    	<label for="password">Password</label>
 		      <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
@@ -44,8 +44,9 @@
 		    	<label for="email">Email</label>
 		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
 		    </div>
-		    <p ng-show="registerForm.email.$error.required && registerForm.$submitted">Your email is required</p>
-        	<p ng-show="registerForm.email.$error.email && registerForm.$submitted">Invalid Email</p>
+		    <p ng-show="errors.email">{{errors.email[0]}} <i class="fa fa-warning" style="color:yellow"></i></p>
+		    <p ng-show="registerForm.email.$error.required && registerForm.$submitted">Your email is required <i class="fa fa-warning" style="color:yellow"></i></p>
+        	<p ng-show="registerForm.email.$error.email && registerForm.$submitted">Invalid Email <i class="fa fa-warning" style="color:yellow"></i></p>
 		    <!--Password 1-->
 		    <div class="form-group validated">
 		    	<label for="password">Password</label>
@@ -58,8 +59,8 @@
 		    	<label for="password2">Confirm Password</label>
 		      <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm password" ng-model="user.password2" password-match="user.password" required>
 		    </div>
-		    <p ng-show="registerForm.password2.$error.required && registerForm.$submitted">Retype your password</p>
-        	<p ng-show="registerForm.password2.$error.match && registerForm.$submitted">Your passwords do not match</p>
+		    <p ng-show="registerForm.password2.$error.required && registerForm.$submitted">Retype your password <i class="fa fa-warning" style="color:yellow"></i></p>
+        	<p ng-show="registerForm.password2.$error.match && registerForm.$submitted">Your passwords do not match <i class="fa fa-warning" style="color:yellow"></i></p>
         	<!--Button block-->
 		    <button class="btn btn-block btn-primary">Create Account</button>
 		    <div class="divider" ng-click="data.toggleModal('login')">
@@ -79,6 +80,8 @@
 		    	<label for="password2">Confirm Password</label>
 		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="change.password2" password-match="change.password" required>
 		    </div>
+		     <p ng-show="passwordForm.password2.$error.required && passwordForm.$submitted">Retype your password <i class="fa fa-warning" style="color:yellow"></i></p>
+        	<p ng-show="passwordForm.password2.$error.match && passwordForm.$submitted">Your passwords do not match <i class="fa fa-warning" style="color:yellow"></i></p>
 		    <button class="btn btn-block btn-primary">Change Password</button>
 		</form>
 	</div>

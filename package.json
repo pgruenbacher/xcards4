@@ -5,6 +5,7 @@
     "rasterizehtml": "^0.9.2"
   },
   "devDependencies": {
+    "connect-modrewrite": "^0.7.9",
     "grunt": "^0.4.1",
     "grunt-autoprefixer": "^0.7.3",
     "grunt-concurrent": "^0.5.0",
