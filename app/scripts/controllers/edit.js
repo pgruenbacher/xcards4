@@ -22,53 +22,70 @@ angular.module('xcards4App')
     $scope.toggle=function(){
     	$scope.side=!$scope.side;
     };
-    $scope.messageFront='You can edit here...';
-    $scope.messageBack='You can edit here...';
+    if(typeof Session.card.frontMessage !=='undefined'){
+      $scope.messageFront=Session.card.frontMessage;
+      $scope.messageBack=Session.card.backMessage;
+    }else{
+      $scope.messageFront='You can edit here...';
+      $scope.messageBack='You can edit here...';
+    }
     $scope.continue=function(){
-        $scope.loading=3;
-        $scope.finished=0;
-        $scope.loadingMessage='rasterizing sheep';
-        var frontCanvas=document.getElementById('frontCanvas');
-        var backCanvas=document.getElementById('backCanvas');
-        var frontData=frontCanvas.toDataURL('image/png');
-        var backData=frontCanvas.toDataURL('image/png');
-        var data1 = new FormData();
-        data1.append('front',frontData);
-        var data2= new FormData();
-        data2.append('back',backData);
-        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
-            $scope.loading--;
-            console.log(response);
-            var card1=Session.card;
-            card1[response.drawing.type]=response.drawing;
-            Session.saveCard(card1);
-            $scope.finished++;
-        },function(error){
-            $scope.loading=0;
-            console.log('error');
-        });
-        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
-            $scope.loading--;
-            console.log(response);
-            var card2=Session.card;
-            card2[response.drawing.type]=response.drawing;
-        Session.saveCard(card2);
-            $scope.finished++;
-        },function(error){
-            $scope.loading=0;
-            console.log('error');
-        });
-        CardService.postHtmlMessage(Session.card.id,{'back':$scope.messageBack,'front':$scope.messageFront}).then(function(response){
-            $scope.loading--;
-            var card4=Session.card;
-            card4.frontMessage=$scope.messageBack;
-            card4.backMessage=$scope.messageFront;
-            Session.saveCard(card4);
-            $scope.finished++;
-        },function(error){
-            $scope.loading=0;
-            console.log('error');
-        });
+      var messageFront,messageBack;
+      if($scope.messageFront==='<p>You can edit here...</p>'){
+        messageFront=false;
+      }else{
+        messageFront=$scope.messageFront;
+      }
+      if($scope.messageBack==='<p>You can edit here...</p>'){
+        messageBack=false;
+      }else{
+        messageBack=$scope.messageBack;
+      }
+      $scope.loading=3;
+      $scope.finished=0;
+      $scope.loadingMessage='rasterizing sheep';
+      var frontCanvas=document.getElementById('frontCanvas');
+      var backCanvas=document.getElementById('backCanvas');
+      var frontData=frontCanvas.toDataURL('image/png');
+      var backData=backCanvas.toDataURL('image/png');
+      var data1 = new FormData();
+      data1.append('front',frontData);
+      var data2= new FormData();
+      data2.append('back',backData);
+      CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
+          $scope.loading--;
+          console.log(response);
+          var card1=Session.card;
+          card1[response.drawing.type]=response.drawing;
+          Session.saveCard(card1);
+          $scope.finished++;
+      },function(error){
+          $scope.loading=0;
+          console.log('error');
+      });
+      CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
+          $scope.loading--;
+          console.log(response);
+          var card2=Session.card;
+          card2[response.drawing.type]=response.drawing;
+      Session.saveCard(card2);
+          $scope.finished++;
+      },function(error){
+          $scope.loading=0;
+          console.log('error');
+      });
+      CardService.postHtmlMessage(Session.card.id,{'back':messageBack,'front':messageFront}).then(function(response){
+          $scope.loading--;
+          console.log(response);
+          var card4=Session.card;
+          card4.frontMessage=messageFront?messageFront:'';
+          card4.backMessage=messageBack?messageBack:'';
+          Session.saveCard(card4);
+          $scope.finished++;
+      },function(error){
+          $scope.loading=0;
+          console.log('error');
+      });
     	// $scope.drawFront().then(function(imageUrl){
      //        var data1 = new FormData();
      //        data1.append('front',imageUrl);

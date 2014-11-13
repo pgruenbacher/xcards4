@@ -95,8 +95,20 @@ angular.module('xcards4App')
     if(localStorageService.get('card')!==null){
       self.card=localStorageService.get('card');
     }
+    if(localStorageService.get('survey')!==null){
+      self.survey=localStorageService.get('survey');
+    }
   }
   init();
+  this.saveSurvey=function(survey){
+    localStorageService.set('survey',survey);
+    self.survey=survey;
+    return true;
+  };
+  this.clearAll=function(){
+    self=null;
+    self=this; //reinitialize variable
+  };
   this.saveCard=function(card){
     localStorageService.set('card',card);
     self.card=card;
@@ -124,7 +136,7 @@ angular.module('xcards4App')
     login: function(user) {
       var self=this;
       var tokenRequest=Restangular.oneUrl('oauth/access_token');
-      tokenRequest.get({
+      return tokenRequest.get({
         'username':user.email,
         'password':user.password,
         'grant_type':'password',
@@ -167,7 +179,11 @@ angular.module('xcards4App')
       if(localStorageService.remove('access_token')&&localStorageService.remove('authentication')&&Session.destroy()){
         $rootScope.$broadcast('event:auth-logout-complete');
         self.destroyAssets();
+        Session.clearAll();
       }
+    },
+    forgotPassword:function(email){
+      return Restangular.all('forgotPassword').post({email:email});
     },
     loginCancelled: function() {
       authService.loginCancelled();
@@ -188,7 +204,7 @@ angular.module('xcards4App')
       });
     },
     destroyAssets:function(){
-      localStorageService.clearAll();
+      window.localStorage.clear();
     },
     checkAuthentication:function(callback){
   		return Restangular.oneUrl('check').get();

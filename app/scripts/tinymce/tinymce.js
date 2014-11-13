@@ -8,15 +8,20 @@ angular.module('ui.tinymce', [])
   .directive("compileHtml", function($parse, $sce, $compile) {
     return {
       restrict: "A",
+      scope:{
+        'message':'=compileHtml'
+      },
       link: function (scope, element, attributes) {
-        var expression = $sce.parseAsHtml(attributes.compileHtml);
-        var getResult = function () {
-          return expression(scope);
-        };
-        scope.$watch(getResult, function (newValue) {
-          var linker = $compile(newValue);
-          element.append(linker(scope));
-        });
+        var expression = $sce.trustAsHtml(scope.message).toString();
+        console.log(expression);
+        element.append(expression);
+        // var getResult = function () {
+        //   return expression(scope);
+        // };
+        // scope.$watch(getResult, function (newValue) {
+        //   var linker = $compile(newValue);
+        //   element.append(linker(scope));
+        // });
       }
     }
   })

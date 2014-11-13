@@ -1,4 +1,7 @@
 <table class="table">
+	
+</table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Card</th>
@@ -16,7 +19,6 @@
 					<img ng-switch-when="crop" ng-src="{{card.originalImage.thumbnail.url_path}}"></img>
 					<img ng-switch-default ng-src="{{card.croppedImage.thumbnail.url_path}}"></img>
 				</div>
-				{{card.id}}
 			</td>
 			<td>
 				<div ng-repeat="recipient in card.recipients">

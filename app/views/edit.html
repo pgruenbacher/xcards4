@@ -18,7 +18,10 @@
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div>
-						<link rel="stylesheet" href="styles/custom.css"></link>
+						<div class="jcrop-vline right"></div>
+						<div class="jcrop-vline"></div>
+						<div class="jcrop-hline bottom"></div>
+						<div class="jcrop-hline"></div>
 					    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
 					</div>
 				</div>
@@ -32,7 +35,10 @@
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div>
-						<link rel="stylesheet" href="styles/custom.css"></link>
+						<div class="jcrop-vline right"></div>
+						<div class="jcrop-vline"></div>
+						<div class="jcrop-hline bottom"></div>
+						<div class="jcrop-hline"></div>
 					    <div class="editor-back" ui-tinymce="tinymceOptionsBack" ng-model="messageBack"></div>
 					</div>
 				</div>

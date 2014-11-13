@@ -22,7 +22,9 @@ angular
     'http-auth-interceptor',
     'angularFileUpload',
     'ui.brushes',
-    'angularPayments'
+    'angularPayments',
+    'angulartics',
+    'angulartics.google.analytics'
   ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -61,8 +63,9 @@ angular
     }
   })
   .state('main.front',{
-    url:'/front',
-    templateUrl:'views/front.html'
+    url:'/front?action&status',
+    templateUrl:'views/front.html',
+    controller:'FrontCtrl'
   })
   .state('main.admin',{
     url:'/admin',
@@ -75,6 +78,9 @@ angular
     url:'/upload',
     templateUrl:'views/upload.html',
     controller:'UploadCtrl',
+    data:{
+      ignoreLoading:true
+    },
     resolve:{
       card:function(CardService){
         console.log('resolve');
@@ -179,6 +185,11 @@ angular
 // })
 .run(function ($rootScope, AUTH_EVENTS, PermissionService, LOADING_EVENTS) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    if(typeof toState.data !=='undefined'){
+      if(toState.data.ignoreLoading){
+        return;
+      }
+    }
     if (toState.resolve) {
       $rootScope.$broadcast(LOADING_EVENTS.showLoading);
     }
@@ -195,6 +206,7 @@ angular
   });
   $rootScope.$on('$stateChangeStart', function (event, next) {
     if(typeof next.data !== 'undefined'){
+      if(typeof next.data.authorizedRoles==='undefined'){return;}
       var authorizedRoles = next.data.authorizedRoles;
       if (!PermissionService.isAuthorized(authorizedRoles)) {
         event.preventDefault();

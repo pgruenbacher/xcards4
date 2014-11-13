@@ -11,6 +11,7 @@ angular.module('xcards4App')
 .controller('UploadCtrl', function ($scope,FileUploader,API,PermissionService,AuthenticationService,$http,$state,Session,CardService,card) {
 	$scope.uploadStatus=null;
 	$scope.loading=false;
+	$scope.help('intro');
 	console.log(card);
 	var cardId=card.id;
 	var route='/cards/'+card.id+'/images';

@@ -8,8 +8,9 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('PaymentModalCtrl', function ($scope,item,amount,Session,loadingFunc,$modalInstance,Restangular) {
+.controller('PaymentModalCtrl', function ($scope,item,amount,Session,loadingFunc,SurveyService,$modalInstance,Restangular) {
   var card,product,charge;
+  SurveyService.open();
   $scope.chargeProduct=function(response){
     Restangular.all('orders/products').post({
       'token':response.id,
@@ -21,7 +22,7 @@ angular.module('xcards4App')
     },function(){
       $scope.loadingFunc(false);
     });
-  }
+  };
   $scope.chargeCard=function(response){
     Restangular.all('orders').post({
       'token':response.id,

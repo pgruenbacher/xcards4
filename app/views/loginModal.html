@@ -3,47 +3,70 @@
 </div>
 <div class="modal-body">
 	<div ng-switch="data.register">
-		<form ng-switch-default>
+		<form ng-switch-default name="loginForm" on-valid-submit="login(user)">
 		    <div class="form-group">
 		    	<label for="email">Email</label>
-		      <input type="text" id="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
+		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
 		    </div>
+		    <p ng-show="loginFOrm.email.$error.required && loginForm.$submitted">Your name is required</p>
 		    <div class="form-group">
 		    	<label for="password">Password</label>
-		      <input type="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
+		      <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
 		    </div>
+		    <p ng-show="loginForm.password.$error.required && loginForm.$submitted">Your password is required</p>
 		    <label>
 		  		<input class="pull left" type="checkbox" id="remember"/> Remember me
 		    </label>
-		    <a class="pull-right link" href=""><b>Forgot password </b><i class="fa fa-question"></i></a>
-		    <button class="btn btn-primary btn-block" ng-click="login(user)">Login</button>
+		    <a class="pull-right link" ng-click="data.toggleModal('forgot')"><b>Forgot password </b><i class="fa fa-question"></i></a>
+		    <button class="btn btn-primary btn-block">Login</button>
 		    <div class="divider" ng-click="data.toggleModal('register')">
 		    	<a href="">Or create a new account</a>
 		    </div>
 		</form>
-		<form ng-switch-when="register">
+		<!--Forgot Password modal-->
+		<form ng-switch-when="forgot" name="forgotForm" on-valid-submit="forgotPassword(forgot.email)">
 			<div class="form-group">
+				<label for="email">Email</label>
+				<input type="email" id="email" class="form-control" name="email" placeholder="enter email" ng-model="forgot.email" required auto-fill-sync/>
+			</div>
+			<button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+			<a ng-click="data.toggleModal('login')">back to login</a>
+		</form>
+		<!--Register account-->
+		<form ng-switch-when="register" name="registerForm" on-valid-submit="registerAccount(user)">
+			<div class="form-group validated">
 		    	<label for="name">Your name</label>
-		      <input type="text" id="name" class="form-control" placeholder="Full Name" ng-model="user.name" required>
+		      <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" ng-model="user.name" required>
 		    </div>
-		    <div class="form-group">
+		    <p ng-show="registerForm.name.$error.required && registerForm.$submitted">Your name is required</p>
+		    <!--Email-->
+		    <div class="form-group validated">
 		    	<label for="email">Email</label>
-		      <input type="text" id="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
+		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
 		    </div>
-		    <div class="form-group">
+		    <p ng-show="registerForm.email.$error.required && registerForm.$submitted">Your email is required</p>
+        	<p ng-show="registerForm.email.$error.email && registerForm.$submitted">Invalid Email</p>
+		    <!--Password 1-->
+		    <div class="form-group validated">
 		    	<label for="password">Password</label>
-		      <input type="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
+		      <input type="password" id="password" name="password" class="form-control" placeholder="Password" ng-model="user.password" ng-minLength="5" required auto-fill-sync>
 		    </div>
-		    <div class="form-group">
+		    <p ng-show="registerForm.password.$error.required && registerForm.$submitted">Your password is required</p>
+       		 <p ng-show="registerForm.password.$error.minlength && registerForm.$submitted">5 characters at least</p>
+		    <!--Password Confirm-->
+		    <div class="form-group validated">
 		    	<label for="password2">Confirm Password</label>
-		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="user.password2" required>
+		      <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm password" ng-model="user.password2" password-match="user.password" required>
 		    </div>
-		    <button class="btn btn-block btn-primary" ng-click="registerAccount(user)">Create Account</button>
+		    <p ng-show="registerForm.password2.$error.required && registerForm.$submitted">Retype your password</p>
+        	<p ng-show="registerForm.password2.$error.match && registerForm.$submitted">Your passwords do not match</p>
+        	<!--Button block-->
+		    <button class="btn btn-block btn-primary">Create Account</button>
 		    <div class="divider" ng-click="data.toggleModal('login')">
 		    	<a href="">Or Log In</a>
 		    </div>
 		</form>
-		<form ng-switch-when="change">
+		<form ng-switch-when="change" name="passwordForm" on-valid-submit="changePassword()">
 			<div class="form-group">
 		    	<label for="oldPassword">Old Password</label>
 		      <input type="password" id="oldPassword" class="form-control" placeholder="Password" ng-model="change.oldPassword" required auto-fill-sync>
@@ -54,9 +77,10 @@
 		    </div>
 		    <div class="form-group">
 		    	<label for="password2">Confirm Password</label>
-		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="change.password2" required>
+		      <input type="password" id="password2" class="form-control" placeholder="Confirm password" ng-model="change.password2" password-match="change.password" required>
 		    </div>
-		    <button class="btn btn-block btn-primary" ng-click="changePassword()">Change Password</button>
+		    <button class="btn btn-block btn-primary">Change Password</button>
 		</form>
 	</div>
+	<loading-bunny loading-scope="loginLoading" style="width:50px;"></loading-bunny>
 </div>

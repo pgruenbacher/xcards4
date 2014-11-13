@@ -29,12 +29,12 @@
 					<p>At ${{card.cardSetting.dollar_rate}} dollars per card:<span>${{totalCost}}</span></p>
 					<p>Minus {{discount}} bulk discount <span>- ${{number*discount}}</span></p>
 					<p>Total Cost <span>${{totalCost}}</span></p>
-					<button ng-click="openPayment()" class="btn btn-primary">Pay</button>
+					<button ng-click="openPayment()" class="btn btn-primary" analytics-category="purchasing" analytics-on="click" analytics-label="paying for cards" analytics-event="PayForCard">Pay</button>
 				</div>
 				<div ng-show="affordable">
 					<p>At {{creditRate}} credits per card:<span> {{totalCredits}}</span></p>
 					<p>Use {{totalCredits}} total credits</p>
-					<button ng-click="useCredits()" class="btn btn-primary">Pay</button>
+					<button ng-click="useCredits()" class="btn btn-primary" analytics-category="purchasing" analytics-on="click" analytics-label="using credits for cards" analytics-event="useCredits">Pay</button>
 				</div>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 </div>
 <div class="row">
 	<div class="col-sm-8" style="min-height:600px">
-		<button class="btn btn-default" ng-click="toggle()">Toggle</button>
+		<button class="btn btn-default" ng-click="toggle()"><i class="fa fa-refresh"></i> Flip</button>
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
 				<div class="back-edit-form">

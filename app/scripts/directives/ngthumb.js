@@ -23,18 +23,21 @@ angular.module('xcards4App')
             return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
         }
     };
-
     return {
         restrict: 'A',
-        template: '<canvas/>',
+        template: '<canvas><canvas/>',
         link: function(scope, element, attributes) {
+            console.log('ng-thumb');
+            console.log('no support');
             if (!helper.support) return;
             var params = scope.$eval(attributes.ngThumb);
-            
+            console.log('not file');
             if (!helper.isFile(params.file)) return;
+            console.log('isfile');
             if (!helper.isImage(params.file)) return;
 
             var canvas = element.find('canvas');
+            console.log(canvas);
             var reader = new FileReader();
 
             reader.onload = onLoadFile;
@@ -44,6 +47,7 @@ angular.module('xcards4App')
                 var img = new Image();
                 img.onload = onLoadImage;
                 img.src = event.target.result;
+                console.log(img);
             }
 
             function onLoadImage() {

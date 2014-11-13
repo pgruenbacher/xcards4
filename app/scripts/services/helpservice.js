@@ -32,6 +32,47 @@ angular.module('xcards4App')
         fnParams:['no problem!']
       },
       oneTime:false
+    },
+    accountRegistered:{
+      id:'accountRegistered',
+      message:'Thanks for registering! Check your email to activate, then login!',
+      button:true,
+      buttonMessage:'roger that',
+      buttonFunction:{
+        name:'close',
+        fnParams:['affirmative']
+      },
+      oneTime:false
+    },
+    forgotPassword:{
+      id:'forgotPassword',
+      message:'An email has been sent to you with a link to reset your password',
+      button:true,
+      buttonMessage:'thanks',
+      buttonFunction:{
+        name:'close',
+        fnParams:['I love mittens!']
+      }
+    },
+    accountActivated:{
+      id:'accountActivated',
+      message:'Your account has been activated, go ahead and login!',
+      button:false
+    },
+    passwordReset:{
+      id:'passwordReset',
+      message:'Your password has been reset, you can login in with your temporary password',
+      button:false
+    },
+    passwordResetFail:{
+      id:'passwordResetFail',
+      message:'Your password could not be reset, did you use the correct email link?',
+      button:false
+    },
+    accountActivatedFail:{
+      id:'accountActivatedFail',
+      message:'Your activation link did not work, your account may already be activated',
+      button:false
     }
   };
   return{
@@ -41,7 +82,7 @@ angular.module('xcards4App')
       }else{
         bentleyList=[];
       }
-      if(typeof names[name].id !=='undefined'){
+      if(typeof names[name] !=='undefined'){
         bentleyObject=names[name];
         var exists=false;
         bentleyList.map(function(obj, index) {
@@ -50,11 +91,13 @@ angular.module('xcards4App')
           }
         }).filter(isFinite);
         if(bentleyObject.oneTime && exists){
+          console.log('one time');
           return false;
         }
         bentleyObject.date=new Date().getTime();
         bentleyList.push(bentleyObject);
         localStorageService.set('bentleyList',bentleyList);
+        console.log(bentleyObject);
         return bentleyObject;
       }else{
         return false;

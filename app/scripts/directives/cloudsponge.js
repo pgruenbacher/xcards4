@@ -19,9 +19,11 @@ angular.module('xcards4App')
         console.log($location.host());
         if($location.host()==='localhost'){
           cskey='A5CR8EQX5U8GQATHZGFE';
-        }else{
+        }else if($location.host()==='paulgruenbacher.com'){
           //paulgruenbacher.com
           cskey='DD48P5NJKWBRV3YHF35U';
+        }else{
+          cskey='PG83EXRJENJM58FRZ4UC';
         }
         var check=function(){
           if(scope.contacts.length===0){return;}

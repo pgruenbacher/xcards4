@@ -35,6 +35,7 @@ angular.module('xcards4App')
             $timeout(function(){
               self.animate('bounceOutRight');
               self.onEnd(self.hide);
+              scope.help='';
             },800);
           },
           animate:function(animation){
@@ -50,8 +51,16 @@ angular.module('xcards4App')
         };
         scope.$watch('help',function(newValue,oldValue){
           if(newValue){
-            scope.bentley=newValue;
-            API.show();
+            if(typeof newValue.id!=='undefined'){
+              console.log(scope.bentley, newValue);
+              scope.bentley={
+                message: newValue.message,
+                buttonFunction: newValue.buttonFunction,
+                button: newValue.button,
+                buttonMessage: newValue.buttonMessage
+              };
+              API.show();
+            }
           }
         });
         scope.call=function(el){

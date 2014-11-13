@@ -8,7 +8,7 @@
  * Constant in the xcards4App.
  */
 angular.module('xcards4App')
-.constant('SmartyToken', '3445594375398796739')
+.constant('SmartyToken', '3445594375910900087') //x-presscards, dev.x-presscards, localhost
 .factory('SmartyStreetsSuggestionFactory', function (Restangular, $q, $http, SmartyToken) {
   return{
 	  getSuggestions:function (suggestion) {
@@ -54,11 +54,11 @@ angular.module('xcards4App')
 })
 .controller('AddressFormController', function ($scope, SmartyStreetsSuggestionFactory, SmartyStreetsValidationFactory) {
   $scope.disable=false;
-  $scope.suggestions = [];
+  //$scope.suggestions = [];
   $scope.validated=false;
-  $scope.blurred=false;
+  //$scope.blurred=false;
   $scope.notValidated=false;
-  $scope.suggestSelected=0;
+  //$scope.suggestSelected=0;
   $scope.addressInput='';
   if(typeof $scope.address.address!=='undefined'){
     $scope.addressInput=$scope.address.address;
@@ -74,33 +74,51 @@ angular.module('xcards4App')
     }
   });
   $scope.valid=$scope.validated;
-  $scope.toggleBlur=function(bool){
-    $scope.blurred=bool;
-  }
-  $scope.showSuggestions=function(){
-    return !($scope.validated || $scope.notValidated || $scope.blurred);
-  }
-  $scope.getAddresses = function (searchString) {
-    if (searchString != null && searchString !== '' && searchString.length > 10 && !$scope.notValidated && !$scope.validated) {
-      SmartyStreetsSuggestionFactory.getSuggestions(searchString)
-        .then(function (result) {
-        	if(result.data.suggestions !== null){
-	          $scope.suggestions = result.data.suggestions;
-	          if (result.data.suggestions.length === 1) {
-	            $scope.addressInput = result.data.suggestions[0].text;
-              $scope.validateAddress();
-	          } else {
-	            //$scope.suggestions=result.suggestions;
-	          }
-        	}
-        });
-    }
+  // $scope.toggleBlur=function(bool){
+  //   $scope.blurred=bool;
+  // }
+  // $scope.showSuggestions=function(){
+  //   return !($scope.validated || $scope.notValidated || $scope.blurred);
+  // }
+  $scope.getSuggestions=function(searchString){
+    return SmartyStreetsSuggestionFactory.getSuggestions(searchString)
+      .then(function (result) {
+        //return ['asdf','asfd','asdf'];
+        if(result.data.suggestions !==null){
+          if (result.data.suggestions.length === 1) {
+            $scope.addressInput = result.data.suggestions[0].text;
+            $scope.validateAddress();
+          }
+          var texts=result.data.suggestions.map(function(item){
+            return item.text
+          });
+          return texts;
+        }else{
+          return [];
+        }
+      });
   };
+  // $scope.getAddresses = function (searchString) {
+  //   if (searchString != null && searchString !== '' && searchString.length > 10 && !$scope.notValidated && !$scope.validated) {
+  //     SmartyStreetsSuggestionFactory.getSuggestions(searchString)
+  //       .then(function (result) {
+  //       	if(result.data.suggestions !== null){
+	 //          $scope.suggestions = result.data.suggestions;
+	 //          if (result.data.suggestions.length === 1) {
+	 //            $scope.addressInput = result.data.suggestions[0].text;
+  //             $scope.validateAddress();
+	 //          } else {
+	 //            //$scope.suggestions=result.suggestions;
+	 //          }
+  //       	}
+  //       });
+  //   }
+  // };
 
-  $scope.$on('$typeahead.select', function (event, address, index) {
-    console.log('typeahead selected');
-      $scope.addressInput = $scope.suggestions[index];
-  });
+  // $scope.$on('$typeahead.select', function (event, address, index) {
+  //   console.log('typeahead selected');
+  //     $scope.addressInput = $scope.suggestions[index];
+  // });
   $scope.selectSuggestion=function(address){
     $scope.addressInput=address;
     $scope.validateAddress();
@@ -113,27 +131,27 @@ angular.module('xcards4App')
       $scope.notValidated=true;
     }
   }
-  $scope.selectDown=function(event){
-    console.log($scope.suggestSelected);
-    if($scope.suggestions.length>0){
-      if(event.which===40){
-        if($scope.suggestSelected>=$scope.suggestions.length-1){
-          $scope.suggestSelected=0;
-        }
-        $scope.suggestSelected++;
-      }
-      if(event.which===38){
-        if($scope.suggestSelected<=0){
-          $scope.suggestSelected=$scope.suggestions.length;
-        }
-        $scope.suggestSelected--;
-      }
-      if(event.which===13 && $scope.suggestSelected>=0 && $scope.suggestSelected < $scope.suggestions.length){
-        $scope.addressInput=$scope.suggestions[$scope.suggestSelected].text;
-        $scope.validateAddress();
-      }
-    }
-  };
+  // $scope.selectDown=function(event){
+  //   console.log($scope.suggestSelected);
+  //   if($scope.suggestions.length>0){
+  //     if(event.which===40){
+  //       if($scope.suggestSelected>=$scope.suggestions.length-1){
+  //         $scope.suggestSelected=0;
+  //       }
+  //       $scope.suggestSelected++;
+  //     }
+  //     if(event.which===38){
+  //       if($scope.suggestSelected<=0){
+  //         $scope.suggestSelected=$scope.suggestions.length;
+  //       }
+  //       $scope.suggestSelected--;
+  //     }
+  //     if(event.which===13 && $scope.suggestSelected>=0 && $scope.suggestSelected < $scope.suggestions.length){
+  //       $scope.addressInput=$scope.suggestions[$scope.suggestSelected].text;
+  //       $scope.validateAddress();
+  //     }
+  //   }
+  // };
   $scope.validateAddress = function () {
     $scope.disable=true;
     return SmartyStreetsValidationFactory.doValidation($scope.addressInput).then(function (result) {

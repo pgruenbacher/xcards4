@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<h3 class="modal-title ribbon center">Thanks!</h3>
+</div>
+<div class="modal-body">
+	<div ng-switch="data.register">
+		<form>
+			<h5>Thanks for participating in our website mockup! We intend to start a complete launch very soon, but in the meantime, we'd like your opinion!</h5>
+			<label>Please rate your overall experience using the website</label>
+			<div style="font-size:20px">
+		    	<rating ng-model="survey.rating" max="5"></rating>
+		    	{{survey.rating}}
+			</div>
+			<div class="form-group">
+				<label for="price">What's the most you'd pay for a card that we print and deliver for you? (no postage cost for you)</label>
+				<select id="price" class="form-control" ng-model="survey.price">
+					<option value="1">$1</option>
+					<option value="1.5">$1.50</option>
+					<option value="2">$2</option>
+					<option value="2.5">$2.5</option>
+					<option value="3">$3</option>
+					<option value="3.5">$3.50</option>
+				</select>
+			</div>
+			<h4>How would you want to use this service?</h4>
+			<div class="form-group">
+				<label for="frequently">Frequently</label>
+				<input type="checkbox" id="frequently" ng-model="survey.frequently" value="frequently"/>
+				<label for="infrequently">Infrequently</label>
+				<input type="checkbox" id="infrequently" ng-model="survey.infrequently" value="infrequently"/>
+				<label for="trips">International Trips</label>
+				<input type="checkbox" id="trips" ng-model="survey.trips" value="trips"/>
+				<label for="special">Special Occasions</label>
+				<input type="checkbox" id="special" ng-model="survey.special" value="special"/>
+				<label for="holiday">Holiday Season</label>
+				<input type="checkbox" id="holiday"  ng-model="survey.holiday" value="holiday"/>
+				<label for="invitations">Invitations</label>
+				<input type="checkbox" id="invitations" ng-model="survey.invitations" value="invitations"/>
+			</div>
+			<div class="form-group">
+				<label for="comments">Please leave us feedback!</label>
+				<textarea id="comments" ng-model="survey.comments"></textarea>
+			</div>
+		    <button class="btn btn-primary btn-block" ng-click="finish(survey)">Finish</button>
+		</form>
+	</div>
+</div>

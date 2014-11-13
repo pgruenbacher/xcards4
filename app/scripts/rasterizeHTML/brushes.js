@@ -171,10 +171,12 @@ angular.module('ui.brushes', [])
             };
             function init(){
                 var hash, palette, embed;
-                if (USER_AGENT.search('android') > -1 || USER_AGENT.search('iphone') > -1)
+                if (USER_AGENT.search('android') > -1 || USER_AGENT.search('iphone') > -1){
                     BRUSH_SIZE = 2;    
-                if (USER_AGENT.search('safari') > -1 && USER_AGENT.search('chrome') == -1) // Safari
-                    STORAGE = false;
+                }
+                if (USER_AGENT.search('safari') > -1 && USER_AGENT.search('chrome') == -1){ // Safari
+                    //STORAGE = false;
+                }
                 canvas=element[0];
                 container=element.parent()[0];
                 if(typeof scope.ratio!=='undefined'){
@@ -192,11 +194,9 @@ angular.module('ui.brushes', [])
                 attrs.$observe('brush',function(value){
                     BRUSH=value;
                     onBrushChange()
-                    console.log('brush',value);
                 });
                 scope.$watch('color',function(oldColor,newColor){
                     COLOR=newColor;
-                    console.log('color',newColor);
                 });
             }
             init();
@@ -254,8 +254,7 @@ angular.module('ui.brushes', [])
                 
             }
             function onCanvasTouchStart( event ){
-                cleanPopUps();        
-
+                cleanPopUps();  
                 if(event.touches.length == 1)
                 {
                     event.preventDefault();
@@ -265,6 +264,7 @@ angular.module('ui.brushes', [])
                     container.addEventListener('touchmove', onCanvasTouchMove, false);
                     container.addEventListener('touchend', onCanvasTouchEnd, false);
                 }
+                return false;
             }
             function onCanvasTouchMove( event ){
                 if(event.touches.length == 1)

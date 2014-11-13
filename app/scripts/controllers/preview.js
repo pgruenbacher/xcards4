@@ -8,7 +8,7 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('PreviewCtrl',function($scope,card,pricings,Session,$sce,$state,$modal,CardService, CreditService, Restangular){
+.controller('PreviewCtrl',function($scope,card,pricings,Session,$sanitize,$sce,$state,$modal,CardService, CreditService, Restangular){
   $scope.card=card;
   var user=$scope.user=Session.user;
   $scope.side=true;

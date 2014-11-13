@@ -8,9 +8,10 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-.controller('AppCtrl',function($scope,HelpService,LOADING_EVENTS){
+.controller('AppCtrl',function($scope,HelpService,SurveyService,LOADING_EVENTS){
   $scope.message={};
   $scope.help=function(name,options){
+    console.log(name,options);
     $scope.bentley=HelpService.help(name);
   };
   $scope.$on(LOADING_EVENTS.showLoading,function(){
@@ -27,7 +28,6 @@ angular.module('xcards4App')
   // $scope.setCurrentUser = function (user) {
   //   $scope.currentUser = user;
   // };
-  $scope.help('intro');
   $scope.root={};
   $scope.root.user=user;
   $scope.checkIfAuthenticated=function(){
@@ -60,7 +60,10 @@ angular.module('xcards4App')
   		resolve:{
   			mode:function(){
   				return mode;
-  			}
+  			},
+        help:function(){
+          return $scope.help;
+        }
   		}
   	});
   };

@@ -16,7 +16,7 @@
 				<td>${{product.price}}</td>
 				<td>{{parseInt(product.discount*100)}}%</td>
 				<td>{{product.amount}} cards<td>
-				<td><button class="btn btn-primary" ng-click="openPayment(product)">Buy</button></td>
+				<td><button class="btn btn-primary" ng-click="openPayment(product)" analytics-category="purchasing" analytics-on="click" analytics-label="paying for credits" analytics-event="Buy {{product.amount}} Credits">Buy</button></td>
 			</tr>
 		</tbody>
 	</table>

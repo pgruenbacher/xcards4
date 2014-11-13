@@ -8,11 +8,11 @@
 		</div>
 		<div class="form-group">
 			<label for="card">Card number</label>
-			<input id="card" name="number" type="text" class="form-control credit-card" ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type"/>
+			<input id="card" name="number" type="text" class="form-control credit-card" ng-model="number" payments-validate="card" payments-format="card" payments-type-model="type" ng-class="myForm.number.$card.type" disabled/>
 		</div>
 		<div class="form-group">
 			<label for="expiry">Expiry</label>
-			<input id="expiry" type="text" class="form-control" ng-model="expiry" payments-validate="expiry" payments-format="expiry" />
+			<input id="expiry" type="text" class="form-control" ng-model="expiry" payments-validate="expiry" payments-format="expiry" disabled/>
 		</div>
 
 		<!-- <div class="form-group">
@@ -22,7 +22,7 @@
 
 		<div class="form-group">
 			<label for="CVC">CVC</label>
-			<input id="CVC" type="text" class="form-control" ng-model="cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type"/>
+			<input id="CVC" type="text" class="form-control" ng-model="cvc" payments-validate="cvc" payments-format="cvc" payments-type-model="type" disabled/>
 		</div>
 		<button type="submit" class="btn btn-primary btn-block">Submit</button>
     </form>
