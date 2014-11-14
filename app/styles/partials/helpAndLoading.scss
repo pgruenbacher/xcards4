@@ -1,0 +1,124 @@
+.loading-bunny{
+  z-index: 1060;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  color:white;
+  font-size:1em;
+}
+.loading-bunny>div{
+  padding:10px;
+  border-radius:10px;
+  background:rgba(0,0,0,0.2);
+  position:relative;
+  left:-50%;
+  top: -50%;
+}
+.help{
+  position:fixed;
+  right: 20px;
+  bottom: 20px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  box-shadow: 0 0 3px gray;
+  box-sizing: content-box;
+  height: 100px;
+  width: 100px;
+  z-index:900;
+  margin: 0 auto;
+}
+.help.hidden{
+    display:none;
+  }
+.help p{
+    font-weight:bold;
+  }
+.help img{
+    width: 100px;
+    height: 100px;
+}
+.help-close{
+  position:absolute;
+  top:-20px;
+  right:0px;
+  }
+.help-close button{
+    background-color:#ECE0D9;
+    display: inline-block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.help-close button:hover{
+    background-color:#DBC4B8;
+}
+
+.speech-bubble.right:before {
+    border-color: transparent #5a8f00;
+    border-width: 15px 0 15px 30px;
+    top: auto;
+    left: auto;
+    right: -30px;
+    bottom: 10px;
+}
+.speech-bubble:before {
+    border-color: #5a8f00 transparent;
+    border-style: solid;
+    border-width: 20px 20px 0;
+    bottom: -20px;
+    content: "";
+    display: block;
+    left: 40px;
+    position: absolute;
+    width: 0;
+}
+.speech-bubble.right:after {
+    border-color: transparent #fff;
+    border-width: 9px 0 9px 21px;
+    top: auto;
+    left: auto;
+    right: -21px;
+    bottom: 16px;
+}
+.speech-bubble:after {
+    border-color: #fff transparent;
+    border-style: solid;
+    border-width: 13px 13px 0;
+    bottom: -13px;
+    content: "";
+    display: block;
+    left: 47px;
+    position: absolute;
+    width: 0;
+}
+.speech-bubble.right {
+    margin-right: 30px;
+}
+.speech-bubble {
+    background: none repeat scroll 0 0 #fff;
+    border: 5px solid #5a8f00;
+    border-radius: 10px;
+    color: #333;
+    padding: 15px;
+    position: relative;
+    width: 150px;
+}
+.speech-bubble-container{
+  position:absolute;
+  right: 100px;
+  bottom: 20px;
+}
+
+.address-book-selection{
+  tr.highlight>td{
+    background-color:#66CCFF;
+  }
+  tr.highlight:hover>td{
+    background-color:#66CCFF;
+  }
+}
+.ng-invalid {
+  border-color: #f00 !important;
+}
+
+

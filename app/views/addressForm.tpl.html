@@ -31,7 +31,7 @@
               <i style="color:#ff6666;" class="fa fa-circle fa-stack-2x"></i>
               <i style="color:red;" class="fa fa-exclamation fa-stack-1x"></i>
             </span>
-            <textarea style="z-index:30;" autocomplete="on" type="text" class="combobox form-control" id="AddressLine1" ng-class="{'validated':validated}" ng-disabled="disable" placeholder="Enter Address Line 1" ng-model="addressInput" typeahead="address for address in getSuggestions($viewValue)" typeahead-loading="loading" typeahead-min-length="5" typeahead-on-select="selectSuggestion($item)"></textarea>
+            <textarea style="z-index:30;" autocomplete="on" type="text" class="combobox form-control" id="AddressLine1" ng-class="{'validated':validated}" ng-disabled="disable" placeholder="Enter Address Line 1" ng-model="addressInput" typeahead="address for address in getSuggestions($viewValue)" typeahead-loading="loading" typeahead-min-length="5" typeahead-on-select="selectSuggestion($item)" required name="address"></textarea>
         </div>
     </div>
 </div>

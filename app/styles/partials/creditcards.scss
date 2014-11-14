@@ -1,0 +1,32 @@
+/******************************Payment Modal****************/
+.credit-card{
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: 98% 50%;
+}
+.visa {
+  background-image: image-url('credit-cards/visa.jpg');
+  
+}
+.jcb{
+  background-image: image-url('credit-cards/jcb.jpg');
+
+}
+.dinersclub{
+  background-image: image-url('credit-cards/dinersClub.jpg');
+
+}
+.maestro{
+  background-image: image-url('credit-cards/maestro.jpg');
+}
+.amex {
+  background-image: image-url('credit-cards/americanExpress.jpg');
+}
+
+.mastercard {
+  background-image: image-url('credit-cards/masterCard.jpg');
+}
+
+.discover {
+  background-image: image-url('credit-cards/discover.jpg');
+}

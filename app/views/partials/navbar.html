@@ -22,6 +22,7 @@
                 <a href="#" class="dropdown-toggle">My Account <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a ui-sref="account.main">My Account</a></li>
+                  <li ng-if="!checkIfAuthenticated()"><a ng-click="showLoginModal('login')">Sign In</a></li>
                	  <li ng-if="checkIfAuthenticated()"><a ng-click="logout()" href="">Sign Out</a></li>
   				        <li ng-if="checkIfAuthenticated()"><a ng-click="showLoginModal('change')" href="">Change Password</a></li>
                   <li class="divider"></li>

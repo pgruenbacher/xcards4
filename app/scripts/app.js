@@ -163,6 +163,27 @@ angular
     url:'/market',
     controller:'MarketCtrl',
     templateUrl:'views/account/market.html'
+  })
+  .state('account.contact',{
+    url:'/contact',
+    controller:'ContactCtrl',
+    templateUrl:'views/about/contact.html'
+  })
+  .state('account.privacy',{
+    url:'/privacy',
+    templateUrl:'views/about/privacy.html'
+  })
+  .state('account.terms',{
+    url:'/terms',
+    templateUrl:'views/about/terms.html'
+  })
+  .state('account.faq',{
+    url:'/faq',
+    templateUrl:'views/about/faq.html'
+  })
+  .state('account.company',{
+    url:'/company',
+    templateUrl:'views/about/company.html'
   });
   $urlRouterProvider.otherwise('/front');
 })

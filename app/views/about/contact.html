@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-md-7 contact">
+			<h1>Contact Us</h1>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Our Office
+				</div>
+				<div class="panel-info">
+					<address>
+						<strong>X-Press Cards ltd</strong></br>
+						2392 Indiana Ave</br>
+						Columbus OH 43202</br>
+					</address>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Our Email
+				</div>
+				<div class="panel-body">
+					<p>Information</p>
+					<a href="mailto:info@x-presscards.com?subject=info">info@x-presscards.com</a>
+					<p>Urgent</p>
+					<a href="mailto:help@x-presscards.com?subject=help">help@x-presscards.com</a>
+					<p>Media</p>
+					<a href="mailto:media@x-presscards.com?subject=media">media@x-presscards.com</a>
+					<div id="paul">
+						<p>Paul Gruenbacher</p>
+						<p>Technical Inquiries</p>
+						<a href="mailto:paul@x-presscards.com?subject=media">paul@x-presscards.com</a>
+					</div>
+					<div id="john">	
+						<p>John Gruenbacher</p>
+						<p>Business Inquiries</p>
+						<a href="mailto:john@x-presscards.com?subject=media">john@x-presscards.com</a>
+					</div>
+				</div>
+			</div>			
+			<h2>Or just submit form</h2>
+			<loading-bunny loading-scope="sendingContact"></loading-bunny>
+			<p>{{message}}</p>
+			<form method="post" role="form" name="contactForm" on-valid-submit="sendContactForm(contact)">
+				<div class="form-group">
+					<label for="email">Your email</label>
+					<input ng-model="contact.email" type="email" id="email" name="email" class="form-control" placeholder="subject" required/>
+				</div>
+				<p ng-show="contactForm.email.$error.required && contactForm.$submitted">Your email is required</p>
+				<div class="form-group">
+					<label for="contact.subject">Subject</label>
+					<select ng-model="contact.subject" name="subject" id="subject" class="form-control">
+					  <option value="info">Info</option>
+					  <option value="media">Media</option>
+					  <option value="help">Help</option>
+					  <option value="career">Career</option>
+					</select>
+				</div>
+				<p ng-show="contactForm.subject.$error.required && contactForm.$submitted">A subject is required</p>
+				<div class="form-group">
+					<label for="text">Body</label>
+					<textarea ng-model="contact.text" id="text" name="text" class="form-control" placeholder="enter text here..." required></textarea>
+				</div>
+				<p ng-show="contactForm.text.$error.required && contactForm.$submitted">A message is required</p>
+				<button class="btn btn-default" type="submit">Send</button>
+			</form>
+		</div>
+	<div class="col-md-5">
+		<iframe
+		  width="100%"
+		  height="800px"
+		  frameborder="0" style="border:0"
+		  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyCICeanI_vRKUCeuO1rHAs1UrFP7yvIS-k&q=Ohio+State+University">
+		</iframe>
+	</div>
+</div>

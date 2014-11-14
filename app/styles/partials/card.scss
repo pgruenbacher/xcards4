@@ -1,0 +1,74 @@
+/*********Flip Transition********/
+.card-wrapper>div{
+  z-index:20;
+  position:relative;
+  border: 1px rgba(0,0,0,.4) solid;
+  background-color: white;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  padding: 10px;
+  -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  .canvas{
+    position:absolute;
+  }
+  .front{
+    z-index:40;
+  }
+}
+.back-edit-form{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+div.editor-front{
+  color:white;
+  font-family:'big_johnregular';
+  display:inline-block;
+  line-height:1;
+  font-size:22px;
+  padding:0px;
+  margin:0px;
+  width: 728px;
+  height: 475px;
+  overflow:hidden;
+  word-wrap:break-word;
+}
+div.editor-front>*{
+  text-transform:uppercase;
+  padding:0.5rem;
+  display: inline;
+}
+div.editor-back{
+  color: black;
+  font-family:Helvetica;
+  display:inline-block;
+  line-height:2;
+  font-size:16px;
+  padding:0px;
+  margin:0px;
+  width: 340px;
+  height: 420px;
+  overflow:hidden;
+  word-wrap:break-word;
+}
+.editor-back>p{
+  margin:0;
+  padding:0;
+}
+
+/***** Flip ***************************************************************************************/
+.flip-horizontal.ng-hide{
+  animation: fadeOut 0.5s;
+  position:absolute;
+  left:0px;
+  top:0px;
+}
+.flip-horizontal{
+  animation: flipInX 0.5s;
+  position:absolute;
+  left:0px;
+  top:0px;
+}

@@ -11,6 +11,7 @@ angular.module('xcards4App')
 .controller('CropCtrl',function($scope,Session,$sce,$state,$modal,CardService){
 	$scope.P={w:306,h:200};
   $scope.loading=false;
+  $scope.onLoading=true;
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
@@ -30,6 +31,10 @@ angular.module('xcards4App')
     }else{
       return false;
     }
+  };
+  $scope.toggleLoading=function(bool){
+    console.log('toggled');
+    $scope.onLoading=bool;
   };
 	$scope.selected = function(c) {
     if(typeof c !== 'undefined'){

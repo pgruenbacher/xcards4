@@ -18,7 +18,7 @@ angular.module('xcards4App')
     return {
         restrict: 'E',
         replace: true,
-        scope: { src:'@', selected:'&' },
+        scope: { src:'@', selected:'&',loading:'&loading' },
         link: function(scope,element, attr) {
             var myImg;
             var clear = function() {
@@ -35,13 +35,15 @@ angular.module('xcards4App')
                     element.after('<img />');
                     myImg = element.next();
                     myImg.attr('src',nv);
-
+                    myImg.addClass('hidden');
+                    scope.loading(true);
                     var temp = new Image();
                     temp.src = nv;
                     temp.onload = function() {
                         var width = this.width;
                         var height = this.height;
-
+                        myImg.removeClass('hidden');
+                        scope.loading(false);
                         angular.element(myImg).Jcrop({
                             trackDocument: true,
                             onSelect: function(x) {

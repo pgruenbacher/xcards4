@@ -183,7 +183,7 @@ angular.module('xcards4App')
       }
     },
     forgotPassword:function(email){
-      return Restangular.all('forgotPassword').post({email:email});
+    return Restangular.all('forgotPassword').post({email:email});
     },
     loginCancelled: function() {
       authService.loginCancelled();

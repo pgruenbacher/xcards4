@@ -1,0 +1,23 @@
+/*****Login Modal *****/
+.ribbon{
+  background-color:#2F4D6B;
+  color:white;
+  position:relative;
+  padding:2px 30px;
+  margin: 2px -25px 5px -25px;
+}
+.ribbon:before,
+.ribbon:after {
+  content:" ";
+  border-top:10px solid #2C3E50;
+  position:absolute;
+  bottom:-10px;
+} 
+.ribbon:before {
+  border-left:10px solid transparent;
+  left:0;
+  }
+.ribbon:after {
+  border-right:10px solid transparent;
+  right:0;
+}

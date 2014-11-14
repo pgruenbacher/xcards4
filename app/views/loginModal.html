@@ -6,12 +6,13 @@
 		<form ng-switch-default name="loginForm" on-valid-submit="login(user)">
 		    <div class="form-group">
 		    	<label for="email">Email</label>
-		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required auto-fill-sync>
+		      <input type="email" id="email" name="email" class="form-control" placeholder="Email" ng-model="user.email" required autocomplete="on" auto-fill-sync>
 		    </div>
 		    <p ng-show="loginForm.email.$error.required && loginForm.$submitted">Your name is required</p>
+		    <p ng-show="loginForm.email.$error.email && loginForm.$submitted">A valid email is required</p>
 		    <div class="form-group">
 		    	<label for="password">Password</label>
-		      <input type="password" name="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
+		      <input type="password" autocomplete="on" name="password" id="password" class="form-control" placeholder="Password" ng-model="user.password" required auto-fill-sync>
 		    </div>
 		    <p ng-show="loginForm.password.$error.required && loginForm.$submitted">Your password is required</p>
 		    <label>
@@ -27,7 +28,7 @@
 		<form ng-switch-when="forgot" name="forgotForm" on-valid-submit="forgotPassword(forgot.email)">
 			<div class="form-group">
 				<label for="email">Email</label>
-				<input type="email" id="email" class="form-control" name="email" placeholder="enter email" ng-model="forgot.email" required auto-fill-sync/>
+				<input type="email" id="email" class="form-control" name="email" placeholder="enter email" ng-model="forgot.email" required autocomplete="on" auto-fill-sync/>
 			</div>
 			<button class="btn btn-primary btn-block" type="submit">Reset Password</button>
 			<a ng-click="data.toggleModal('login')">back to login</a>
