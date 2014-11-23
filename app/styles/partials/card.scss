@@ -2,6 +2,8 @@
 .card-wrapper>div{
   z-index:20;
   position:relative;
+  width:882px;
+  height:582px;
   border: 1px rgba(0,0,0,.4) solid;
   background-color: white;
   -webkit-border-radius: 6px;
@@ -28,35 +30,69 @@ div.editor-front{
   font-family:'big_johnregular';
   display:inline-block;
   line-height:1;
-  font-size:22px;
+  font-size:30px;
   padding:0px;
   margin:0px;
-  width: 728px;
-  height: 475px;
+  width: 862px;
+  height: 562px;
   overflow:hidden;
   word-wrap:break-word;
+  *{
+    margin:0px;
+    padding:0px;
+  }
 }
 div.editor-front>*{
-  text-transform:uppercase;
   padding:0.5rem;
-  display: inline;
 }
 div.editor-back{
   color: black;
   font-family:Helvetica;
   display:inline-block;
   line-height:2;
-  font-size:16px;
+  font-size:20px;
   padding:0px;
   margin:0px;
-  width: 340px;
-  height: 420px;
+  width: 402px;
+  height: 497px;
   overflow:hidden;
   word-wrap:break-word;
 }
 .editor-back>p{
   margin:0;
   padding:0;
+}
+
+.drawing-menu{
+  background-color: #f0f0f0;
+  background-image: linear-gradient(to bottom, #fdfdfd, #ddd);
+  background-repeat: repeat-x;
+  border:1px solid #f0f0f0;
+  padding:5px;
+  border-radius: 2px;
+  color: #333;
+  font-size:18px;
+  position:absolute;
+  top:-34px;
+  left:0px;
+  >*{
+    display:inline-block;
+  }
+  button{
+    position:relative;
+    padding-right:20px;
+    border-radius:3px;
+    border:1px solid #f0f0f0;
+    background-image: linear-gradient(to bottom, #fdfdfd, #ddd);
+  }
+  button .pallete{
+    position:absolute;
+    right:4px;
+    top: 5px;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+  }
 }
 
 /***** Flip ***************************************************************************************/

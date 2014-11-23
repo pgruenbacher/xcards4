@@ -1,0 +1,74 @@
+<div class="row">
+	<div class="col-sm-6">
+		<form name="recipientForm" on-valid-submit="submitShare(recipient)">
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input id="email" ng-blur="checkEmail()" ng-model="recipient.email" class="form-control" ng-required="!recipient.number"/>
+			</div>
+			<p ng-show="recipientForm.email.$error.email && recipientForm.$submitted">
+				A valid email must be submitted
+			</p>
+			<p ng-show="recipientForm.email.$error.required && recipientForm.$submitted">
+				A valid email or phone number must be submitted
+			</p>
+			<div class="form-group">
+				<label for="number">Number</label>
+				<input id="number" ng-blur="checkPhoneNumber()" ng-model="recipient.number" class="form-control" ng-required="!recipient.email"/>
+			</div>
+			<p ng-show="recipientForm.email.$error.required && recipientForm.$submitted">
+				A valid email or phone number must be submitted
+			</p>
+			<div class="form-group">
+				<label for="name">Full Name</label>
+				<input id="name" ng-model="recipient.name" class="form-control" required="true" ng-disabled="recipientExists"/>
+			</div>
+			<p ng-show="recipientForm.name.$error.required && recipientForm.$submitted">
+				The recipients full name is required
+			</p>
+			<p ng-show="recipientExists">That user is already active, so we'll just notify that you are sharing</p>
+			<p ng-show="!recipientExists">If the person you want to send credits or addresses to is not an active member, we will create an account for that person and will notify them. They will be able to login in with the code messaged to them. If they do not login and accept your transfer after one week, we will cancel the sharing</p>
+			<p>You wil be sharing {{credits}} credits and {{selectedAddresses.length}} addresses</p>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<loading-bunny backdrop="true" loading-scope="loading"></loading-bunny>
+		</form>
+	</div>
+	<div class="col-sm-6">
+		<form name="creditsForm" class="form-inline">
+			<div class="form-group">
+				<label for="credits" class="control-label">Credits to share</label>
+				<input id="credits" class="form-control" ng-change="subtract()" type="number" max="{{user.credits}}" min="0" ng-model="credits" name="credits" placeholder="# of credits"/>
+				<p class="inline-block">Available credits: <span style="color:red">{{(creditsLeft>-1)?creditsLeft:'not valid!'}}</span></p>
+				<p ng-show="creditsForm.credits.$error.number">A valid number is required</p>
+			</div>
+		</form>
+		<h4>Addresses Available to Share</h4>
+		<div ng-controller="AddressBookCtrl" style="max-height: 500px; overflow-y:auto">
+			<div class="title">
+				<a ng-click="openModal('create')">Create Address</a>
+				<a ng-click="openImport('email')">Import Addresses</a>
+			</div>
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Address</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody class="address-book-selection">
+					<tr ng-repeat="address in addresses" ng-class="{'highlight':isSelected(address.id)}">
+						<td ng-click="select(address)">{{address.name}}</td>
+						<td ng-click="select(address)">{{address.address | limitTo:15}}...</td>
+						<td>
+							<a style="cursor:pointer;" ng-click="openModal('edit',{{$index}})">
+								<i class="fa fa-pencil"></i>Edit
+							</a>
+							<a style="cursor:pointer;" ng-click="removeAddress(address.id)">
+								<i class="fa fa-times"></i>Delete
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</div>

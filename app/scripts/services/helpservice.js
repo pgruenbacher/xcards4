@@ -73,6 +73,21 @@ angular.module('xcards4App')
       id:'accountActivatedFail',
       message:'Your activation link did not work, your account may already be activated',
       button:false
+    },
+    sharedCreditsSuccess:{
+      id:'sharedSuccess',
+      message:'Your items have been shared, if the recipient doesn\'t accept within a week, then the credits will be returned to you',
+      button: false
+    },
+    sharedSuccess:{
+      id:'sharedSuccess',
+      message:'Your items have been shared',
+      button:false
+    },
+    error:{
+      id:'error',
+      message:'Blaargh! Error Errrr! Contact us for your problem',
+      button:false
     }
   };
   return{

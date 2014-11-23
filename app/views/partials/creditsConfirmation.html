@@ -1,0 +1,10 @@
+<div class="modal-header">
+	<h3 class="modal-title ribbon center">Shared Credits Transfer</h3>
+</div>
+<div class="modal-body">
+	<p>{{sender.name}} has sent you {{transfer.credits}} credits</p>
+	<p>Click Accept to have those credits added to your account. Otherwise click reject if you do not want those credits.</p>
+	<p>You can manage any addresses sent to you by going to your <a ui-sref="main.addressBook">Address Book</a></p>
+	<button class="btn btn-success btn-block" ng-click="$close(true)">Accept></button>
+	<button class="btn btn-danger btn-block" ng-click="$close(false)">Reject</button>
+</div>

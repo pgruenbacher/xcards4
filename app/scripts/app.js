@@ -26,7 +26,8 @@ angular
     'angulartics',
     'angulartics.google.analytics',
     'djds4rce.angular-socialshare',
-    'facebook'
+    'facebook',
+    'colorpicker.module'
   ])
 .config(function(FacebookProvider) {
   // Set your appId through the setAppId method or
@@ -57,8 +58,8 @@ angular
             Session.create(r.user);
             return {user:r.user};
           }else{
+            console.log('not valid');
             GuestService.login(r.user,r.password).then(function(r){
-              console.log('guest made',r);
               Session.create(r.user);
               return{user:r.user};
             });
@@ -180,6 +181,11 @@ angular
   .state('account.faq',{
     url:'/faq',
     templateUrl:'views/about/faq.html'
+  })
+  .state('account.share',{
+    url:'/share',
+    templateUrl:'views/account/share.html',
+    controller:'ShareCtrl'
   })
   .state('account.company',{
     url:'/company',

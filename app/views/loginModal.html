@@ -3,6 +3,7 @@
 </div>
 <div class="modal-body">
 	<div ng-switch="data.register">
+		{{message}}
 		<form ng-switch-default name="loginForm" on-valid-submit="login(user)">
 		    <div class="form-group">
 		    	<label for="email">Email</label>

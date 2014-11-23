@@ -13,18 +13,23 @@ angular.module('xcards4App')
 	if(typeof $stateParams.action !=='undefined'){
 		var action=$stateParams.action;
 		var status=$stateParams.status;
+		console.log(action);
 		switch(action){
 			case 'activated':
 				if(status==='success'){
 					$scope.help('accountActivated');
+					break;
 				}else{
 					$scope.help('accountActivatedFail');
+					break;
 				}
 			case 'reset':
 				if(status==='success'){
 					$scope.help('passwordReset');
+					break;
 				}else{
 					$scope.help('passwordResetFail');
+					break;
 				}
 		}
 	}

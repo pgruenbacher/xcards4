@@ -11,7 +11,6 @@ angular.module('xcards4App')
 .controller('AppCtrl',function($scope,HelpService,SurveyService,LOADING_EVENTS){
   $scope.message={};
   $scope.help=function(name,options){
-    console.log(name,options);
     $scope.bentley=HelpService.help(name);
   };
   $scope.$on(LOADING_EVENTS.showLoading,function(){
@@ -21,7 +20,7 @@ angular.module('xcards4App')
     $scope.stateLoading=false;
   });
 })
-.controller('MainCtrl', function ($scope,$state,$modal,user,UserService,AuthenticationService,PermissionService) {
+.controller('MainCtrl', function ($scope,$state,$modal,user,Session,UserService,TransferService,AuthenticationService,PermissionService) {
   // $scope.currentUser = null;
   // $scope.userRoles = USER_ROLES;
   // $scope.isAuthorized = authService.isAuthorized;
@@ -39,6 +38,10 @@ angular.module('xcards4App')
   $scope.logout=function(){
     AuthenticationService.logout();
   };
+  //Check for any transfers pending
+  if(user !== null && typeof user!=='undefined'){
+    TransferService.checkAndPrompt();
+  }
   $scope.$on('event:auth-logout-complete', function() {
     $state.go('main.front', {}, {reload: true, inherit: false});
   });

@@ -187,8 +187,10 @@ angular.module('xcards4App')
 		// });
         // return deferred.promise;
     };
-    $scope.brush1='ribbon';
-    $scope.color1=[0,0,0];
+    $scope.frontBrush='ribbon';
+    $scope.backBrush='ribbon';
+    $scope.frontColor='rgb(0,0,0)';
+    $scope.backColor='rgb(0,0,0)';
     $scope.clear=function(side){
     	$scope.$broadcast('clear',{side:side});
     };
@@ -196,6 +198,7 @@ angular.module('xcards4App')
     	menubar:false,
     	inline:true,
         plugins:'textcolor',
+        force_hex_style_colors : true,
     	toolbar: 'undo redo | bold italic | fontselect fontsizeselect | forecolor backcolor',
         content_css : 'styles/custom.css',
         fontsize_formats: '1em 1.2em 1.5em 1.75em 2em',
@@ -203,25 +206,25 @@ angular.module('xcards4App')
                 'Arial=arial,helvetica,sans-serif;'+
                 'Arial Black=arial black,avant garde;'+
                 'Helvetica=helvetica;'+
-                'Impact=impact,chicago;'+
-                'BOB=bobregular;'+
-                'Kilogram=kilogramregular;'+
-                'SLIM=slim_joeregular;'+
-                'PARIS=parisishregular;'+
-                'BIG JOHN=big_johnregular;'+
-                'REIS=reisregular'
+                'Dawn=dawning_of_a_new_dayregular;'+
+                'La_Belle=la_belle_auroreregular;'+
+                'Bedtime=bedtime_storiesregular;'+
+                'In My Heart=always_in_my_heartregular;'+
+                'CUCUMBERS=attack_of_the_cucumbersRg;'+
+                'ALLURA=alluraregular;'
     };
     $scope.tinymceOptionsFront={
         menubar:false,
         inline:true,
         plugins:'textcolor',
-        fontsize_formats: '0.5em 1em 1.2em 1.5em 2em',
+        force_hex_style_colors : true,
+        fontsize_formats: '0.5em 1em 1.2em 1.5em 2em 2.5em 3em 4em',
         toolbar: 'undo redo | bold italic | fontselect fontsizeselect styleselect | forecolor backcolor',
         style_formats: [
             {title: 'Bold text', inline: 'b'},
             {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
             {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-            {title: 'Example 1', inline: 'span', classes: 'example1'},
+            {title: 'Text Shadow', inline: 'span', classes:'back-shadow'},
             {title: 'Example 2', inline: 'span', classes: 'example2'},
             {title: 'Table styles'},
             {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
@@ -229,14 +232,21 @@ angular.module('xcards4App')
         content_css : 'styles/custom.css',
         font_formats : 'Andale Mono=andale mono,times;'+
                 'Arial=arial,helvetica,sans-serif;'+
-                'Arial Black=arial black,avant garde;'+
-                'Helvetica=helvetica;'+
-                'Impact=impact,chicago;'+
+                'CRAYON=colored_crayonsregular;'+
+                'MARKER=coffee_houseregular;'+
+                'AMERICA=american_dreamregular;'+
+                'USA=united_brkregular;'+
                 'BOB=bobregular;'+
                 'Kilogram=kilogramregular;'+
                 'SLIM=slim_joeregular;'+
                 'PARIS=parisishregular;'+
                 'BIG JOHN=big_johnregular;'+
-                'REIS=reisregular'
+                'REIS=reisregular;'+
+                'ALLURA=alluraregular;'+
+                'ROGUE=going_rogueregular;'+
+                'CUTIE=hey_cutieregular;'+
+                'GRAFFI=throwupzregular;'+
+                'BLOOD=bloodlustregular;'+
+                'FEAST=feast_of_flesh_bbregular;'
     };
   });

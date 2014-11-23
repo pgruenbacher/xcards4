@@ -2,20 +2,36 @@
 <breadcrumb-bar></breadcrumb-bar>
 <div class="row" style="min-height:450px">
 	<div class="col-md-2">
-		<span>Drawing Tools</span>
-		<button ng-click="toggleMode()" class="btn btn-block btn-primary">{{mode=='text'?'draw signature':'edit text'}}
-		<button class="btn btn-block btn-danger" ng-click="clear('back')">Clear</button>
-		<select ng-model="brush1" class="form-control">
-			<option value="ribbon" default>Ribbon</option>
-			<option value="web">Web</option>
-		</select>
+		<button ng-click="toggleMode()" class="btn btn-block btn-primary">
+			{{mode=='text'?'draw signature':'edit text'}} 
+			<i class="fa fa-paint-brush" ng-class="{'fa-paint-brush':checkMode('text'),'fa-edit':checkMode('draw')}"></i>
+		</button>
+		<button class="btn btn-block btn-success" ng-click="continue()">
+			Continue 
+			<i class="fa fa-chevron-right"></i>
+			<i class="fa fa-chevron-right"></i>
+			<i class="fa fa-chevron-right"></i>
+		</button>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-10">
 		<div style="text-align:center">
 			<button class="btn btn-primary" ng-click="toggle()"><i class="fa fa-refresh"></i> Flip</button>
 		</div>
-		<div class="card-wrapper">			
+		<div class="card-wrapper">		
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
+				<div class="drawing-menu" ng-show="checkMode('draw')">
+					<button  colorpicker="rgb" ng-model="frontColor">
+						Color 
+						<a class="pallete" ng-style="{'background-color':frontColor}"></a>
+					</button>
+					<div>
+					<select ng-model="frontBrush">
+						<option value="ribbon" default>Ribbon</option>
+						<option value="web">Web</option>
+					</select>
+					</div>
+					<button ng-click="clear('front')">Clear</button>
+				</div>	
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div>
 						<div class="jcrop-vline right"></div>
@@ -26,13 +42,26 @@
 					</div>
 				</div>
 				<div class="canvas" ng-class="{front:checkMode('draw')}">
-					<div style="width:728px; height:475px;">
-						<canvas id="frontCanvas" style="width:728px; height:475px;" width="1456px" height="950px" brush="{{brush1}}" ratio="2" color="color1" canvas-brush="front"></canvas>
+					<div style="width:862px; height:562px;">
+						<canvas id="frontCanvas" style="width:862px; height:562px;" width="1724px" height="1124px" brush="{{frontBrush}}" ratio="2" color="frontColor" canvas-brush="front"></canvas>
 					</div>
 				</div>
 				<img ng-src="{{frontImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
+				<div class="drawing-menu" ng-show="checkMode('draw')">
+					<button  colorpicker="rgb" ng-model="backColor">
+						Color 
+						<a class="pallete" ng-style="{'background-color':backColor}"></a>
+					</button>
+					<div>
+						<select ng-model="backBrush">
+							<option value="ribbon" default>Ribbon</option>
+							<option value="web">Web</option>
+						</select>
+					</div>
+					<button ng-click="clear('back')">Clear</button>
+				</div>	
 				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
 					<div>
 						<div class="jcrop-vline right"></div>
@@ -43,19 +72,14 @@
 					</div>
 				</div>
 				<div class="canvas" ng-class="{front:checkMode('draw')}">
-					<div style="width:340px; height:420px;">
-						<canvas ratio="2" id="backCanvas" style="width:340px; height:420px;" width="680px" height="840px" brush="{{brush1}}" color="color1" canvas-brush="back"></canvas>
+					<div style="width:402px; height:497px;">
+						<canvas ratio="2" id="backCanvas" style="width:402px; height:497px;" width="804px" height="994px" brush="{{backBrush}}" color="backColor" canvas-brush="back"></canvas>
 					</div>
 				</div>
 				<img src="images/blank-template.gif" width="100%">
 			</div>
 		</div>
 	</div>
-	<div class="col-md-2">
-		<button class="btn btn-block btn-success" ng-click="continue()">Continue</button>
-	</div>
-	<canvas id="trial1"></canvas>
-	<canvas id="trial2"></canvas>
 </div>
 <!-- <canvas id="trialcanvas"></canvas>
 <canvas id="frontTrialCanvas"></canvas> -->

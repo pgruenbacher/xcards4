@@ -32,9 +32,14 @@ angular.module('xcards4App')
   $scope.forgotPassword=function(email){
     $scope.loginLoading=true;
     AuthenticationService.forgotPassword(email).then(function(response){
-      $scope.loginLoading=false;
-      help('forgotPassword');
-      $scope.closeModal();
+      if(response.status==='success'){
+        $scope.loginLoading=false;
+        help('forgotPassword');
+        $scope.closeModal();
+      }else{
+        $scope.message='That email could not be found, have you activated your account?';
+        $scope.loginLoading=false;
+      }
     },function(){
       $scope.loginLoading=false;
     });
@@ -105,6 +110,7 @@ angular.module('xcards4App')
   //   });
   // };
   $scope.data.toggleModal= function(mode){
+    $scope.message='';
     $scope.data.register =mode;
   };
   $scope.$on('event:auth-loginConfirmed', function() {

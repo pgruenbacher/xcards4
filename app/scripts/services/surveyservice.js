@@ -8,7 +8,7 @@
  * Service in the xcards4App.
  */
 angular.module('xcards4App')
-.factory('SurveyService', function survey($modal,Restangular,Session) {
+.factory('SurveyService', function($modal,Restangular,Session) {
 	// AngularJS will instantiate a singleton by calling "new" on this function
 	return{
 		open:function(){

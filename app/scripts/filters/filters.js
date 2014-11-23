@@ -6,6 +6,29 @@ angular.module('xcards4App')
         return moment(dateString).format(format);
     };
 })
+.filter('validPhoneNumber',function(){
+    return function(number){
+        var phoneRegex=/^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
+        return phoneRegex.test(number);
+    };
+})
+.filter('validEmail',function(){
+    return function(email){
+        var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return emailRegex.test(email);
+    };
+})
+.filter('byId',function(){
+  return function(items){
+    var result=[];
+    for(var i=0; i<items.length; i++){
+      if(items[i].id){
+        result.push(items[i].id);
+      }
+    }
+    return result;
+  };
+})
 .filter('tel', function () {
     return function (tel) {
         if (!tel) { return ''; }

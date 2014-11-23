@@ -13,7 +13,6 @@ angular.module('ui.tinymce', [])
       },
       link: function (scope, element, attributes) {
         var expression = $sce.trustAsHtml(scope.message).toString();
-        console.log(expression);
         element.append(expression);
         // var getResult = function () {
         //   return expression(scope);
@@ -33,8 +32,8 @@ angular.module('ui.tinymce', [])
       require: 'ngModel',
       link: function (scope, elm, attrs, ngModel) {
         var expression, options, tinyInstance,
-          updateView = function () {
-            ngModel.$setViewValue(elm.context.innerHTML);
+          updateView = function (html) {
+            ngModel.$setViewValue(html);
             if (!scope.$root.$$phase) {
               scope.$apply();
             }
@@ -59,7 +58,7 @@ angular.module('ui.tinymce', [])
             // Update model on button click
             ed.on('ExecCommand', function (e) {
               ed.save();
-              updateView();
+              updateView(ed.getContent({format : 'raw'}));
             });
             // Update model on keypress
             ed.on('KeyUp', function (e) {
@@ -71,11 +70,15 @@ angular.module('ui.tinymce', [])
               }
               updateView();
             });
+            ed.on('Change',function(e){
+              updateView(ed.getContent({format : 'raw'})); //quick fix for fore color background color
+              
+            });
             // Update model on change, i.e. copy/pasted text, plugins altering content
             ed.on('SetContent', function (e) {
               if(!e.initial){
                 ed.save();
-                updateView();
+                updateView(ed.getContent({format : 'raw'}));
               }
             });
             if (expression.setup) {

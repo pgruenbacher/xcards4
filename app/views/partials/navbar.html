@@ -13,12 +13,12 @@
             	<li ng-class="{active:isActive('build')}"><a ui-sref="main.upload" >Make My Card</a></li>
           		<li  ng-if="checkIfAuthenticated()" ng-class="{active:isActive('/cards')}"><a ui-sref="account.cards" href="">Review Cards</a></li>
           		<li ng-if="checkIfAuthenticated()" ng-class="{active:isActive('/addressBook')}"><a ui-sref="main.addressBook" href="">My Address Book</a></li>
-              <li ng-if="!checkIfAuthenticated()"><a href="" ng-click="showLoginModal('login')">Sign In</a></li>
-              <li ng-if="!checkIfAuthenticated()"><a ng-click="showLoginModal('register')" href="">Create Account</a></li>
   	   		  </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li ng-if="!checkIfAuthenticated()"><a href="" ng-click="showLoginModal('login')">Sign In</a></li>
+              <li ng-if="!checkIfAuthenticated()"><a ng-click="showLoginModal('register')" href="">Create Account</a></li>
               <li ng-if="checkifAuthorized('admin')"><a ui-sref="main.admin" href="#/admin">Admin</a></li>
-              <li dropdown>
+              <li dropdown ng-if="checkIfAuthenticated()">
                 <a href="#" class="dropdown-toggle">My Account <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a ui-sref="account.main">My Account</a></li>

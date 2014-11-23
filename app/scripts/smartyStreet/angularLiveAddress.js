@@ -85,7 +85,7 @@ angular.module('xcards4App')
       .then(function (result) {
         //return ['asdf','asfd','asdf'];
         if(result.data.suggestions !==null){
-          if (result.data.suggestions.length === 1) {
+          if (result.data.suggestions.length === 1 && !$scope.notValidated) {
             $scope.addressInput = result.data.suggestions[0].text;
             $scope.validateAddress();
           }

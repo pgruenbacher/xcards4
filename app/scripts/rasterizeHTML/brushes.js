@@ -196,7 +196,11 @@ angular.module('ui.brushes', [])
                     onBrushChange()
                 });
                 scope.$watch('color',function(oldColor,newColor){
-                    COLOR=newColor;
+                    if(typeof newColor==='string'){
+                        var rgb = newColor.replace(/[^\d,]/g, '').split(',');
+                        constants.COLOR=rgb;
+                        onColorChange();
+                    }
                 });
             }
             init();
@@ -286,7 +290,7 @@ angular.module('ui.brushes', [])
             }
             function onMenuClear()
             {
-                context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+                context.clearRect(0, 0, CANVAS_WIDTH*2, CANVAS_HEIGHT*2);
                 //saveToLocalStorage();
                 brush.destroy();
                 brush = eval("new " + BRUSH + "(context,constants)");

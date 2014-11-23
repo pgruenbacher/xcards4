@@ -1,8 +1,15 @@
-<div id="wrap" class="orange">
-	<navbar></navbar>
-	<social-share></social-share>
-	<div class="container white with-navbar" style="min-height: 450px;">
-	  <ui-view></ui-view>
+<div id="wrap">
+	<div class="orange">
+		<navbar></navbar>
+		<social-share></social-share>
+		<div class="container white with-navbar" style="min-height: 450px;">
+		  <ui-view autoscroll="true"></ui-view>
+		</div>
+	</div>
+</div>
+<div class="orange">
+	<div class="container" style="padding:0px;">
+		<scrolling-banner></scrolling-banner>
 	</div>
 </div>
 <div class="footer-bottom">

@@ -40,22 +40,26 @@ angular.module('xcards4App')
 .factory('PermissionService', function($http, Session) {
 	var permissionService = {};
 	permissionService.isAuthenticated = function () {
-    if(typeof Session.user !== 'undefined'){
-      if(Session.user !== null && Session.user.roles[0].type !== 'guest'){
-        return true;
+    if(typeof Session.user !== 'undefined'&& Session.user!==null){
+      if(typeof Session.user.roles==='undefined'){return false;}
+      var roles=Session.user.roles;
+      for(var i=0; i<roles.length; i++){
+        if(roles[i].type==='guest'){
+          return false;
+        }
       }
-      else{
-        return false;
-      }
+      return true;
     }
-    else{
-      return false;
-    }
+    return false;
 	};
   permissionService.isGuest=function(){
-    if(typeof Session.user !=='undefined'){
-      if(Session.user.roles[0].type==='guest'){
-        return true;
+    if(typeof Session.user !=='undefined'&&Session.user!==null){
+      if(typeof Session.user.roles==='undefined'){return false;}
+      var roles=Session.user.roles;
+      for(var i; i<roles.length; i++){
+        if(roles[i].type==='guest'){
+          return true;
+        }
       }
     }
     return false;
@@ -120,6 +124,11 @@ angular.module('xcards4App')
     return true;
   };
   this.create = function (user) {
+    localStorageService.set('user',user);
+    self.user=user;
+    return true;
+  };
+  this.saveUser=function(user){
     localStorageService.set('user',user);
     self.user=user;
     return true;
@@ -217,6 +226,9 @@ angular.module('xcards4App')
         return false;
       }
     },
+    find:function(where,email){
+      return Restangular.all('users').get('find', {'filter':email, 'where':where});
+    },
     getAccessToken:function(){
       return localStorageService.get('access_token');
     }
@@ -240,8 +252,8 @@ angular.module('xcards4App')
     get:function(id){
       return userAPI.get(id);
     },
-    find:function(email){
-      return userAPI.get('find', {'filter':email, 'where':'email'});
+    find:function(where,email){
+      return userAPI.get('find', {'filter':email, 'where':where});
     },
     create: function(user){
       return userAPI.post(user);
