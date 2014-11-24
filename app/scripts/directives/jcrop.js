@@ -18,7 +18,7 @@ angular.module('xcards4App')
     return {
         restrict: 'E',
         replace: true,
-        scope: { src:'@', selected:'&',loading:'&loading' },
+        scope: { src:'@', selected:'&',loading:'&loading',aspectRatio:'@' },
         link: function(scope,element, attr) {
             var myImg;
             var clear = function() {
@@ -28,7 +28,7 @@ angular.module('xcards4App')
                     myImg = undefined;
                 }
             };
-            var boundx,boundy;
+            var boundx,boundy,aspectRatio=scope.aspectRatio;
             scope.$watch('src', function(nv) {
                 clear();
                 if (nv) {
@@ -40,10 +40,12 @@ angular.module('xcards4App')
                     var temp = new Image();
                     temp.src = nv;
                     temp.onload = function() {
+                        var watchAspect;
                         var width = this.width;
                         var height = this.height;
                         myImg.removeClass('hidden');
                         scope.loading(false);
+                        var jcrop_api = $.Jcrop('#jcrop');
                         angular.element(myImg).Jcrop({
                             trackDocument: true,
                             onSelect: function(x) {
@@ -57,19 +59,25 @@ angular.module('xcards4App')
                             onChange: function(x){
                             	scope.selected({c:{cords: x,boundx:boundx,boundy:boundy}});
                             },
-                            aspectRatio: 1.533,
+                            aspectRatio: aspectRatio,
                             boxWidth: 600,
                             trueSize: [width, height]
                         },function(){
-                        	var bounds=this.getBounds();
+                            var self=this;
+                        	var bounds=self.getBounds();
                         	boundx = bounds[0];
 	      					boundy = bounds[1];
 	      					var initialx1=boundx/6;
 	      					var initialy1=boundy/9;
 	      					var initialx2=boundx-(boundx/6);
-	      					var initialy2=(initialx2-initialx1)*(1/1.533);
-                        	this.animateTo([initialx1,initialy1,initialx2,initialy2]);
-                        });
+	      					var initialy2=(initialx2-initialx1)*(1/aspectRatio);
+                            watchAspect=function(value){self.setOptions({aspectRatio:value})};
+                        	self.animateTo([initialx1,initialy1,initialx2,initialy2]);
+                        });    
+                        attr.$observe('aspectRatio',function(value){
+                            aspectRatio=value;
+                            watchAspect(value);
+                        });                    
                     }
                 };
             });

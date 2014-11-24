@@ -1,26 +1,42 @@
 /*********Flip Transition********/
 .card-wrapper>div{
-  z-index:20;
   position:relative;
-  width:882px;
-  height:582px;
-  border: 1px rgba(0,0,0,.4) solid;
-  background-color: white;
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  padding: 10px;
-  -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-  .canvas{
-    position:absolute;
+  >div{
+    z-index:20;
+    border: 1px rgba(0,0,0,.4) solid;
+    background-color: white;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    width:882px;
+    height:582px;
+    padding:10px;
+    .canvas{
+      position:absolute;
+      left:10px;
+      top:10px;
+    }
+    .front{
+      z-index:40;
+    }
   }
-  .front{
-    z-index:40;
+  >div.portrait{
+    width:582px;
+    height:882px;
   }
 }
-.back-edit-form{
+.canvas.front-canvas.portrait{
+  width:562px;
+  height:862px;
+}
+.canvas.front-canvas.landscape{
+  width:862px;
+  height:562px;
+}
+.edit-form{
   position: absolute;
   top: 10px;
   left: 10px;
@@ -41,6 +57,10 @@ div.editor-front{
     margin:0px;
     padding:0px;
   }
+}
+div.editor-front.portrait{
+  height: 862px;
+  width: 562px;
 }
 div.editor-front>*{
   padding:0.5rem;

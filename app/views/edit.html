@@ -19,64 +19,68 @@
 		</div>
 		<div class="card-wrapper">		
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
-				<div class="drawing-menu" ng-show="checkMode('draw')">
-					<button  colorpicker="rgb" ng-model="frontColor">
-						Color 
-						<a class="pallete" ng-style="{'background-color':frontColor}"></a>
-					</button>
-					<div>
-					<select ng-model="frontBrush">
-						<option value="ribbon" default>Ribbon</option>
-						<option value="web">Web</option>
-					</select>
-					</div>
-					<button ng-click="clear('front')">Clear</button>
-				</div>	
-				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
-					<div>
-						<div class="jcrop-vline right"></div>
-						<div class="jcrop-vline"></div>
-						<div class="jcrop-hline bottom"></div>
-						<div class="jcrop-hline"></div>
-					    <div class="editor-front" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
-					</div>
-				</div>
-				<div class="canvas" ng-class="{front:checkMode('draw')}">
-					<div style="width:862px; height:562px;">
-						<canvas id="frontCanvas" style="width:862px; height:562px;" width="1724px" height="1124px" brush="{{frontBrush}}" ratio="2" color="frontColor" canvas-brush="front"></canvas>
-					</div>
-				</div>
-				<img ng-src="{{frontImage.url_path}}" width="100%">
-			</div>
-			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
-				<div class="drawing-menu" ng-show="checkMode('draw')">
-					<button  colorpicker="rgb" ng-model="backColor">
-						Color 
-						<a class="pallete" ng-style="{'background-color':backColor}"></a>
-					</button>
-					<div>
-						<select ng-model="backBrush">
+				<div class="front-card" ng-class="card.orientation">
+					<div class="drawing-menu" ng-show="checkMode('draw')">
+						<button  colorpicker="rgb" ng-model="frontColor">
+							Color 
+							<a class="pallete" ng-style="{'background-color':frontColor}"></a>
+						</button>
+						<div>
+						<select ng-model="frontBrush">
 							<option value="ribbon" default>Ribbon</option>
 							<option value="web">Web</option>
 						</select>
+						</div>
+						<button ng-click="clear('front')">Clear</button>
+					</div>	
+					<div class="edit-form" ng-class="{front:checkMode('text')}">
+						<div>
+							<div class="jcrop-vline right"></div>
+							<div class="jcrop-vline"></div>
+							<div class="jcrop-hline bottom"></div>
+							<div class="jcrop-hline"></div>
+						    <div class="editor-front" ng-class="card.orientation" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
+						</div>
 					</div>
-					<button ng-click="clear('back')">Clear</button>
-				</div>	
-				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
-					<div>
-						<div class="jcrop-vline right"></div>
-						<div class="jcrop-vline"></div>
-						<div class="jcrop-hline bottom"></div>
-						<div class="jcrop-hline"></div>
-					    <div class="editor-back" ui-tinymce="tinymceOptionsBack" ng-model="messageBack"></div>
+					<div class="canvas" ng-class="{front:checkMode('draw')}">
+						<div ng-style="{width:frontDrawingDimensions.w, height:frontDrawingDimensions.h}">
+							<canvas id="frontCanvas" ng-style="{width:frontDrawingDimensions.w, height:frontDrawingDimensions.h}" width="{{frontDrawingDimensions.w*2}}" height="{{frontDrawingDimensions.h*2}}" brush="{{frontBrush}}" ratio="2" color="frontColor" canvas-brush="front"></canvas>
+						</div>
 					</div>
+					<img ng-src="{{frontImage.url_path}}" width="100%">
 				</div>
-				<div class="canvas" ng-class="{front:checkMode('draw')}">
-					<div style="width:402px; height:497px;">
-						<canvas ratio="2" id="backCanvas" style="width:402px; height:497px;" width="804px" height="994px" brush="{{backBrush}}" color="backColor" canvas-brush="back"></canvas>
+			</div>
+			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
+				<div class="back-card">
+					<div class="drawing-menu" ng-show="checkMode('draw')">
+						<button  colorpicker="rgb" ng-model="backColor">
+							Color 
+							<a class="pallete" ng-style="{'background-color':backColor}"></a>
+						</button>
+						<div>
+							<select ng-model="backBrush">
+								<option value="ribbon" default>Ribbon</option>
+								<option value="web">Web</option>
+							</select>
+						</div>
+						<button ng-click="clear('back')">Clear</button>
+					</div>	
+					<div class="edit-form" ng-class="{front:checkMode('text')}">
+						<div>
+							<div class="jcrop-vline right"></div>
+							<div class="jcrop-vline"></div>
+							<div class="jcrop-hline bottom"></div>
+							<div class="jcrop-hline"></div>
+						    <div class="editor-back" ui-tinymce="tinymceOptionsBack" ng-model="messageBack"></div>
+						</div>
 					</div>
+					<div class="canvas" ng-class="{front:checkMode('draw')}">
+						<div style="width:402px; height:497px;">
+							<canvas ratio="2" id="backCanvas" style="width:402px; height:497px;" width="804px" height="994px" brush="{{backBrush}}" color="backColor" canvas-brush="back"></canvas>
+						</div>
+					</div>
+					<img src="images/blank-template.gif" width="100%">
 				</div>
-				<img src="images/blank-template.gif" width="100%">
 			</div>
 		</div>
 	</div>

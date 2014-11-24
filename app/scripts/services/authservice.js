@@ -252,6 +252,9 @@ angular.module('xcards4App')
     get:function(id){
       return userAPI.get(id);
     },
+    edit:function(id,data){
+      return Restangular.one('users',id).put(data);
+    },
     find:function(where,email){
       return userAPI.get('find', {'filter':email, 'where':where});
     },

@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars,camelcase:false*/
 /**
  * @ngdoc service
  * @name xcards4App.liveAddress
@@ -35,7 +35,7 @@ angular.module('xcards4App')
   	LiveAddress.components('7584 big canyon anaheim, ca', function(comp) {
   	 console.log(comp);
   	});
-  	return $http.get('https://api.smartystreets.com/street-address')
+  	return $http.get('https://api.smartystreets.com/street-address');
   };
   return {
     doValidation: doValidation,
@@ -60,9 +60,16 @@ angular.module('xcards4App')
   $scope.notValidated=false;
   //$scope.suggestSelected=0;
   $scope.addressInput='';
-  if(typeof $scope.address.address!=='undefined'){
-    $scope.addressInput=$scope.address.address;
+  if(typeof $scope.address!=='undefined'){
+    if($scope.address===null){
+      $scope.addressInput='';
+      $scope.address={};
+    }else
+    if(typeof $scope.address.address!=='undefined'){
+      $scope.addressInput=$scope.address.address;
+    }
   }
+  
   $scope.$on('event:form_submitted',function(){
     console.log($scope.validated);
     if($scope.validated){
@@ -90,7 +97,7 @@ angular.module('xcards4App')
             $scope.validateAddress();
           }
           var texts=result.data.suggestions.map(function(item){
-            return item.text
+            return item.text;
           });
           return texts;
         }else{
@@ -130,7 +137,7 @@ angular.module('xcards4App')
       $scope.validated=false;
       $scope.notValidated=true;
     }
-  }
+  };
   // $scope.selectDown=function(event){
   //   console.log($scope.suggestSelected);
   //   if($scope.suggestions.length>0){
@@ -165,7 +172,7 @@ angular.module('xcards4App')
           $scope.address.lastLine=result.data[0].last_line;
           $scope.address.cityName = result.data[0].components.city_name;
           $scope.address.stateAbbreviation = result.data[0].components.state_abbreviation;
-          $scope.address.zipCode = result.data[0].components.zipcode
+          $scope.address.zipCode = result.data[0].components.zipcode;
           $scope.address.plus4Code= result.data[0].components.plus4_code;
         }else{
           $scope.$emit('event:address_invalid');

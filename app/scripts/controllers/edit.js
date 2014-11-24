@@ -13,11 +13,33 @@ angular.module('xcards4App')
     $scope.loading=0;
     $scope.side=true;
     $scope.finished=0;
+    $scope.frontDrawingDimensions={w:862,h:562};
+    if(Session.card.orientation==='portrait'){$scope.frontDrawingDimensions={w:562,h:862};}
     $scope.$watch('finished',function(newValue){
         if(newValue===3){
             $state.go('main.recipients');
         }
     });
+    var frontCanvas=document.getElementById('frontCanvas');
+    var backCanvas=document.getElementById('backCanvas');
+    if(typeof Session.card.frontDrawing !== 'undefined'){
+      if(typeof Session.card.frontDrawing.data_blob ==='undefined'){return;}
+      var img1 = new Image;
+      var ctx1=frontCanvas.getContext('2d');
+      img1.onload = function(){
+        ctx1.drawImage(img1,0,0); // Or at whatever offset you like
+      };
+      img1.src = 'data:image/  png;base64,'+Session.card.frontDrawing.data_blob;
+    }
+    if(typeof Session.card.backDrawing !== 'undefined'){
+      if(typeof Session.card.backDrawing.data_blob ==='undefined'){return;}
+      var img2 = new Image;
+      var ctx2=backCanvas.getContext('2d');
+      img2.onload = function(){
+        ctx2.drawImage(img2,0,0); // Or at whatever offset you like
+      };
+      img2.src = 'data:image/  png;base64,'+Session.card.backDrawing.data_blob;
+    }
     $scope.mode='text';
     $scope.toggle=function(){
     	$scope.side=!$scope.side;
@@ -44,8 +66,6 @@ angular.module('xcards4App')
       $scope.loading=3;
       $scope.finished=0;
       $scope.loadingMessage='rasterizing sheep';
-      var frontCanvas=document.getElementById('frontCanvas');
-      var backCanvas=document.getElementById('backCanvas');
       var frontData=frontCanvas.toDataURL('image/png');
       var backData=backCanvas.toDataURL('image/png');
       var data1 = new FormData();

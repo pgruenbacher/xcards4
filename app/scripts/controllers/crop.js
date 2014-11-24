@@ -12,6 +12,17 @@ angular.module('xcards4App')
 	$scope.P={w:306,h:200};
   $scope.loading=false;
   $scope.onLoading=true;
+  $scope.orientation='landscape';
+  $scope.toggleOrientation=function(){
+    console.log($scope.P.w);
+    if($scope.P.w===306){
+      $scope.P={w:200,h:306};
+      $scope.orientation='portrait';
+    }else{
+      $scope.P={w:306,h:200};
+      $scope.orientation='landscape';
+    }
+  }
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   };
@@ -48,7 +59,9 @@ angular.module('xcards4App')
         marginLeft: '-'+Math.round(rx * c.cords.x) + 'px',
         marginTop: '-'+Math.round(ry * c.cords.y) + 'px'
       });
-      $scope.$apply();
+      if (!$scope.$$phase){
+        $scope.$apply();
+      }
     }
   };
   $scope.continue=function(){
@@ -69,10 +82,11 @@ angular.module('xcards4App')
   };
   $scope.submit=function(){
     $scope.loading=true;
-    CardService.crop(Session.card.id,Session.card.originalImage.id,$scope.info.cords).then(function(response){
+    CardService.crop(Session.card.id,Session.card.originalImage.id,$scope.info.cords,$scope.orientation).then(function(response){
       console.log(response);
       var card=Session.card;
       card.croppedImage=response.image;
+      card.orientation=$scope.orientation;
       $scope.loading=false;
       if(Session.saveCard(card)){
         $state.go('main.edit')

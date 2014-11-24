@@ -45,26 +45,30 @@
 		<button class="btn btn-default" ng-click="toggle()"><i class="fa fa-refresh"></i> Flip</button>
 		<div class="card-wrapper">
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
-				<div class="back-edit-form">
-					<div>
-					    <div class="editor-front" compile-Html="card.frontMessage"></div>
+				<div class="front-card" ng-class="card.orientation">
+					<div class="edit-form">
+						<div>
+						    <div class="editor-front" compile-Html="card.frontMessage"></div>
+						</div>
 					</div>
+					<div class="canvas front-canvas" ng-class="card.orientation">
+						<img width="100%" height="100%" ng-src="{{card.frontDrawing.url_path}}"></img>
+					</div>
+					<img ng-src="{{card.croppedImage.url_path}}" width="100%">
 				</div>
-				<div class="canvas" style="width:728px; height:475px;">
-					<img width="100%" height="100%" ng-src="{{card.frontDrawing.url_path}}"></img>
-				</div>
-				<img ng-src="{{card.croppedImage.url_path}}" width="100%">
 			</div>
 			<div ng-hide="!side" ng-show="!side" class="flip-horizontal">
-				<div class="back-edit-form" ng-class="{front:checkMode('text')}">
-					<div>
-					    <div class="editor-back" compile-Html="card.backMessage"></div>
+				<div class="back-card">
+					<div class="edit-form">
+						<div>
+						    <div class="editor-back" compile-Html="card.backMessage"></div>
+						</div>
 					</div>
+					<div class="canvas" style="width:340px; height:420px;">
+						<img width="100%" height="100%" ng-src="{{card.backDrawing.url_path}}"></img>
+					</div>
+					<img src="images/blank-template.gif" width="100%">
 				</div>
-				<div class="canvas" style="width:340px; height:420px;">
-					<img width="100%" height="100%" ng-src="{{card.backDrawing.url_path}}"></img>
-				</div>
-				<img src="images/blank-template.gif" width="100%">
 			</div>
 		</div>
 	</div>

@@ -5,15 +5,16 @@
 		<div class="col-md-7">
 			<div class="original-image">
 				<loading-bunny loading-scope="onLoading"></loading-bunny>
-				<jcrop loading="toggleLoading()" data-selected="selected(c)" src="{{trustSrc(imageUrl)}}" id="target"></jcrop>
+				<jcrop id="jcrop" loading="toggleLoading()" aspect-ratio="{{P.w/P.h}}" data-selected="selected(c)" src="{{trustSrc(imageUrl)}}" id="target"></jcrop>
 			</div>
 		</div>
 		<div class="col-md-5">
 			<div class="preview-container">
-				<div id="cropped-image" class="preview-pane" style="width: 306px; height: 200px; overflow:hidden;">
+				<div id="cropped-image" class="preview-pane" ng-style="{width: P.w, height: P.h}" style="overflow:hidden;}">
 					<img id="preview" ng-src="{{trustSrc(imageUrl)}}" width="{{P.w}}px" height="{{P.h}}px"/>
 				</div>
 				<div class="preview-bar">
+					<p>current:{{orientation}}<a ng-click="toggleOrientation()">Switch to {{orientation==='portrait'?'landscape':'portrait'}}</a></p>
 					<p>
 						Width: {{info.cords.w |number:0 }} px
 						<span ng-class="{success: checkWidth(), danger: !checkWidth() }"> {{ checkWidth() ? 'good':'too small' }}</span>

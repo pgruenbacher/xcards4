@@ -153,7 +153,8 @@ angular
   })
   .state('account.main',{
     url:'/account',
-    template:'content'
+    controller:'AccountCtrl',
+    templateUrl:'views/account/main.html'
   })
   .state('account.cards',{
     url:'/cards',

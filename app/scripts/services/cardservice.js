@@ -47,12 +47,13 @@ angular.module('xcards4App')
         Session.saveCard(card);
         $state.go('main.'+self.next(card));
       },
-      crop:function(cardId,imageId,coords){
+      crop:function(cardId,imageId,coords,orientation){
         var data={
           x: Math.round(coords.x),
           y: Math.round(coords.y),
           w: Math.round(coords.w),
-          h: Math.round(coords.h)
+          h: Math.round(coords.h),
+          orientation: orientation
         };
         return Restangular.one('cards',cardId).one('images',imageId).get(data);
       },

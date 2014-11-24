@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="col-sm-6">
+		<div class="user-form">
+			<h4>My Information</h4>
+			<a ng-click="toggleUserForm()">Edit my informaiton</a>
+			<form name="userForm" on-valid-submit="editUserSubmit(user)">
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input id="name" name="name" class="form-control" ng-model="user.name" ng-disabled="!editUser"/>
+				</div>
+				<div class="form-group">
+					<label ng-show="!editUser" for="address">Address</label>
+					<textarea id="address" name="address" class="form-control" ng-model="user.home_address.address" ng-show="!editUser" ng-disabled="!editUser"/>
+					<div ng-show="editUser">
+						<validate-address address="user.home_address"></validate-address>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="number">Phone Number</label>
+					<input id="number" type="tel" name="number" class="form-control" ng-model="user.phone_number" ng-disabled="!editUser">
+				</div>
+				<button class="btn btn-primary" type="submit" ng-show="editUser">Submit</button>
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<h4>My Account</h4>
+		<p>My number of credits: <span style="color:red">{{user.credits}}</span></p>
+		<h5>Recent Orders</h5>
+		<table class="table table-condensed">
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Cost</th>
+					<th>Order #</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="order in user.orders">
+					<td>
+						{{order.cards>0?order.cards+' cards were sent':order.credits+' credits were purchased'}}
+					</td>
+					<td>
+						{{order.charge>0?order.charge+ ' dollars':'with '+order.credits+' credits'}}
+					</td>
+					<td>{{order.reference}}</td>
+					<td>{{order.Date| moment:'MMM Do'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
