@@ -1,9 +1,12 @@
-<div ng-if="countdown>1" style="position:fixed; right:0px; bottom:0px; z-index:800; background:#D6696A; padding:4px;">
-	<div style="color:white; font-weight:bold; margin:0px; padding:0px">
-		<p>Register your account and share</p>
-		<p> in {{countdown}} seconds</p>
+<div ng-hide="alreadyShared" ng-if="countdown>1" style="max-width:150px; position:fixed; padding:4px; right:0px; bottom:0px; z-index:800; background:#f0f0f0; padding:4px; border: 1px solid gray">
+	<div style="color:black; font-weight:bold; margin:0px; padding:0px">
+		<span>{{message1}} in <span ng-hide="shared"> {{countdown}} seconds! </span></span><br>
+		<span>{{message2}}</span>
+		<ul style="display:inline; cursor:pointer;" class="share-buttons">
+			<li><a ng-click="facebookShare()"><img src="images/Facebook.png"></a></li>
+		</ul>
 	</div>
-	<a facebook class="facebookShare" data-url='http://dev.x-presscards.com' data-shares='shares'>{{shares}}</a>
-	<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://dev.x-presscards.com' data-action='share'></div>
+	<!-- <a facebook class="facebookShare" data-url='http://dev.x-presscards.com' data-shares='shares'>{{shares}}</a>
+	<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://dev.x-presscards.com' data-action='share'></div> -->
 	<!-- <a twitter  data-lang="en" data-count='horizontal' data-url='http://dev.x-presscards.com' data-via='XPressCards' data-size="medium" data-text='Sending a postcard!' ></a> -->
 </div>

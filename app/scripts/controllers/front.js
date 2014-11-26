@@ -13,7 +13,6 @@ angular.module('xcards4App')
 	if(typeof $stateParams.action !=='undefined'){
 		var action=$stateParams.action;
 		var status=$stateParams.status;
-		console.log(action);
 		switch(action){
 			case 'activated':
 				if(status==='success'){

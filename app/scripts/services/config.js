@@ -29,6 +29,11 @@ angular.module('xcards4App')
 .constant('API',{
 	'domain':'http://paulgruenbacher.com/xcards2/api'
 })
+.config(function(FacebookProvider) {
+  // Set your appId through the setAppId method or
+  // use the shortcut in the initialize method directly.
+  FacebookProvider.init('749099631795399');
+})
 .config(function(RestangularProvider,API){
   RestangularProvider.setBaseUrl(API.domain);
   //RestangularProvider.setDefaultHttpFields({cache: true});

@@ -29,11 +29,6 @@ angular
     'facebook',
     'colorpicker.module'
   ])
-.config(function(FacebookProvider) {
-  // Set your appId through the setAppId method or
-  // use the shortcut in the initialize method directly.
-  FacebookProvider.init('717864551585574');
-})
 .config(function ($stateProvider,$locationProvider,$urlRouterProvider) {
   // enable html5Mode for pushstate ('#'-less URLs)
   $locationProvider.html5Mode(true);

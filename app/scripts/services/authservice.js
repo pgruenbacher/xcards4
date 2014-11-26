@@ -56,7 +56,7 @@ angular.module('xcards4App')
     if(typeof Session.user !=='undefined'&&Session.user!==null){
       if(typeof Session.user.roles==='undefined'){return false;}
       var roles=Session.user.roles;
-      for(var i; i<roles.length; i++){
+      for(var i=0; i<roles.length; i++){
         if(roles[i].type==='guest'){
           return true;
         }
@@ -254,6 +254,9 @@ angular.module('xcards4App')
     },
     edit:function(id,data){
       return Restangular.one('users',id).put(data);
+    },
+    shared:function(bool){
+      return Restangular.one('shared').get({shared:bool});
     },
     find:function(where,email){
       return userAPI.get('find', {'filter':email, 'where':where});
