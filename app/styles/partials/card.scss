@@ -18,8 +18,9 @@
       position:absolute;
       left:10px;
       top:10px;
+      z-index:30;
     }
-    .front{
+    .canvas.front{
       z-index:40;
     }
   }
@@ -42,31 +43,28 @@
   left: 10px;
 }
 div.editor-front{
-  color:white;
+  color:black;
   font-family:'big_johnregular';
   display:inline-block;
   line-height:1;
   font-size:30px;
   padding:0px;
   margin:0px;
-  width: 862px;
-  height: 562px;
+  margin-bottom:-6px;
   overflow:hidden;
+  z-index:35;
   word-wrap:break-word;
   *{
     margin:0px;
     padding:0px;
   }
 }
-div.editor-front.portrait{
-  height: 862px;
-  width: 562px;
-}
 div.editor-front>*{
   padding:0.5rem;
 }
 div.editor-back{
   color: black;
+  z-index:35;
   font-family:Helvetica;
   display:inline-block;
   line-height:2;
@@ -82,7 +80,23 @@ div.editor-back{
   margin:0;
   padding:0;
 }
-
+.alignment-menu{
+  position:absolute;
+  top:0px;
+  left:-130px;
+  width:130px;
+  text-align:right;
+  button{
+    position:relative;
+    display:block;
+    width:100%;
+    margin-top:5px;
+    padding:5px 8px;
+    border-radius:3px;
+    border:1px solid #f0f0f0;
+    background-image: linear-gradient(to bottom, #fdfdfd, #ddd);
+  }
+}
 .drawing-menu{
   background-color: #f0f0f0;
   background-image: linear-gradient(to bottom, #fdfdfd, #ddd);

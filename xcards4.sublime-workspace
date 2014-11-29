@@ -20,42 +20,58 @@
 	"buffers":
 	[
 		{
-			"file": "app/views/account/share.html",
+			"file": "app/views/account.html",
 			"settings":
 			{
-				"buffer_size": 3544,
+				"buffer_size": 175,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/scripts/controllers/share.js",
+			"file": "app/views/partials/socialshare.html",
 			"settings":
 			{
-				"buffer_size": 3094,
+				"buffer_size": 1070,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/scripts/services/transferservice.js",
+			"file": "app/scripts/directives/socialshare.js",
 			"settings":
 			{
-				"buffer_size": 2375,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/views/partials/creditsConfirmation.html",
-			"settings":
-			{
-				"buffer_size": 602,
+				"buffer_size": 2399,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/scripts/app.js",
+			"file": "app/styles/partials/helpAndLoading.scss",
 			"settings":
 			{
-				"buffer_size": 7418,
+				"buffer_size": 2205,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/partials/bentley.html",
+			"settings":
+			{
+				"buffer_size": 457,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/views/loginModal.html",
+			"settings":
+			{
+				"buffer_size": 6055,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/scripts/controllers/login.js",
+			"settings":
+			{
+				"buffer_size": 4682,
 				"line_ending": "Unix"
 			}
 		},
@@ -63,15 +79,26 @@
 			"file": "app/scripts/services/authservice.js",
 			"settings":
 			{
-				"buffer_size": 8256,
+				"buffer_size": 8968,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/scripts/controllers/main.js",
+			"contents": "'use strict';\n/*jshint unused:vars*/\n/**\n * @ngdoc overview\n * @name xcards4App\n * @description\n * # xcards4App\n *\n * Main module of the application.\n */\nangular\n  .module('xcards4App', [\n    'ngAnimate',\n    'ngCookies',\n    'ngSanitize',\n    'ngTouch',\n    'ui.tinymce',\n    'ui.router',\n    'ui.bootstrap',\n    'restangular',\n  	'LocalStorageModule',\n    'http-auth-interceptor',\n    'angularFileUpload',\n    'ui.brushes',\n    'angularPayments',\n    'angulartics',\n    'angulartics.google.analytics',\n    'djds4rce.angular-socialshare',\n    'facebook',\n    'colorpicker.module'\n  ])\n.config(function ($stateProvider,$locationProvider,$urlRouterProvider) {\n  // enable html5Mode for pushstate ('#'-less URLs)\n  $locationProvider.html5Mode(true);\n  $locationProvider.hashPrefix('!');\n  $stateProvider\n  .state('app',{\n    abstract:true,\n    controller:'AppCtrl',\n    templateUrl:'views/app.html'\n  })\n  .state('main',{\n    parent:'app',\n    abstract:true,\n    templateUrl:'views/main.html',\n    controller:'MainCtrl',\n    resolve:{\n      user:function(AuthenticationService,Session,GuestService,Facebook){\n        //$scope.globalLoading=true;\n        \n        return AuthenticationService.checkAuthentication().then(function(r){\n          //$scope.globalLoading=false;\n          if(r.valid){\n            Session.create(r.user);\n            return {user:r.user};\n          }else{\n            console.log('not valid');\n            GuestService.login(r.user,r.password).then(function(r){\n              Session.create(r.user);\n              return{user:r.user};\n            });\n          }\n        },function(error){\n          console.log('couldn\\'t resolve, set default guest',error);\n          return {\n            role:'guest'\n          };\n        });\n      }\n    }\n  })\n  .state('main.front',{\n    url:'/front?action&status',\n    templateUrl:'views/front.html',\n    controller:'FrontCtrl'\n  })\n  .state('main.admin',{\n    url:'/admin',\n    templateUrl:'views/admin.html',\n    data:{\n      authorizedRoles:'admin'\n    }\n  })\n  .state('main.upload',{\n    url:'/upload',\n    templateUrl:'views/upload.html',\n    controller:'UploadCtrl',\n    data:{\n      ignoreLoading:true\n    },\n    resolve:{\n      card:function(CardService){\n        console.log('resolve');\n        return CardService.check();\n      }\n    }\n  })\n  .state('main.crop',{\n    url:'/crop',\n    templateUrl:'views/crop.html',\n    controller:'CropCtrl'\n  })\n  .state('main.edit',{\n    url:'/edit',\n    templateUrl:'views/edit.html',\n    controller:'EditCtrl'\n  })\n  .state('main.recipients',{\n    url:'/recipients',\n    templateUrl:'views/recipients.html',\n    controller:'RecipientsCtrl'\n  })\n  .state('main.preview',{\n    url:'/preview',\n    templateUrl:'views/preview.html',\n    controller:'PreviewCtrl',\n    resolve:{\n      card:function(CardService,Session){\n        return CardService.get(Session.card.id).then(function(response){\n          console.log('resolved card',response.card);\n          Session.saveCard(response.card);\n          return response.card;\n        });\n      },\n      user:function(AuthenticationService,Session){\n      //$scope.globalLoading=true;\n        return AuthenticationService.checkAuthentication().then(function(r){\n          //$scope.globalLoading=false;\n          Session.create(r.user);\n          return {user:r.user};\n        });\n      },\n      pricings:function(Restangular){\n        return Restangular.all('pricings').getList().then(function(response){\n          console.log('pricings',response);\n          return response;\n        });\n      }\n    }\n  })\n  .state('main.addressBook',{\n    url:'/addressBook',\n    templateUrl:'views/addressBook.html'\n  })\n  .state('account',{\n    parent:'main',\n    abstract:true,\n    templateUrl:'views/account.html'\n  })\n  .state('account.main',{\n    url:'/account',\n    controller:'AccountCtrl',\n    templateUrl:'views/account/main.html'\n  })\n  .state('account.cards',{\n    url:'/cards',\n    controller:'CardsCtrl',\n    templateUrl:'views/account/cards.html'\n  })\n  .state('account.market',{\n    url:'/market',\n    controller:'MarketCtrl',\n    templateUrl:'views/account/market.html'\n  })\n  .state('account.contact',{\n    url:'/contact',\n    controller:'ContactCtrl',\n    templateUrl:'views/about/contact.html'\n  })\n  .state('account.privacy',{\n    url:'/privacy',\n    templateUrl:'views/about/privacy.html'\n  })\n  .state('account.terms',{\n    url:'/terms',\n    templateUrl:'views/about/terms.html'\n  })\n  .state('account.faq',{\n    url:'/faq',\n    templateUrl:'views/about/faq.html'\n  })\n  .state('account.share',{\n    url:'/share',\n    templateUrl:'views/account/share.html',\n    controller:'ShareCtrl'\n  })\n  .state('account.company',{\n    url:'/company',\n    templateUrl:'views/about/company.html'\n  });\n  $urlRouterProvider.otherwise('/front');\n})\n// .config(['$httpProvider', function($httpProvider) {\n//     // Use x-www-form-urlencoded Content-Type\n//     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';\n//     $httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';\n//     delete $httpProvider.defaults.headers.common['X-Requested-With'];\n//   }\n// ])\n.run(function($rootScope, $http, $injector,$state, AuthenticationService,ParamService) {\n  $injector.get('$http').defaults.transformRequest = function(data, headersGetter) {\n    var accessToken=AuthenticationService.getAccessToken();\n    if (accessToken){\n      headersGetter().Authorization = 'Bearer '+ accessToken;\n    }\n    if (data) {\n      console.log('data',data);\n      return angular.isObject(data) && String(data) !== '[object File]' ? ParamService.param(data) : data;\n    }\n  };\n})\n// .config(function ($httpProvider) {\n//   $httpProvider.interceptors.push([\n//     '$injector',\n//     function ($injector) {\n//       return $injector.get('AuthInterceptor');\n//     }\n//   ]);\n// })\n.run(function ($rootScope, AUTH_EVENTS, PermissionService, LOADING_EVENTS) {\n  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {\n    if(typeof toState.data !=='undefined'){\n      if(toState.data.ignoreLoading){\n        return;\n      }\n    }\n    if (toState.resolve) {\n      $rootScope.$broadcast(LOADING_EVENTS.showLoading);\n    }\n  });\n  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {\n    if (toState.resolve) {\n      $rootScope.$broadcast(LOADING_EVENTS.hideLoading);\n    }\n  });\n  $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams) {\n    if (toState.resolve) {\n      $rootScope.$broadcast(LOADING_EVENTS.hideLoading);\n    }\n  });\n  $rootScope.$on('$stateChangeStart', function (event, next) {\n    if(typeof next.data !== 'undefined'){\n      if(typeof next.data.authorizedRoles==='undefined'){return;}\n      var authorizedRoles = next.data.authorizedRoles;\n      if (!PermissionService.isAuthorized(authorizedRoles)) {\n        event.preventDefault();\n        console.log('prevented!');\n        if (PermissionService.isAuthenticated()) {\n          // user is not allowed\n          $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);\n        } else {\n          // user is not logged in\n          $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);\n        }\n      }\n    }\n  });\n});\n",
+			"file": "app/scripts/app.js",
+			"file_size": 7449,
+			"file_write_time": 130615042075847859,
 			"settings":
 			{
-				"buffer_size": 2628,
+				"buffer_size": 7319,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/styles/main.scss",
+			"settings":
+			{
+				"buffer_size": 4305,
 				"line_ending": "Unix"
 			}
 		}
@@ -100,16 +127,53 @@
 	},
 	"file_history":
 	[
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/front.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/account.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account/main.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/socialshare.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/socialshare.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/authservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/helpservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/config.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/bentley.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/front.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/angularLiveAddress.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account/share.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account/cards.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/addressModal.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/crop.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/edit.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/card.scss",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/preview.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/edit.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/jcrop.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/cardservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/brushes.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/fonts/fonts.scss",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/menu.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/main.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/index.html",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/brushes/grid.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/colorutils.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/menu.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/colorutil.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/palette.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/palette.js",
+		"/C/Users/pgrue_000/Downloads/harmony-master(2)/harmony-master/src/js/colorselector.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/colorselect.js",
+		"/C/Users/pgrue_000/Downloads/webfontkit-20141123-151449/stylesheet.css",
+		"/C/Users/pgrue_000/Downloads/webfontkit-20141123-130544/stylesheet.css",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/share.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/transferservice.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/creditsConfirmation.html",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/main.js",
+		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/login.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/bentley.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/filters/filters.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/smartyStreet/angularLiveAddress.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/helperservice.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/index.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/recipients.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/recipients.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/accountmenu.js",
@@ -117,35 +181,22 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/loginModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/surveyservice.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/addressservice.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/app.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/accountMenu.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/preview.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/edit.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/card.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/navbar.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/crop.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/main.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/brushes.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/fonts/fonts.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/tinymce/tinymce.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/main.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/edit.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/footerBar.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/custom.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/about/company.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/contact.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/bentley.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/ribbon.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/addressModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/paymentModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/scrollingbanner.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/socialshare.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/Gruntfile.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/dist/views/partials/accountmenu.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/accountmenu.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/addressForm.tpl.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/jcrop.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/about/terms.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/about/privacy.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/about/faq.html",
@@ -160,9 +211,7 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/bookmark.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/creditcards.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/partials/combobox.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/crop.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/jcrop/jcrop.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/socialshare.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/angular-facebook/lib/angular-facebook.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/facebook.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/grunt-google-cdn/node_modules/bower/node_modules/handlebars/coverage/lcov-report/dist/cjs/handlebars.runtime.js.html",
@@ -175,7 +224,6 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/upload.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/ngthumb.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/preview.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/account/cards.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/cards.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/flatly/flatly.scss",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/paymentModal.js",
@@ -183,10 +231,8 @@
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/surveymodal.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/surveyModal.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/dist/index.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/cardservice.js",
 		"/C/Users/pgrue_000/Downloads/rasterizeHTML.js-master/rasterizeHTML.js-master/examples/index.html",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/rasterizeHTML/rasterizeHTML.allinone.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/config.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/navbar.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/directives/breadcrumbbar.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/breadcrumb.html",
@@ -208,30 +254,11 @@
 		"/C/Users/pgrue_000/blocksquad/app/scripts/filters/blocksquad.filters.js",
 		"/C/Users/pgrue_000/bullet4/bullet4/app/scripts/filters.js",
 		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/src/rasterize.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/Gruntfile.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/src/svg2image.js",
-		"/C/Users/pgrue_000/Downloads/rasterizeHTML.js-master/rasterizeHTML.js-master/examples/retina.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/animations.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/bower.json",
-		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/animate.css/animate-config.json",
-		"/C/Users/pgrue_000/xcards4/xcards4/.tmp/styles/animations.css",
-		"/C/Users/pgrue_000/xcards4/xcards4/.sass-cache/722a2f1eac9eae9e8bf96431da76f85c2ba30cd2/animations.scssc",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/animates.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/styles/fonts.scss",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/services/loadingservice.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cardModal.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/controllers/cardsmodal.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/tinyMce/tinymce.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/grunt-contrib-imagemin/tasks/imagemin.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/tinymce/tinymce.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/scripts/summernote/summernote.js",
-		"/C/Users/pgrue_000/xcards4/xcards4/bower_components/tinymce/.bower.json",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/cropConfirmModal.html",
-		"/C/Users/pgrue_000/xcards4/xcards4/app/views/partials/frontSide.html"
+		"/C/Users/pgrue_000/xcards4/xcards4/node_modules/rasterizehtml/Gruntfile.js"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -245,6 +272,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"logout",
+			"isGuest",
+			"]",
+			".canvas",
+			"canvas",
+			"$apply",
+			"jcrop",
+			"attr",
+			"info",
+			"frontCanvas",
+			"constants",
+			"constants.color",
+			"COLOR",
+			"onForeground",
+			"onForegroundColo",
+			"onForegroundColorSelectorChang",
+			"onForegroundColorSelectorChange",
+			"colorSelector",
+			"foregroundColor",
+			"foregroundColorSElector",
+			"onMenuForegroundColor",
+			"onMenuClear",
+			"menu",
+			"color",
+			"palette",
+			"Palette",
+			"ColorSelector",
+			"gr",
+			"grinc",
 			"Session",
 			"Session.",
 			"login",
@@ -343,36 +399,7 @@
 			"oldSugg",
 			"$scope.address",
 			"cardS",
-			"cardSet",
-			"cardSetting",
-			"event",
-			"bunny",
-			"create",
-			"GuestSErvice.login",
-			"reload",
-			"permissionService",
-			"login",
-			"userservice",
-			"register",
-			"creditCost",
-			"inline",
-			"session",
-			"check",
-			"fromNumber",
-			"_fromNumber",
-			"cards",
-			"form-control",
-			"cropped",
-			"get",
-			"\"",
-			"address",
-			"addresses",
-			"$window",
-			"Authorization",
-			"headers",
-			"access_token",
-			"Session",
-			"touches="
+			"cardSet"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -390,23 +417,23 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 6,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "app/views/account/share.html",
+					"file": "app/views/account.html",
 					"settings":
 					{
-						"buffer_size": 3544,
+						"buffer_size": 175,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1584,
-								1584
+								0,
+								0
 							]
 						],
 						"settings":
@@ -421,77 +448,24 @@
 				},
 				{
 					"buffer": 1,
-					"file": "app/scripts/controllers/share.js",
+					"file": "app/views/partials/socialshare.html",
 					"settings":
 					{
-						"buffer_size": 3094,
+						"buffer_size": 1070,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2944,
-								2944
+								21,
+								21
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2
-						},
-						"translation.x": 0.0,
-						"translation.y": 1405.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "app/scripts/services/transferservice.js",
-					"settings":
-					{
-						"buffer_size": 2375,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1049,
-								1049
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2
-						},
-						"translation.x": 0.0,
-						"translation.y": 432.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/views/partials/creditsConfirmation.html",
-					"settings":
-					{
-						"buffer_size": 602,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								188,
-								188
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -500,75 +474,129 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "app/scripts/app.js",
+					"buffer": 2,
+					"file": "app/scripts/directives/socialshare.js",
 					"settings":
 					{
-						"buffer_size": 7418,
+						"buffer_size": 2399,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1441,
-								1441
+								688,
+								688
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/styles/partials/helpAndLoading.scss",
+					"settings":
+					{
+						"buffer_size": 2205,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 810.0,
+						"translation.y": 486.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/views/partials/bentley.html",
+					"settings":
+					{
+						"buffer_size": 457,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								282,
+								386
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "app/scripts/services/authservice.js",
+					"file": "app/views/loginModal.html",
 					"settings":
 					{
-						"buffer_size": 8256,
+						"buffer_size": 6055,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1875,
-								1875
+								1418,
+								1418
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 495.0,
+						"translation.y": 54.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "app/scripts/controllers/main.js",
+					"file": "app/scripts/controllers/login.js",
 					"settings":
 					{
-						"buffer_size": 2628,
+						"buffer_size": 4682,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1341,
-								1341
+								550,
+								550
 							]
 						],
 						"settings":
@@ -578,7 +606,91 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 108.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/scripts/services/authservice.js",
+					"settings":
+					{
+						"buffer_size": 8968,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3134,
+								3134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1413.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/scripts/app.js",
+					"settings":
+					{
+						"buffer_size": 7319,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1152,
+								1152
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 730.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/styles/main.scss",
+					"settings":
+					{
+						"buffer_size": 4305,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4285,
+								4285
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3639.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -628,6 +740,138 @@
 		"selected_items":
 		[
 			[
+				"socialshare",
+				"app/scripts/directives/socialshare.js"
+			],
+			[
+				"authservice",
+				"app/scripts/services/authservice.js"
+			],
+			[
+				"app",
+				"app/scripts/app.js"
+			],
+			[
+				"login.js",
+				"app/scripts/controllers/login.js"
+			],
+			[
+				"loginmodal",
+				"app/views/loginModal.html"
+			],
+			[
+				"bentley.html",
+				"app/views/partials/bentley.html"
+			],
+			[
+				"helpand",
+				"app/styles/partials/helpAndLoading.scss"
+			],
+			[
+				"socialshare.js",
+				"app/scripts/directives/socialshare.js"
+			],
+			[
+				"helpservice",
+				"app/scripts/services/helpservice.js"
+			],
+			[
+				"helpser",
+				"app/scripts/services/helpservice.js"
+			],
+			[
+				"main.scss",
+				"app/styles/main.scss"
+			],
+			[
+				"front.js",
+				"app/scripts/controllers/front.js"
+			],
+			[
+				"config",
+				"app/scripts/services/config.js"
+			],
+			[
+				"share",
+				"app/views/account/share.html"
+			],
+			[
+				"liveadd",
+				"app/scripts/smartyStreet/angularLiveAddress.js"
+			],
+			[
+				"cards.html",
+				"app/views/account/cards.html"
+			],
+			[
+				"angularlive",
+				"app/scripts/smartyStreet/angularLiveAddress.js"
+			],
+			[
+				"liveaddres",
+				"app/scripts/smartyStreet/angularLiveAddress.js"
+			],
+			[
+				"liveaddress",
+				"app/scripts/smartyStreet/angularLiveAddress.js"
+			],
+			[
+				"addressm",
+				"app/views/partials/addressModal.html"
+			],
+			[
+				"index.html",
+				"app/index.html"
+			],
+			[
+				"app.js",
+				"app/scripts/app.js"
+			],
+			[
+				"account",
+				"app/views/account.html"
+			],
+			[
+				"crop.html",
+				"app/views/crop.html"
+			],
+			[
+				"edit.js",
+				"app/scripts/controllers/edit.js"
+			],
+			[
+				"crop.js",
+				"app/scripts/controllers/crop.js"
+			],
+			[
+				"preview.html",
+				"app/views/preview.html"
+			],
+			[
+				"edit.html",
+				"app/views/edit.html"
+			],
+			[
+				"jcrop",
+				"app/scripts/directives/jcrop.js"
+			],
+			[
+				"cardservice",
+				"app/scripts/services/cardservice.js"
+			],
+			[
+				"index",
+				"app/index.html"
+			],
+			[
+				"menu.j",
+				"app/scripts/rasterizeHTML/menu.js"
+			],
+			[
+				"card.scss",
+				"app/styles/partials/card.scss"
+			],
+			[
 				"main.js",
 				"app/scripts/controllers/main.js"
 			],
@@ -636,20 +880,8 @@
 				"app/scripts/services/authservice.js"
 			],
 			[
-				"authservice",
-				"app/scripts/services/authservice.js"
-			],
-			[
 				"login",
 				"app/scripts/controllers/login.js"
-			],
-			[
-				"front.js",
-				"app/scripts/controllers/front.js"
-			],
-			[
-				"app",
-				"app/scripts/app.js"
 			],
 			[
 				"liveaddr",
@@ -676,16 +908,8 @@
 				"app/scripts/controllers/addressbook.js"
 			],
 			[
-				"loginmodal",
-				"app/views/loginModal.html"
-			],
-			[
 				"accountmenu",
 				"app/views/partials/accountMenu.html"
-			],
-			[
-				"account",
-				"app/views/account.html"
 			],
 			[
 				"recipients.js",
@@ -700,26 +924,6 @@
 				"app/scripts/services/addressservice.js"
 			],
 			[
-				"index",
-				"app/index.html"
-			],
-			[
-				"app.js",
-				"app/scripts/app.js"
-			],
-			[
-				"preview.html",
-				"app/views/preview.html"
-			],
-			[
-				"edit.html",
-				"app/views/edit.html"
-			],
-			[
-				"edit.js",
-				"app/scripts/controllers/edit.js"
-			],
-			[
 				"tinymce",
 				"app/scripts/tinymce/tinymce.js"
 			],
@@ -728,24 +932,12 @@
 				"app/scripts/filters/filters.js"
 			],
 			[
-				"login.js",
-				"app/scripts/controllers/login.js"
-			],
-			[
 				"fonts.scs",
 				"app/styles/fonts/fonts.scss"
 			],
 			[
 				"custom.scs",
 				"app/styles/custom.scss"
-			],
-			[
-				"index.html",
-				"app/index.html"
-			],
-			[
-				"crop.html",
-				"app/views/crop.html"
 			],
 			[
 				"main.html",
@@ -758,10 +950,6 @@
 			[
 				"navbar",
 				"app/views/partials/navbar.html"
-			],
-			[
-				"main.scss",
-				"app/styles/main.scss"
 			],
 			[
 				"footer",
@@ -792,10 +980,6 @@
 				"app/views/partials/addressModal.html"
 			],
 			[
-				"liveaddres",
-				"app/scripts/smartyStreet/angularLiveAddress.js"
-			],
-			[
 				"edit.",
 				"app/scripts/controllers/edit.js"
 			],
@@ -810,10 +994,6 @@
 			[
 				"app.",
 				"app/scripts/app.js"
-			],
-			[
-				"helpser",
-				"app/scripts/services/helpservice.js"
 			],
 			[
 				"accoun",
@@ -860,24 +1040,8 @@
 				"app/views/app.html"
 			],
 			[
-				"bentley.html",
-				"app/views/partials/bentley.html"
-			],
-			[
 				"bentley",
 				"app/scripts/directives/bentley.js"
-			],
-			[
-				"socialshare",
-				"app/scripts/directives/socialshare.js"
-			],
-			[
-				"crop.js",
-				"app/scripts/controllers/crop.js"
-			],
-			[
-				"jcrop",
-				"app/scripts/directives/jcrop.js"
 			],
 			[
 				"navbar.html",
@@ -940,10 +1104,6 @@
 				"app/scripts/controllers/preview.js"
 			],
 			[
-				"cards.html",
-				"app/views/account/cards.html"
-			],
-			[
 				"cards.js",
 				"app/scripts/controllers/cards.js"
 			],
@@ -954,10 +1114,6 @@
 			[
 				"accountmenu.",
 				"app/views/partials/accountmenu.html"
-			],
-			[
-				"liveaddress",
-				"app/scripts/smartyStreet/angularLiveAddress.js"
 			],
 			[
 				"cloud",
@@ -988,16 +1144,8 @@
 				"app/views/app.html"
 			],
 			[
-				"cardservice",
-				"app/scripts/services/cardservice.js"
-			],
-			[
 				"rasterize",
 				"app/scripts/rasterizeHTML/rasterizeHTML.allinone.js"
-			],
-			[
-				"config",
-				"app/scripts/services/config.js"
 			],
 			[
 				"livead",
@@ -1102,42 +1250,6 @@
 			[
 				"addressse",
 				"app/scripts/services/addressservice.js"
-			],
-			[
-				"cardse",
-				"app/scripts/services/cardservice.js"
-			],
-			[
-				"cardserv",
-				"app/scripts/services/cardservice.js"
-			],
-			[
-				"paymentmodal.html",
-				"app/views/partials/paymentModal.html"
-			],
-			[
-				"paymentmodal",
-				"app/scripts/controllers/paymentModal.js"
-			],
-			[
-				"navb",
-				"app/scripts/directives/navbar.js"
-			],
-			[
-				"navbar.",
-				"app/scripts/directives/navbar.js"
-			],
-			[
-				"logi",
-				"xcards4/app/scripts/controllers/login.js"
-			],
-			[
-				"authe",
-				"xcards4/app/scripts/services/authservice.js"
-			],
-			[
-				"carservice",
-				"app/scripts/services/cardservice.js"
 			]
 		],
 		"width": 0.0

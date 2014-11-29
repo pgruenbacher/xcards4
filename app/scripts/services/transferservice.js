@@ -35,12 +35,15 @@ angular.module('xcards4App')
 	    	return Restangular.one('transfers',id).get({accept:false});
 	    },
 	    checkAndPrompt:function(){
+	    	if(typeof Session.user ==='undefined'&&Session.user===null){
+	    		return;
+	    	}
 	    	var transfers=Session.user.incoming_transfers;
 	    	var self=this;
 	    	var prompt=function(i){
-	 				if(transfers[i].reverted==='1'||transfers[i].confirmed==='1'){
-	 					return;
-	 				}
+ 				if(transfers[i].reverted==='1'||transfers[i].confirmed==='1'){
+ 					return;
+ 				}
 	    		Restangular.one('users',transfers[i].sender_id).get().then(function(response){
 	    			if(response.status==='success'){
 	    				confirmationModals[i]=$modal.open({

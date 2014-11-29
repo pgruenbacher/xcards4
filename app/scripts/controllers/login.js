@@ -9,7 +9,7 @@
  */
 angular.module('xcards4App')
 /*Login Controller */
-.controller('LoginCtrl', function($scope,help, mode, $http, $stateParams,$modalInstance, $state, AuthenticationService, UserService, localStorageService) {
+.controller('LoginCtrl', function($scope,help, mode, $http, Session, $stateParams,Facebook,$modalInstance, $state, AuthenticationService, UserService, localStorageService) {
   $scope.message = '';
   // Define user empty data :/
   $scope.user = {};
@@ -23,6 +23,30 @@ angular.module('xcards4App')
   $scope.logged = false;
   $scope.login = function(user) {
     $scope.loginLoading=true;
+    AuthenticationService.login(user).then(function(){
+      $scope.loginLoading=false;
+    },function(){
+      $scope.loginLoading=false;
+    });
+  };
+  $scope.loginFacebook=function(){
+    $scope.loginLoading=true;
+    Facebook.login(function(response){
+      console.log(response);
+      Session.saveFacebook(response);
+      if(response.status==='connected'){
+        AuthenticationService.login({email:response.authResponse.userID,password:response.authResponse.accessToken}).then(function(response){
+          $scope.loginLoading=false;
+        },function(){
+          $scope.loginLoading=false;
+        });
+      }
+    },{
+      scope:'email'
+    });
+
+  };
+  $scope.setPassword=function(user){
     AuthenticationService.login(user).then(function(){
       $scope.loginLoading=false;
     },function(){

@@ -1,0 +1,13 @@
+<div class="carousel">
+	<ul>
+		<li ng-repeat="slide in slides" class="animated" ng-class="{
+		active:$index===activeSlide,
+		fadeIn:$index===activeSlide,
+		fadeOut:previous($index)
+		}">
+		<a ng-click="right()" class="control right"><span class="icon-control fa fa-icon fa-chevron-right"></span></a>
+		<a ng-click="left()" class="control left"><span class="icon-control fa fa-icon fa-chevron-left"></span></a>
+			<img ng-src="{{slide.image}}" style="margin:auto;"/>
+		</li>
+	</ul>
+</div>

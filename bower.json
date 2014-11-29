@@ -25,7 +25,6 @@
     "angular-payments": "*",
     "moment": "~2.8.3",
     "angulartics": "~0.17.1",
-    "angular-socialshare": "~0.0.6",
     "angular-facebook": "~0.2.3",
     "angular-bootstrap-colorpicker": "~3.0.8"
   },

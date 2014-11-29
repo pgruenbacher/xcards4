@@ -1,25 +1,34 @@
 <loading-bunny loading-scope="loading" message="{{loadingMessage}}" backdrop="true"></loading-bunny>
 <breadcrumb-bar></breadcrumb-bar>
 <div class="row" style="min-height:450px">
-	<div class="col-md-2">
-		<button ng-click="toggleMode()" class="btn btn-block btn-primary">
-			{{mode=='text'?'draw signature':'edit text'}} 
-			<i class="fa fa-paint-brush" ng-class="{'fa-paint-brush':checkMode('text'),'fa-edit':checkMode('draw')}"></i>
-		</button>
-		<button class="btn btn-block btn-success" ng-click="continue()">
-			Continue 
-			<i class="fa fa-chevron-right"></i>
-			<i class="fa fa-chevron-right"></i>
-			<i class="fa fa-chevron-right"></i>
-		</button>
-	</div>
-	<div class="col-md-10">
+	<div class="col-md-10 col-md-offset-2">
 		<div style="text-align:center">
+			<button ng-click="toggleMode()" class="btn btn-primary">
+				{{mode=='text'?'draw signature':'edit text'}} 
+				<i class="fa fa-paint-brush" ng-class="{'fa-paint-brush':checkMode('text'),'fa-edit':checkMode('draw')}"></i>
+			</button>
 			<button class="btn btn-primary" ng-click="toggle()"><i class="fa fa-refresh"></i> Flip</button>
+			<button class="btn btn-success" ng-click="continue()">
+				Continue 
+				<i class="fa fa-chevron-right"></i>
+				<i class="fa fa-chevron-right"></i>
+				<i class="fa fa-chevron-right"></i>
+			</button>
 		</div>
 		<div class="card-wrapper">		
 			<div ng-show="side"  ng-hide="side" class="flip-horizontal">
 				<div class="front-card" ng-class="card.orientation">
+					<div class="alignment-menu">
+						<button ng-click="alignmentToggle('top')">
+							<span style="text-decoration:overline;">Top Align</span>
+						</button>
+						<button ng-click="alignmentToggle('center')">
+							<span style="text-decoration:line-through;">Center Align</span>
+						</button>
+						<button ng-click="alignmentToggle('bottom')">
+							<span style="text-decoration:underline;">Bottom Align</span>
+						</button>
+					</div>
 					<div class="drawing-menu" ng-show="checkMode('draw')">
 						<button  colorpicker="rgb" ng-model="frontColor">
 							Color 
@@ -27,24 +36,33 @@
 						</button>
 						<div>
 						<select ng-model="frontBrush">
-							<option value="ribbon" default>Ribbon</option>
+							<option value="signature" default>Signature</option>
 							<option value="web">Web</option>
+							<option value="ribbon">Ribbon</option>
+						</select>
+						<select ng-model="frontBrushSize">
 						</select>
 						</div>
-						<button ng-click="clear('front')">Clear</button>
+						<button ng-click="clear('frontCanvas')">Clear</button>
 					</div>	
-					<div class="edit-form" ng-class="{front:checkMode('text')}">
+					<div class="edit-form">
 						<div>
 							<div class="jcrop-vline right"></div>
 							<div class="jcrop-vline"></div>
 							<div class="jcrop-hline bottom"></div>
 							<div class="jcrop-hline"></div>
-						    <div class="editor-front" ng-class="card.orientation" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
+							<table ng-style="{width:frontDrawingDimensions.w,height:frontDrawingDimensions.h}">
+								<tr>
+									<td ng-style="{'vertical-align':alignment}">
+								    	<div class="editor-front" ng-style="{width:frontDrawingDimensions.w}" ui-tinymce="tinymceOptionsFront" ng-model="messageFront"></div>
+									</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 					<div class="canvas" ng-class="{front:checkMode('draw')}">
 						<div ng-style="{width:frontDrawingDimensions.w, height:frontDrawingDimensions.h}">
-							<canvas id="frontCanvas" ng-style="{width:frontDrawingDimensions.w, height:frontDrawingDimensions.h}" width="{{frontDrawingDimensions.w*2}}" height="{{frontDrawingDimensions.h*2}}" brush="{{frontBrush}}" ratio="2" color="frontColor" canvas-brush="front"></canvas>
+							<canvas id="frontCanvas" changed="frontChanged" ng-style="{width:frontDrawingDimensions.w, height:frontDrawingDimensions.h}" width="{{frontDrawingDimensions.w*2}}" height="{{frontDrawingDimensions.h*2}}" brush="{{frontBrush}}" ratio="2" color="frontColor" canvas-brush="front"></canvas>
 						</div>
 					</div>
 					<img ng-src="{{frontImage.url_path}}" width="100%">
@@ -59,11 +77,14 @@
 						</button>
 						<div>
 							<select ng-model="backBrush">
-								<option value="ribbon" default>Ribbon</option>
-								<option value="web">Web</option>
-							</select>
+							<option value="signature" default>Signature</option>
+							<option value="web">Web</option>
+							<option value="ribbon">Ribbon</option>
+						</select>
+						<select ng-model="backBrushSize">
+						</select>
 						</div>
-						<button ng-click="clear('back')">Clear</button>
+						<button ng-click="clear('backCanvas')">Clear</button>
 					</div>	
 					<div class="edit-form" ng-class="{front:checkMode('text')}">
 						<div>
@@ -76,7 +97,7 @@
 					</div>
 					<div class="canvas" ng-class="{front:checkMode('draw')}">
 						<div style="width:402px; height:497px;">
-							<canvas ratio="2" id="backCanvas" style="width:402px; height:497px;" width="804px" height="994px" brush="{{backBrush}}" color="backColor" canvas-brush="back"></canvas>
+							<canvas ratio="2" id="backCanvas" changed="backChanged" style="width:402px; height:497px;" width="804" height="994" brush="{{backBrush}}" color="backColor" canvas-brush="back"></canvas>
 						</div>
 					</div>
 					<img src="images/blank-template.gif" width="100%">

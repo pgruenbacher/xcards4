@@ -8,13 +8,20 @@
  * Controller of the xcards4App
  */
 angular.module('xcards4App')
-  .controller('EditCtrl', function ($scope,Session,CardService,$q,$state) {
+  .controller('EditCtrl', function ($scope,Session,CardService,$q,$state,removeTableTagsFilter) {
     $scope.frontImage=Session.card.croppedImage;
     $scope.loading=0;
     $scope.side=true;
+    $scope.alignment='top';
     $scope.finished=0;
+    $scope.frontChanged=false;
+    $scope.backChanged=false;
     $scope.frontDrawingDimensions={w:862,h:562};
-    if(Session.card.orientation==='portrait'){$scope.frontDrawingDimensions={w:562,h:862};}
+    if(Session.card.orientation==='portrait'){
+      $scope.frontDrawingDimensions={w:562,h:862};
+    }else{
+      $scope.frontDrawingDimensions={h:562,w:862};
+    }
     $scope.$watch('finished',function(newValue){
         if(newValue===3){
             $state.go('main.recipients');
@@ -24,7 +31,7 @@ angular.module('xcards4App')
     var backCanvas=document.getElementById('backCanvas');
     if(typeof Session.card.frontDrawing !== 'undefined'){
       if(typeof Session.card.frontDrawing.data_blob ==='undefined'){return;}
-      var img1 = new Image;
+      var img1 = new Image();
       var ctx1=frontCanvas.getContext('2d');
       img1.onload = function(){
         ctx1.drawImage(img1,0,0); // Or at whatever offset you like
@@ -33,7 +40,7 @@ angular.module('xcards4App')
     }
     if(typeof Session.card.backDrawing !== 'undefined'){
       if(typeof Session.card.backDrawing.data_blob ==='undefined'){return;}
-      var img2 = new Image;
+      var img2 = new Image();
       var ctx2=backCanvas.getContext('2d');
       img2.onload = function(){
         ctx2.drawImage(img2,0,0); // Or at whatever offset you like
@@ -45,15 +52,18 @@ angular.module('xcards4App')
     	$scope.side=!$scope.side;
     };
     if(typeof Session.card.frontMessage !=='undefined'){
-      $scope.messageFront=Session.card.frontMessage;
+      $scope.messageFront=removeTableTagsFilter(Session.card.frontMessage);
       $scope.messageBack=Session.card.backMessage;
     }else{
-      $scope.messageFront='You can edit here...';
+      $scope.messageFront='Click here to edit...';
       $scope.messageBack='You can edit here...';
     }
+    $scope.alignmentToggle=function(label){
+      $scope.alignment=label;
+    };
     $scope.continue=function(){
       var messageFront,messageBack;
-      if($scope.messageFront==='<p>You can edit here...</p>'){
+      if($scope.messageFront==='<p>Click here to edit...</p>'){
         messageFront=false;
       }else{
         messageFront=$scope.messageFront;
@@ -72,33 +82,44 @@ angular.module('xcards4App')
       data1.append('front',frontData);
       var data2= new FormData();
       data2.append('back',backData);
-      CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
+      console.log($scope.frontChanged);
+      if($scope.frontChanged){
+        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
           $scope.loading--;
           console.log(response);
           var card1=Session.card;
           card1[response.drawing.type]=response.drawing;
           Session.saveCard(card1);
           $scope.finished++;
-      },function(error){
+        },function(error){
           $scope.loading=0;
           console.log('error');
-      });
-      CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
+        });
+      }else{
+        $scope.loading--;
+        $scope.finished++;
+      }
+      if($scope.backChanged){
+        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
           $scope.loading--;
           console.log(response);
           var card2=Session.card;
           card2[response.drawing.type]=response.drawing;
-      Session.saveCard(card2);
-          $scope.finished++;
-      },function(error){
-          $scope.loading=0;
-          console.log('error');
-      });
+        Session.saveCard(card2);
+            $scope.finished++;
+        },function(error){
+            $scope.loading=0;
+            console.log('error');
+        });
+      }else{
+        $scope.loading--;
+        $scope.finished++;
+      }
       CardService.postHtmlMessage(Session.card.id,{'back':messageBack,'front':messageFront}).then(function(response){
           $scope.loading--;
           console.log(response);
           var card4=Session.card;
-          card4.frontMessage=messageFront?messageFront:'';
+          card4.frontMessage=messageFront?'<table><tr><td style="vertical-align:"'+$scope.alignment+'>'+messageFront+'</td></tr></table>':'';
           card4.backMessage=messageBack?messageBack:'';
           Session.saveCard(card4);
           $scope.finished++;
@@ -106,36 +127,6 @@ angular.module('xcards4App')
           $scope.loading=0;
           console.log('error');
       });
-    	// $scope.drawFront().then(function(imageUrl){
-     //        var data1 = new FormData();
-     //        data1.append('front',imageUrl);
-     //        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data1).then(function(response){
-     //            $scope.loading--;
-     //            console.log(response);
-     //            var card1=Session.card;
-     //            card1[response.drawing.type]=response.drawing;
-     //            Session.saveCard(card1);
-     //            $scope.finished++;
-     //        },function(error){
-     //            $scope.loading=0;
-     //            console.log('error');
-     //        });
-     //    });
-     //    $scope.drawBack().then(function(imageUrl){
-     //        var data2 = new FormData();
-     //        data2.append('back',imageUrl);
-     //        CardService.postMessage(Session.card.id,Session.card.croppedImage.id,data2).then(function(response){
-     //            $scope.loading --;
-     //            console.log(response);
-     //            var card2=Session.card;
-     //            card2[response.drawing.type]=response.drawing;
-     //            Session.saveCard(card2);
-     //            $scope.finished++;
-     //        },function(error){
-     //            $scope.loading=0;
-     //            console.log('error');
-     //        });
-     //    });
     };
     $scope.toggleMode=function(){
     	$scope.mode=($scope.mode==='text')?'draw':'text';
@@ -207,8 +198,8 @@ angular.module('xcards4App')
 		// });
         // return deferred.promise;
     };
-    $scope.frontBrush='ribbon';
-    $scope.backBrush='ribbon';
+    $scope.frontBrush='signature';
+    $scope.backBrush='signature';
     $scope.frontColor='rgb(0,0,0)';
     $scope.backColor='rgb(0,0,0)';
     $scope.clear=function(side){
@@ -239,21 +230,22 @@ angular.module('xcards4App')
         plugins:'textcolor',
         force_hex_style_colors : true,
         fontsize_formats: '0.5em 1em 1.2em 1.5em 2em 2.5em 3em 4em',
-        toolbar: 'undo redo | bold italic | fontselect fontsizeselect styleselect | forecolor backcolor',
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | fontselect fontsizeselect styleselect | forecolor ',
         style_formats: [
-            {title: 'Bold text', inline: 'b'},
-            {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
-            {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
-            {title: 'Text Shadow', inline: 'span', classes:'back-shadow'},
-            {title: 'Example 2', inline: 'span', classes: 'example2'},
-            {title: 'Table styles'},
-            {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            {title: 'Dark Background', items:[
+              {title:'black background', block: 'div', styles: {background: '#000000'}},
+              {title:'white background', block: 'div', styles: {background: '#fff',color:'#000'}},
+              {title:'maroon background', block: 'div', styles: {background: '#330000'}},
+              {title:'green background', block: 'div', styles: {background: '#0D4019'}},
+              {title:'blue background', block: 'div', styles: {background: '#151360'}},
+            ]},
+            {title: 'Black Shadow', inline: 'span', classes:'black-shadow'},
+            {title: 'White Shadow', inline: 'span', classes:'white-shadow'}
         ],
         content_css : 'styles/custom.css',
         font_formats : 'Andale Mono=andale mono,times;'+
                 'Arial=arial,helvetica,sans-serif;'+
                 'CRAYON=colored_crayonsregular;'+
-                'MARKER=coffee_houseregular;'+
                 'AMERICA=american_dreamregular;'+
                 'USA=united_brkregular;'+
                 'BOB=bobregular;'+
@@ -263,7 +255,6 @@ angular.module('xcards4App')
                 'BIG JOHN=big_johnregular;'+
                 'REIS=reisregular;'+
                 'ALLURA=alluraregular;'+
-                'ROGUE=going_rogueregular;'+
                 'CUTIE=hey_cutieregular;'+
                 'GRAFFI=throwupzregular;'+
                 'BLOOD=bloodlustregular;'+

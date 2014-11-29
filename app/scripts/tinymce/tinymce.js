@@ -46,6 +46,7 @@ angular.module('ui.tinymce', [])
         if (attrs.uiTinymce) {
           expression = scope.$eval(attrs.uiTinymce);
         } else {
+          console.log('problem');
           expression = {};
         }
         options = {
@@ -60,6 +61,7 @@ angular.module('ui.tinymce', [])
               ed.save();
               updateView(ed.getContent({format : 'raw'}));
             });
+
             // Update model on keypress
             ed.on('KeyUp', function (e) {
               if(!options.inline){

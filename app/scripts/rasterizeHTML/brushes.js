@@ -18,9 +18,9 @@ ribbon.prototype =
         this.painters = new Array();
         for (var i = 0; i < 50; i++)
         {
-            this.painters.push({ dx: constants.CANVAS_WIDTH / 2, dy: constants.CANVAS_HEIGHT / 2, ax: 0, ay: 0, div: 0.1, ease: Math.random() * 0.1 + 0.5});
+            scope.painters.push({ dx: constants.CANVAS_WIDTH / 2, dy: constants.CANVAS_HEIGHT / 2, ax: 0, ay: 0, div: 0.1, ease: Math.random() * 0.1 + 0.5});
         }
-        this.interval = setInterval( update, 1000/60 );
+        scope.interval = setInterval( update, 1000/60 );
         function update()
         {
             var i;
@@ -60,6 +60,57 @@ ribbon.prototype =
     strokeEnd: function()
     {
     
+    }
+}
+function signature(context,constants){
+    this.init(context,constants);
+}
+signature.prototype={
+    name:"solid",
+    context: null,
+    context: null,
+    mouseX: null, mouseY: null,
+    painters: null,
+    interval: null,
+    init: function( context,constants){
+        var scope=this;
+        this.context = context;
+        this.context.globalCompositeOperation = 'source-over';
+        this.constants=constants;
+        this.mouseX = constants.CANVAS_WIDTH / 2;
+        this.mouseY = constants.CANVAS_HEIGHT / 2;
+        this.painter={ dx: constants.CANVAS_WIDTH / 2, dy: constants.CANVAS_HEIGHT / 2, ax: 0, ay: 0, div: 0.1, ease: 0.5* 0.1 + 0.5};
+        this.interval = setInterval( update, 1000/60 );
+        function update()
+        {
+            scope.context.lineWidth = constants.BRUSH_SIZE*(1+(Math.abs(scope.painter.dx - scope.mouseX)/(constants.CANVAS_WIDTH/2)));
+            scope.context.strokeStyle = 'rgba(' + constants.COLOR[0] + ', ' + constants.COLOR[1] + ', ' + constants.COLOR[2] + ', ' + 1 + ')';
+            scope.context.beginPath();
+            scope.context.moveTo(scope.painter.dx, scope.painter.dy);        
+            scope.painter.dx -= scope.painter.ax = (scope.painter.ax + (scope.painter.dx - scope.mouseX) * scope.painter.div) * scope.painter.ease;
+            scope.painter.dy -= scope.painter.ay = (scope.painter.ay + (scope.painter.dy - scope.mouseY) * scope.painter.div) * scope.painter.ease;
+            scope.context.lineTo(scope.painter.dx, scope.painter.dy);
+            scope.context.stroke();
+        }
+    },
+    destroy: function(){
+        clearInterval(this.interval);
+    },
+    stroke: function( mouseX, mouseY )
+    {
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
+    },
+    strokeStart: function( mouseX, mouseY ){
+        this.mouseX = mouseX;
+        this.mouseY = mouseY
+        this.painter.dx = mouseX;
+        this.painter.dy = mouseY;
+        this.shouldDraw = true;
+    },
+    strokeEnd: function()
+    {
+        
     }
 }
 function web( context , constants ){
@@ -134,6 +185,7 @@ angular.module('ui.brushes', [])
             brush:'@',
             color:'=',
             ratio:'@',
+            changed:'='
         },
         restrict:'A',
         link: function (scope, element, attrs, ngModel) {
@@ -170,6 +222,7 @@ angular.module('ui.brushes', [])
                 COLOR:COLOR
             };
             function init(){
+                scope.changed=false;
                 var hash, palette, embed;
                 if (USER_AGENT.search('android') > -1 || USER_AGENT.search('iphone') > -1){
                     BRUSH_SIZE = 2;    
@@ -190,7 +243,11 @@ angular.module('ui.brushes', [])
                 container.addEventListener('mouseout', onCanvasMouseOut, false);
                 container.addEventListener('mousedown', onCanvasMouseDown, false);
                 container.addEventListener('touchstart', onCanvasTouchStart, false);
-                scope.$on('clear',onMenuClear);
+                scope.$on('clear',function(event,args){
+                    if(args.side===attrs.id){
+                        onMenuClear();
+                    }
+                });
                 attrs.$observe('brush',function(value){
                     BRUSH=value;
                     onBrushChange()
@@ -238,6 +295,7 @@ angular.module('ui.brushes', [])
                     lastY = event.layerY - event.currentTarget.offsetTop;
                 } 
                 brush.strokeStart( lastX*ratio, lastY*ratio );
+                scope.changed=true;
                 container.addEventListener('mousemove', onCanvasMouseMove, false);
                 container.addEventListener('mouseup', onCanvasMouseUp, false);
             }
@@ -258,11 +316,12 @@ angular.module('ui.brushes', [])
                 
             }
             function onCanvasTouchStart( event ){
-                cleanPopUps();  
+                cleanPopUps(); 
+                scope.changed=true;
                 if(event.touches.length == 1)
                 {
                     event.preventDefault();
-                    
+                    scope.changed=true;
                     brush.strokeStart( event.touches[0].pageX, event.touches[0].pageY );
                     
                     container.addEventListener('touchmove', onCanvasTouchMove, false);
@@ -290,7 +349,8 @@ angular.module('ui.brushes', [])
             }
             function onMenuClear()
             {
-                context.clearRect(0, 0, CANVAS_WIDTH*2, CANVAS_HEIGHT*2);
+                console.log(CANVAS_WIDTH*ratio);
+                context.clearRect(0, 0, attrs.width, attrs.height);
                 //saveToLocalStorage();
                 brush.destroy();
                 brush = eval("new " + BRUSH + "(context,constants)");
@@ -318,6 +378,9 @@ angular.module('ui.brushes', [])
             {
                 localStorage.canvas = canvas.toDataURL('image/png');
             }
+            element.on('$destroy',function(){
+                brush.destroy;
+            });
         }
     };
 });

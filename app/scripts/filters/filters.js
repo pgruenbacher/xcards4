@@ -6,6 +6,35 @@ angular.module('xcards4App')
         return moment(dateString).format(format);
     };
 })
+.filter('removeTableTags',function(){
+    return function(htmlString){
+        var ALLOWED_TAGS = ['TABLE', 'TBODY', 'TR', 'TD'];
+
+        var sanitize=function(el) {
+            // "Remove all tags from element `el' that aren't in the ALLOWED_TAGS list."
+            var tags = Array.prototype.slice.apply(el.getElementsByTagName("*"), [0]);
+            for (var i = 0; i < tags.length; i++) {
+                if (ALLOWED_TAGS.indexOf(tags[i].nodeName) !== -1) {
+                    usurp(tags[i]);
+                }
+            }
+        };
+        var usurp=function(p) {
+            // "Replace parent `p' with its children.";
+            var last = p;
+            for (var i = p.childNodes.length - 1; i >= 0; i--) {
+                var e = p.removeChild(p.childNodes[i]);
+                p.parentNode.insertBefore(e, last);
+                last = e;
+            }
+            p.parentNode.removeChild(p);
+        };
+        var div = document.createElement("div");
+        div.innerHTML = htmlString;
+        sanitize(div);
+        return div.innerHTML;
+    };
+})
 .filter('validPhoneNumber',function(){
     return function(number){
         var phoneRegex=/^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;

@@ -90,14 +90,20 @@ angular.module('xcards4App')
 //     }
 //   };
 // })
-.service('Session', function (localStorageService) {
+.service('Session', function (localStorageService,Facebook) {
   var self=this;
   function init(){
+    Facebook.getLoginStatus(function(response){
+      self.saveFacebook(response);
+    });
     if (localStorageService.get('user') !== null){
       self.user=localStorageService.get('user');
     }
     if(localStorageService.get('card')!==null){
       self.card=localStorageService.get('card');
+    }
+    if (localStorageService.get('facebook') !== null){
+      self.facebook=localStorageService.get('facebook');
     }
     if(localStorageService.get('survey')!==null){
       self.survey=localStorageService.get('survey');
@@ -112,6 +118,11 @@ angular.module('xcards4App')
   this.clearAll=function(){
     self=null;
     self=this; //reinitialize variable
+  };
+  this.saveFacebook=function(facebook){
+    localStorageService.set('facebook',facebook);
+    self.facebook=facebook;
+    return true;
   };
   this.saveCard=function(card){
     localStorageService.set('card',card);
@@ -140,7 +151,7 @@ angular.module('xcards4App')
   };
   return this;
 })
-.factory('AuthenticationService', function($rootScope,$http,authService,Restangular, PermissionService, $state,localStorageService,Session) {
+.factory('AuthenticationService', function($rootScope,Facebook,$http,authService,Restangular, PermissionService, $state,localStorageService,Session) {
   return {
     login: function(user) {
       var self=this;
@@ -185,10 +196,18 @@ angular.module('xcards4App')
     },
     logout: function(user) {
       var self=this;
+
       if(localStorageService.remove('access_token')&&localStorageService.remove('authentication')&&Session.destroy()){
         $rootScope.$broadcast('event:auth-logout-complete');
         self.destroyAssets();
         Session.clearAll();
+        if(typeof Session.facebook !=='undefined'){
+          if(Session.facebook.status==='connected'){
+            Facebook.logout(function(response){
+              console.log(response);
+            });            
+          }
+        }
       }
     },
     forgotPassword:function(email){
@@ -245,9 +264,6 @@ angular.module('xcards4App')
       },function(response){
         console.log(response);
       });
-    },
-    user:function(){
-      return localStorageService.get('AuthUser');
     },
     get:function(id){
       return userAPI.get(id);

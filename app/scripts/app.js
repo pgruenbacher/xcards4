@@ -25,7 +25,6 @@ angular
     'angularPayments',
     'angulartics',
     'angulartics.google.analytics',
-    'djds4rce.angular-socialshare',
     'facebook',
     'colorpicker.module'
   ])
@@ -45,8 +44,9 @@ angular
     templateUrl:'views/main.html',
     controller:'MainCtrl',
     resolve:{
-      user:function(AuthenticationService,Session,GuestService){
+      user:function(AuthenticationService,Session,GuestService,Facebook){
         //$scope.globalLoading=true;
+        
         return AuthenticationService.checkAuthentication().then(function(r){
           //$scope.globalLoading=false;
           if(r.valid){

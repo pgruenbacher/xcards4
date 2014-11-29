@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint unused:vars,camelcase:false*/
 /**
  * @ngdoc directive
  * @name xcards4App.directive:socialShare
@@ -16,18 +16,27 @@ angular.module('xcards4App')
     },
     link: function postLink(scope, element, attrs) {
     	scope.notRegistered=false;
+        scope.closed=false;
     	scope.shared=false;
-    	if(Session.user.shared==='1'){
-    		scope.alreadyShared=true;
-    	}else{
-    		scope.alreadyShared=false;
-    	}
+        if(typeof Session.user !=='undefined' && Session.user!==null){
+            if(Session.user.shared==='1'){
+                scope.alreadyShared=true;
+                scope.closed=true;
+            }else{
+                scope.alreadyShared=false;
+            }
+        }else{
+            scope.alreadyShared=false;
+        }
     	scope.message2='';
     	if(PermissionService.isGuest()){
     		scope.message1='register and facebook share for a free card.';
     	}else{
     		scope.message1='facebook share to get a free card.';
     	}
+        scope.close=function(){
+            scope.closed=true;
+        };
     	scope.facebookShare=function(){
             console.log(PermissionService.isGuest());
     		if(PermissionService.isGuest()){
@@ -49,6 +58,7 @@ angular.module('xcards4App')
     						scope.message1='Thank you for sharing, a credit has been added to your account';
     						$timeout(function(){
     							scope.alreadyShared=true;
+                                scope.closed=true;
     						},2000);
     					});
     				}
@@ -56,17 +66,17 @@ angular.module('xcards4App')
     		}
     	};
 
-    	scope.countdown=180;
-		  function countdown() {
-		    if (scope.countdown === 1) {
-		    	scope.countdown='no more';
-		      return;
-		    }
-		    scope.countdown=scope.countdown-1;
-		    $timeout(countdown, 1000);
-		  }
+    // 	scope.countdown=180;
+		  // function countdown() {
+		  //   if (scope.countdown === 1) {
+		  //   	scope.countdown='no more';
+		  //     return;
+		  //   }
+		  //   scope.countdown=scope.countdown-1;
+		  //   $timeout(countdown, 1000);
+		  // }
 		 
-		  countdown();
+		  // countdown();
     }
 	};
 });

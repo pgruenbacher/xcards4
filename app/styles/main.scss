@@ -209,3 +209,84 @@ div.questions .question{
 .share-buttons li{
   display: inline;
 }
+
+.facebook-btn{
+  position:relative;
+  background-color: #3b5998;
+  border-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+.social-btn > *:first-child {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    bottom: 0;
+    font-size: 1.6em;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: auto;
+    height:100%;
+}
+.featurette-heading{
+  margin-top:80px;
+}
+.how-it-works-bar{
+  margin-top:60px;
+  font-size:20px;
+  tr.text{
+    border-top: 1px solid gray;
+    margin-top:15px;
+  }
+}
+.carousel{
+  height:400px;
+  display:inline-block;
+  padding: 0;
+  position: relative;
+  ul{
+    li{
+      .right{
+        left:auto;
+        right:0;
+      }
+      .right:hover{
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.3) 100%);
+      }
+      .left{
+        right:auto;
+        left:0;
+      }
+      .left:hover{
+        background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.3) 100%);
+      }
+      a.control{
+        bottom:0;
+        top:0;
+        position:absolute;
+        text-decoration:none;
+        text-align:center;
+        width:15%;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        .icon-control{
+          color:gray;
+          position:absolute;
+          z-index:5;
+          display:inline-block;
+          top:50%;
+          height:30px;
+          width:30px;
+          margin-left:-15px;
+          margin-top:-15px;
+
+        }
+      }
+      position:absolute;
+      display:block;
+      visibility:hidden;
+      &.active{
+        visibility:visible;
+        animate:fadeIn;
+      }
+    }
+  }
+}
